@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+
+:root {
+  --main: #001b55;
+  --acent: #d79b05;
+}
