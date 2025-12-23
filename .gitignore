@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+ 
+# eslint config & cache (do not commit local lint setup)
+eslint.config.*
+.eslintrc.js
+.eslintrc.cjs
+.eslintrc.json
+.eslintrc.yaml
+.eslintrc.yml
+.eslintignore
+.eslintcache
