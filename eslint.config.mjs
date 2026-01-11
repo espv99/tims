@@ -35,7 +35,7 @@ const eslintConfig = [
     },
     rules: {
       // No bloquear el build por formato; se puede volver a 'error' si se desea
-      "prettier/prettier": "warn",
+      "prettier/prettier": "off",
     },
   },
 ];

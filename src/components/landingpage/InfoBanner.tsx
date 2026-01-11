@@ -14,9 +14,13 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
   cost = 'Gratuito'
 }) => {
   return (
-    <div className="bg-primary-900 p-6 rounded-lg shadow-md">
-      <div className="max-w-5xl mx-auto">
+    <div className="w-full max-w-5xl bg-primary-900 p-6 rounded-lg shadow-md mx-0">
+      <div className=" mx-0">
         <h2 className="text-2xl font-bold mb-4">Informacion General</h2>
+
+        <p className='mb-5'>
+          El Ingeniero/a en Tecnologías de la Información posee la capacidad de utilizar de manera eficiente y efectiva las tecnologias de la informacion, lo cual contribuye significativamente a mejorar el rendimiento de las organizaciones adaptandose a la tendencias tecnologicas locales, regionales y nacionales. Ademas debe demostrar actitudes, destrezas y habilidades para gestionar proyectos de TI aplicando principios eticos, legales y financieros en la toma de decisiones tanto en empresas publicas como privadas.
+        </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div>

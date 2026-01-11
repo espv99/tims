@@ -23,14 +23,14 @@ export function Navbar() {
 
 
   return (
-    <nav className="mx-auto flex flex-col justify-between items-center dark:text-white py-4">
+    <nav className="mx-auto flex flex-col justify-between items-center dark:text-white py-0 md:py-4">
       {/* Menú de navegación para desktop */}
       <div className="hidden md:flex items-center space-x-4">
         {navItems.map((item) => (
           <Link
             key={item.name}
             href={item.href}
-            className="hover:text-gray-400 transition-colors duration-200"
+            className="hover:text-[hsl(224,93%,58%)] transition-colors duration-200"
           >
             {item.name}
           </Link>
