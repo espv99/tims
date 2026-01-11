@@ -19,18 +19,18 @@ const VisionMisionBanner: React.FC<VisionMisionProps> = ({
   missionImageSrc = '/window.svg',
 }) => {
   return (
-    <section className="relative mt-30 w-full px-4">
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+    <section className="relative center mt-10 mx-auto w-full max-w-5xl px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Tarjeta Visión */}
-        <div className="rounded-lg shadow-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-hidden">
-          <div className="flex items-center gap-4 p-6">
+        <div className="rounded-lg shadow-md dark:border-gray-700 bg-white dark:bg-gray-900 overflow-hidden">
+          <div className="flex flex-col items-center gap-4 p-6">
             <div className="flex-shrink-0">
               <Image
                 src={visionImageSrc}
                 alt="Ilustración de la Visión"
                 width={128}
                 height={128}
-                className="rounded-md object-cover"
+                className="relative m-0 rounded-md object-cover"
                 priority
               />
             </div>
@@ -43,14 +43,14 @@ const VisionMisionBanner: React.FC<VisionMisionProps> = ({
 
         {/* Tarjeta Misión */}
         <div className="rounded-lg shadow-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-hidden">
-          <div className="flex items-center gap-4 p-6">
+          <div className="flex flex-col items-center gap-4 p-6">
             <div className="flex-shrink-0">
               <Image
                 src={missionImageSrc}
                 alt="Ilustración de la Misión"
                 width={128}
                 height={128}
-                className="rounded-md object-cover"
+                className="m-0 relative rounded-md object-cover"
                 priority
               />
             </div>
