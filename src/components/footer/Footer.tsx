@@ -7,7 +7,7 @@ import IconInsta from '@/components/icons/social-netwoks/icon-instagram.svg';
 
 const socialIconStyles = `
   w-10 h-10 hover:fill-[hsl(224,93%,58%)]
-  cursor-pointer transition-all duration-300
+  cursor-pointer dark:fill-white transition-all duration-300
   rounded-full border border-white hover:border-[hsl(224,93%,58%)] p-2
 `;
 

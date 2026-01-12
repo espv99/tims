@@ -11,17 +11,17 @@ interface occupationalFieldProps {
 
 const OccupationalField: React.FC<occupationalFieldProps> = ({
   visionTitle = 'Campo Ocupacional',
-  item0 = 'Son Fundamentales en la gestion y optimizacion de sistemas de informacion dentro de las organizaciones publicas y privadas.',
-  item1 = 'Se desempena en roles clave como analistas de sistemas, administradores de bases de datos, disenadores de redes y seguridad informatica, entre otros.',
-  item2 = ' Su expertise abarca desde la implementacion de soluciones tecnologicas innovadoras hasta la direccion estrategica de proyectos de TI, asegurando la eficiencia operativa y el cumplimiento de objetivos empresariales.',
-  item3 = ' Ademas, estan preparados para enfrentar desafios constantes derivados de la rapida evolucion tecnologica, adaptandose y aplicando conocimientos actualizados en areas como inteligencia artificial, el big data y la ciberseguridad.',
+  item0 = 'Son Fundamentales en la gestión y optimización de sistemas de información dentro de las organizaciones públicas y privadas.',
+  item1 = 'Se desempena en roles clave como analistas de sistemas, administradores de bases de datos, diseñadores de redes y seguridad informática, entre otros.',
+  item2 = ' Su expertise abarca desde la implementación de soluciones tecnológicas innovadoras hasta la dirección estratégica de proyectos de TI, asegurando la eficiencia operativa y el cumplimiento de objetivos empresariales.',
+  item3 = ' Además, están preparados para enfrentar desafíos constantes derivados de la rapida evolución tecnológica, adaptándose y aplicando conocimientos actualizados en áreas como inteligencia artificial, el big data y la ciberseguridad.',
 }) => {
   return (
-    <section className="relative mt-30 w-full px-4 mx-0">
+    <section className="relative mt-10 w-full px-4 mx-0">
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-1 gap-6">
         {/* Tarjeta Campo Ocupacional */}
-        <div className="rounded-lg shadow-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-hidden">
-          <div className="flex items-center gap-4 p-6">
+        <div className="rounded-lg bg-white dark:bg-gray-900 overflow-hidden">
+          <div className="flex items-center gap-4">
             <div className="flex-shrink-0">
             </div>
             <div>

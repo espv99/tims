@@ -27,9 +27,9 @@ export default function PdfReader() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 dark:bg-gray-800 rounded-lg my-8 w-full max-w-5xl mx-0">
+    <div className="flex flex-col items-center justify-center p-4 dark:bg-gray-900 rounded-lg my-8 w-full max-w-5xl mx-0">
       <div 
-        className="rounded overflow-auto w-full h-[300px] md:max-h-[600px]" 
+        className="rounded overflow-auto w-full h-[300px] md:h-[600px]" 
         ref={containerRef}
         style={{ scrollbarWidth: 'thin' }}
       >
