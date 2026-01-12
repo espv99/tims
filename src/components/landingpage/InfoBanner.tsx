@@ -14,7 +14,7 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
   cost = 'Gratuito'
 }) => {
   return (
-    <div className="w-full max-w-5xl bg-primary-900 p-6 rounded-lg shadow-md mx-0">
+    <div className="w-full mt-10 max-w-5xl bg-primary-900 dark:bg-gray-900 p-6 rounded-lg shadow-md mx-0">
       <div className=" mx-0">
         <h2 className="text-2xl font-bold mb-4">Informacion General</h2>
 
