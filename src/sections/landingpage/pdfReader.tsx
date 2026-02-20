@@ -1,6 +1,8 @@
 "use client";
 import { useState, useRef } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
+import Card from '@/components/Card';
+
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -27,9 +29,9 @@ export default function PdfReader() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 dark:bg-gray-900 rounded-lg my-8 w-full max-w-5xl mx-0">
+    <Card className="w-[calc(100%-2rem)]">
       <div 
-        className="rounded overflow-auto w-full h-[300px] md:h-[600px]" 
+        className="rounded overflow-auto h-[300px] md:h-[600px] w-full" 
         ref={containerRef}
         style={{ scrollbarWidth: 'thin' }}
       >
@@ -98,6 +100,6 @@ export default function PdfReader() {
           Descargar
         </a>
       </div>
-    </div>
+    </Card>
   );
 }
