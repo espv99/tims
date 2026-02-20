@@ -11,7 +11,7 @@ type CardProps = {
 const cardBaseStyles =
     'mx-4 my-4 rounded-lg bg-white dark:bg-gray-900 overflow-hidden shadow p-6 max-w-5xl';
 const cardTypographyStyles =
-    '[&_h2]:text-xl [&_h2]:font-semibold [&_h2]:mb-2 [&_h2]:text-black [&_h2]:dark:text-white [&_p]:text-sm [&_p]:md:text-base [&_p]:text-gray-700 [&_p]:dark:text-gray-300';
+    '[&_h3]:mb-2 [&_h3]:font-semibold [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:mb-2 [&_h2]:text-black [&_h2]:dark:text-white [&_p]:text-sm [&_p]:md:text-base [&_p]:text-gray-700 [&_p]:dark:text-gray-300';
 
 const Card: React.FC<CardProps> = ({ title, children, className = '', leading }) => {
     const content = (

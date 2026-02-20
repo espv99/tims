@@ -24,22 +24,22 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div>
-          <h3 className="font-semibold mb-2">Título</h3>
+          <h3 >Título</h3>
           <p>{title}</p>
         </div>
 
         <div>
-          <h3 className="font-semibold mb-2">Duración</h3>
+          <h3>Duración</h3>
           <p>{duration}</p>
         </div>
 
         <div>
-          <h3 className="font-semibold mb-2">Modalidad</h3>
+          <h3 >Modalidad</h3>
           <p>{modality}</p>
         </div>
 
         <div>
-          <h3 className="font-semibold mb-2">Costo</h3>
+          <h3 >Costo</h3>
           <p>{cost}</p>
         </div>
       </div>

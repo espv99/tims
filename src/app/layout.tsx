@@ -1,16 +1,10 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { geistSans, geistMono } from "./fonts";
+import { metadata } from "./metadata";
 import "../styles/globals.css";
 import "../styles/brand.css";
 
-
-export const metadata: Metadata = {
- title: "Tecnologias de la Informacion",
- description: "Pagina de la Carrera Tecnologias de la Informacion de la Escuela Superior Politecnica del Chimborazo sede Morona Santiago, Ecuador",
- keywords: ["Tecnologias de la Informacion", "Macas", "Carrera de Ingenieria", "ESPOCH", "Sede Morona Santiago", "Ecuador", "Region Amazonica"],
-};
-
+export { metadata };
 
 export default function RootLayout({
   children,
@@ -18,12 +12,11 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased w-full`}
       >
-        {children} 
-        <meta name="google-site-verification" content="9nRuM_4g3lRnTpjyhDxECY8G7v0TzZVplSCH4y9JRI4" />
+        {children}
       </body>
     </html>
   );
