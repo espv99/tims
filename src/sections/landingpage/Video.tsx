@@ -10,6 +10,8 @@ interface VideoProps {
   controls?: boolean;
   loop?: boolean;
   muted?: boolean;
+  poster?: string;
+  preload?: 'auto' | 'metadata' | 'none';
 }
 
 const Video: React.FC<VideoProps> = ({
@@ -19,7 +21,9 @@ const Video: React.FC<VideoProps> = ({
   autoplay = true,
   controls = true,
   loop = false,
-  muted = false,
+  muted = true,
+  poster = "./media/media.png",
+  preload = "metadata",
 }) => {
   // Detectar el tipo de video basado en la extensión
   const getVideoType = (url: string): string => {
@@ -38,6 +42,8 @@ const Video: React.FC<VideoProps> = ({
           loop={loop}
           muted={muted}
           title={title}
+          poster={poster}
+          preload={preload}
           playsInline
         >
           <source src={src} type={getVideoType(src)} />
