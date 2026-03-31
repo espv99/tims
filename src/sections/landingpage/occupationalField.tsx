@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '@/components/Card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface occupationalFieldProps {
   visionTitle?: string;
@@ -10,8 +10,6 @@ interface occupationalFieldProps {
   item3?: string;
 }
 
-const itemClass = 'text-sm md:text-base text-gray-700 dark:text-gray-300';
-
 const OccupationalField: React.FC<occupationalFieldProps> = ({
   visionTitle = 'Campo Ocupacional',
   item0 = 'Son Fundamentales en la gestión y optimización de sistemas de información dentro de las organizaciones públicas y privadas.',
@@ -20,14 +18,19 @@ const OccupationalField: React.FC<occupationalFieldProps> = ({
   item3 = ' Además, están preparados para enfrentar desafíos constantes derivados de la rapida evolución tecnológica, adaptándose y aplicando conocimientos actualizados en áreas como inteligencia artificial, el big data y la ciberseguridad.',
 }) => {
   return (
-    <Card title={visionTitle}>
-          <ul>
-            <li className={itemClass}>{item0}</li>
-            <li className={itemClass}>{item1}</li>
-            <li className={itemClass}>{item2}</li>
-            <li className={itemClass}>{item3}</li>
-          </ul>
-        </Card>
+    <Card className="mx-4 my-4 max-w-5xl">
+      <CardHeader>
+        <CardTitle>{visionTitle}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ul className="space-y-2">
+          <li className="text-sm md:text-base">{item0}</li>
+          <li className="text-sm md:text-base">{item1}</li>
+          <li className="text-sm md:text-base">{item2}</li>
+          <li className="text-sm md:text-base">{item3}</li>
+        </ul>
+      </CardContent>
+    </Card>
   );
 };
 

@@ -6,9 +6,9 @@ import IconFb  from '@/components/icons/social-netwoks/icon-fb.svg';
 import IconInsta from '@/components/icons/social-netwoks/icon-instagram.svg';
 
 const socialIconStyles = `
-  w-10 h-10 hover:fill-[hsl(224,93%,58%)]
-  cursor-pointer dark:fill-white transition-all duration-300
-  rounded-full border border-white hover:border-[hsl(224,93%,58%)] p-2
+  w-10 h-10 fill-foreground hover:fill-[hsl(224,93%,58%)]
+  cursor-pointer transition-all duration-300
+  rounded-full border border-border hover:border-[hsl(224,93%,58%)] p-2
 `;
 
 const Footer: React.FC = () => {
@@ -17,10 +17,10 @@ const Footer: React.FC = () => {
       <div className="main-footer mx-auto mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 px-6 md:px-0 md:py-15 max-w-5xl">
         <div className="flex flex-col items-start">
           <span className="mb-6 flex flex-row gap-2 hover:text-[hsl(224,93%,58%)] cursor-pointer">
-            <IconPhone className="w-6 h-4 fill-white hover:fill-[hsl(224,93%,58%)]" /> +593 978764482
+            <IconPhone className="w-6 h-4 fill-foreground hover:fill-[hsl(224,93%,58%)]" /> +593 978764482
           </span>
           <span className="flex flex-row gap-2 hover:text-[hsl(224,93%,58%)] cursor-pointer">
-            <IconEmail className="w-6 h-4 fill-white hover:fill-[hsl(224,93%,58%)]" />
+            <IconEmail className="w-6 h-4 fill-foreground hover:fill-[hsl(224,93%,58%)]" />
             informaciontecnologias2020@gmail.com
           </span>
         </div>
