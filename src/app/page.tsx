@@ -9,7 +9,7 @@ import Video from "@/sections/landingpage/Video";
 export default function Home() {
 
   return (
-    <div className="relative w-full font-sans items-center m-auto justify-items-center bg-gray-200 text-black dark:bg-black dark:text-white">
+    <div className="relative w-full font-sans items-center m-auto justify-items-center bg-background text-foreground">
       <Header />
       <h1 className="text-2xl font-bold p-4 md:text-5xl max-w-5xl">Carrera en Ingeniería de Tecnologías de la Información</h1>
       <Video src="./media/videopr.mp4" title="Video de la carrera" />

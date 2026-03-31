@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
-import { geistSans, geistMono } from "./fonts";
+import { inter } from "./fonts";
 import { metadata } from "./metadata";
 import "../styles/globals.css";
 import "../styles/brand.css";
+import { Providers } from "@/components/providers";
 
 export { metadata };
 
@@ -12,11 +13,13 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full`}
+        className={`${inter.variable} antialiased w-full`}
       >
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
