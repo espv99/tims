@@ -1,141 +1,211 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import Header from '@/sections/header/Header'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { useState, useEffect } from 'react';
+import Header from '@/sections/header/Header';
+import { Badge } from '@/components/ui/badge';
 
 interface News {
-  id: string
-  title: string
-  content: string
-  publishedAt: string | null
-  createdAt: string
-  author?: {
-    name: string
-    email: string
-  }
+  id: string;
+  title: string;
+  content: string;
+  publishedAt: string | null;
+  createdAt: string;
+  author?: { name: string; email: string };
 }
 
 interface Event {
-  id: string
-  title: string
-  description: string
-  eventDate: string
-  location?: string
-  createdAt: string
+  id: string;
+  title: string;
+  description: string;
+  eventDate: string;
+  location?: string;
+  createdAt: string;
+}
+
+type TimelineItem =
+  | (News & { type: 'news'; date: string })
+  | (Event & { type: 'event'; date: string });
+
+function SkeletonCard() {
+  return (
+    <div className="flex gap-4 animate-pulse">
+      <div className="flex flex-col items-center gap-1">
+        <div className="w-3 h-3 rounded-full bg-muted mt-1.5 flex-shrink-0" />
+        <div className="w-px flex-1 bg-muted" />
+      </div>
+      <div className="flex-1 bg-card border border-border rounded-xl p-5 mb-6">
+        <div className="flex gap-2 mb-3">
+          <div className="h-5 w-16 bg-muted rounded-full" />
+          <div className="h-5 w-24 bg-muted rounded-full" />
+        </div>
+        <div className="h-5 w-3/4 bg-muted rounded mb-2" />
+        <div className="h-4 w-full bg-muted rounded mb-1" />
+        <div className="h-4 w-2/3 bg-muted rounded" />
+      </div>
+    </div>
+  );
+}
+
+function LocationIcon() {
+  return (
+    <svg className="w-4 h-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+      />
+    </svg>
+  );
+}
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('es-EC', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 }
 
 export default function TimelinePage() {
-  const [news, setNews] = useState<News[]>([])
-  const [events, setEvents] = useState<Event[]>([])
-  const [loading, setLoading] = useState(true)
+  const [news, setNews] = useState<News[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<'all' | 'news' | 'event'>('all');
 
   useEffect(() => {
-    fetchData()
-  }, [])
-
-  const fetchData = async () => {
-    try {
-      const [newsResponse, eventsResponse] = await Promise.all([
-        fetch('/api/news'),
-        fetch('/api/events')
-      ])
-
-      if (newsResponse.ok) {
-        const newsData = await newsResponse.json()
-        setNews(newsData)
+    const fetchData = async () => {
+      try {
+        const [newsRes, eventsRes] = await Promise.all([fetch('/api/news'), fetch('/api/events')]);
+        if (newsRes.ok) setNews(await newsRes.json());
+        if (eventsRes.ok) setEvents(await eventsRes.json());
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      } finally {
+        setLoading(false);
       }
+    };
+    fetchData();
+  }, []);
 
-      if (eventsResponse.ok) {
-        const eventsData = await eventsResponse.json()
-        setEvents(eventsData)
-      }
-    } catch (error) {
-      console.error('Failed to fetch data:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background text-foreground">
-        <Header />
-        <div className="text-center py-8 text-muted-foreground">Cargando...</div>
-      </div>
-    )
-  }
-
-  // Combine and sort by date (news by publishedAt or createdAt, events by eventDate)
-  const timelineItems = [
-    ...news.map(item => ({
-      ...item,
-      type: 'news' as const,
-      date: item.publishedAt || item.createdAt
-    })),
-    ...events.map(item => ({
-      ...item,
-      type: 'event' as const,
-      date: item.eventDate
-    }))
-  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const timelineItems: TimelineItem[] = [
+    ...news.map((item) => ({ ...item, type: 'news' as const, date: item.publishedAt || item.createdAt })),
+    ...events.map((item) => ({ ...item, type: 'event' as const, date: item.eventDate })),
+  ]
+    .filter((item) => filter === 'all' || item.type === filter)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-foreground mb-8 text-center">
-          Timeline TIMS
-        </h1>
 
-        <div className="space-y-6">
-          {timelineItems.length === 0 ? (
-            <Card>
-              <CardContent className="py-8 text-center text-muted-foreground">
-                No hay contenido disponible
-              </CardContent>
-            </Card>
-          ) : (
-            timelineItems.map((item) => (
-              <Card key={`${item.type}-${item.id}`}>
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <Badge variant={item.type === 'news' ? 'default' : 'secondary'}>
+      {/* Page header */}
+      <div className="bg-[#001b55] text-white">
+        <div className="max-w-4xl mx-auto px-4 py-10">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">Cronograma TIMS</h1>
+          <p className="text-blue-200 text-sm">Noticias y eventos de la carrera</p>
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        {/* Filter tabs */}
+        <div className="flex gap-2 mb-8">
+          {(['all', 'news', 'event'] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setFilter(tab)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 cursor-pointer ${
+                filter === tab
+                  ? 'bg-[#001b55] text-white'
+                  : 'bg-card border border-border text-muted-foreground hover:text-foreground hover:border-[#001b55]/30'
+              }`}
+            >
+              {tab === 'all' ? 'Todo' : tab === 'news' ? 'Noticias' : 'Eventos'}
+            </button>
+          ))}
+        </div>
+
+        {loading ? (
+          <div className="space-y-0">
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
+        ) : timelineItems.length === 0 ? (
+          <div className="bg-card border border-border rounded-xl p-12 text-center text-muted-foreground">
+            <svg
+              className="w-12 h-12 mx-auto mb-4 opacity-30"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5"
+              />
+            </svg>
+            No hay contenido disponible
+          </div>
+        ) : (
+          <div>
+            {timelineItems.map((item, index) => (
+              <div key={`${item.type}-${item.id}`} className="flex gap-4">
+                {/* Timeline indicator */}
+                <div className="flex flex-col items-center">
+                  <div
+                    className={`w-3 h-3 rounded-full flex-shrink-0 mt-5 ${
+                      item.type === 'news' ? 'bg-[#001b55]' : 'bg-[#d79b05]'
+                    }`}
+                  />
+                  {index < timelineItems.length - 1 && (
+                    <div className="w-px flex-1 bg-border mt-1" />
+                  )}
+                </div>
+
+                {/* Card */}
+                <div className="flex-1 bg-card border border-border rounded-xl p-5 mb-4 hover:border-[#001b55]/30 hover:shadow-sm transition-all duration-200">
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <Badge
+                      variant={item.type === 'news' ? 'default' : 'secondary'}
+                      className={
+                        item.type === 'news'
+                          ? 'bg-[#001b55] hover:bg-[#001b55]/90'
+                          : 'bg-[#d79b05]/15 text-[#d79b05] hover:bg-[#d79b05]/20 border-0'
+                      }
+                    >
                       {item.type === 'news' ? 'Noticia' : 'Evento'}
                     </Badge>
-                    <span className="text-sm text-muted-foreground">
-                      {new Date(item.date).toLocaleDateString()}
-                    </span>
+                    <span className="text-xs text-muted-foreground">{formatDate(item.date)}</span>
                   </div>
-                  <CardTitle>{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
+
+                  <h2 className="font-semibold text-base md:text-lg text-foreground mb-2">{item.title}</h2>
+
                   {item.type === 'news' ? (
                     <div>
-                      <p className="mb-2">{item.content}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-2">{item.content}</p>
                       {item.author && (
-                        <p className="text-sm text-muted-foreground">
-                          Por {item.author.name || item.author.email}
-                        </p>
+                        <p className="text-xs text-muted-foreground">Por {item.author.name || item.author.email}</p>
                       )}
                     </div>
                   ) : (
                     <div>
-                      <p className="mb-2">{item.description}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-2">{item.description}</p>
                       {item.location && (
-                        <p className="text-sm text-muted-foreground">
-                          📍 {item.location}
+                        <p className="text-xs text-muted-foreground">
+                          <LocationIcon />
+                          {item.location}
                         </p>
                       )}
                     </div>
                   )}
-                </CardContent>
-              </Card>
-            ))
-          )}
-        </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
-  )
+  );
 }

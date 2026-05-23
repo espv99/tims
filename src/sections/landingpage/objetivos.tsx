@@ -1,65 +1,75 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface ObjetivosProps {
-  title?: string;
   generalText?: string;
   specificObjectives?: { title: string; description: string }[];
 }
 
+const defaultSpecific = [
+  {
+    title: 'Al Conocimiento y Saberes',
+    description:
+      'Dominar los fundamentos científicos, saberes, técnicas y metodologías de las ciencias básicas, programación y manejo de la información para dar solución a problemas relacionados a las TICs, contribuyendo a los procesos de desarrollo sustentable del entorno.',
+  },
+  {
+    title: 'A la Pertinencia',
+    description:
+      'Plantear soluciones integrales de sistemas de la información y comunicación para resolver problemas del entorno, contribuyendo a la transformación de la matriz productiva del país y automatizando procesos productivos.',
+  },
+  {
+    title: 'A los Aprendizajes',
+    description:
+      'Aplicar habilidades, metodologías y herramientas tecnológicas en el desempeño como ingeniero en TI, con calidad humana y profesionalismo para dar soluciones a necesidades del contexto.',
+  },
+  {
+    title: 'A la Ciudadanía Integral',
+    description:
+      'Establecer un vínculo con la ciudadanía mediante el uso de TIC, fomentando una cultura informática responsable, solidaria y participativa.',
+  },
+  {
+    title: 'Investigación Multidisciplinaria',
+    description:
+      'Elevar el nivel de participación de grupos multidisciplinarios dentro de proyectos investigativos de TI, mejorando el nivel de vida de los diferentes actores de la sociedad.',
+  },
+];
+
 const Objetivos: React.FC<ObjetivosProps> = ({
-  title = 'Objetivos',
-  generalText = 'Integrar fundamentos  científicos-metodológicos  inherentes a  las tecnologías de  la información y comunicación, impulsando el crecimiento social, productivo y tecnológico a nivel local, regional y nacional.',
-  specificObjectives = [
-    {
-      title: 'Al Conocimiento y Saberes:',
-      description:
-        'Dominar los fundamentos científicos,  saberes,  técnicas y  metodologías de  las  ciencias básicas,  programación  y  manejo  de  la  información  para  dar  solución  a problemas relacionados a  las  Tics, con identidad  propia  partiendo  de  los  saberes  ancestrales, contribuyendo a los procesos de desarrollo sustentable del entorno con calidad, eficiencia y ética profesional.',
-    },
-    {
-      title: 'A la Pertinencia:',
-      description:
-        'Plantear soluciones integrales de sistemas de la información y comunicación para resolver problemas del entorno en sus diversas concepciones, contribuyendo a la transformación de la  matriz  productiva  del  país  atendiendo  los  sectores  estratégicos,  automatizando procesos productivos y de servicios que favorezcan el buen vivir de los ciudadanos.',
-    },
-    {
-      title: 'A los Aprendizajes:',
-      description:
-        'Aplicar habilidades,  metodologías  y  herramientas  tecnológicas  en  el  desempeño  como ingeniero en Tecnologías de la Información, con calidad humana y profesionalismo para dar soluciones a necesidades del contexto.',
-    },
-    {
-      title: 'A la Ciudadanía Integral:',
-      description:
-        'Establecer un vínculo con la ciudadanía mediante el uso de tecnologías de la información y comunicación fomentando   una   cultura   informática   responsable,   solidaria   y participativa.',
-    },
-    {
-      title: 'Otros:',
-      description:
-        'Elevar el  nivel  de  participación  de  grupos  multidisciplinarios  dentro  de  proyectos investigativos  de Tecnologías  de  la  Información,  vinculantes  a  la  colectividad  que empleen de forma eficiente recursos tecnológicos y procesos institucionales, mejorando el nivel de vida de los diferentes actores.',
-    },
-  ],
+  generalText = 'Integrar fundamentos científicos-metodológicos inherentes a las tecnologías de la información y comunicación, impulsando el crecimiento social, productivo y tecnológico a nivel local, regional y nacional.',
+  specificObjectives = defaultSpecific,
 }) => {
   return (
-    <Card className="mx-4 my-4 max-w-5xl">
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div>
-          <h3 className="font-semibold text-sm md:text-base mb-2">General</h3>
-          <p className="text-sm md:text-base">{generalText}</p>
-        </div>
-        <div>
-          <h3 className="font-semibold text-sm md:text-base mb-2">Específicos</h3>
-          <ul className="space-y-2">
-            {specificObjectives.map((item, index) => (
-              <li key={index} className="text-sm md:text-base">
-                <span className="font-semibold">{item.title}</span> {item.description}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </CardContent>
-    </Card>
+    <section className="w-full my-10">
+      <div className="border-l-4 border-[#d79b05] pl-4 mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#001b55] dark:text-foreground">Objetivos</h2>
+        <p className="text-muted-foreground text-sm mt-1">General y específicos de la carrera</p>
+      </div>
+
+      {/* General */}
+      <div className="bg-[#001b55] text-white rounded-xl p-6 md:p-8 mb-6">
+        <span className="text-[#d79b05] text-xs font-bold uppercase tracking-widest mb-3 block">
+          Objetivo General
+        </span>
+        <p className="text-base md:text-lg leading-relaxed">{generalText}</p>
+      </div>
+
+      {/* Specific */}
+      <div className="space-y-3">
+        {specificObjectives.map((item, index) => (
+          <div
+            key={index}
+            className="flex gap-4 bg-card border border-border rounded-xl p-5 hover:border-[#001b55]/30 transition-colors duration-200"
+          >
+            <div className="flex-shrink-0 w-8 h-8 bg-[#001b55]/8 dark:bg-primary/10 rounded-full flex items-center justify-center text-[#001b55] dark:text-primary font-bold text-sm">
+              {index + 1}
+            </div>
+            <div>
+              <h3 className="font-semibold text-sm md:text-base text-foreground mb-1">{item.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
 

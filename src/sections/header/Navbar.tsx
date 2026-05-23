@@ -12,6 +12,7 @@ const navItems = [
   { name: 'Inicio', href: '/' },
   { name: 'Cronograma', href: '/timeline' },
   { name: 'Club', href: '/club' },
+  { name: 'Consejo Estudiantil', href: '/consejo-estudiantil' },
 ];
 
 function SunIcon() {
