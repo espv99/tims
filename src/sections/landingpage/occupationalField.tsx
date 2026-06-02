@@ -1,36 +1,39 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { getTranslations } from 'next-intl/server';
 
-interface occupationalFieldProps {
-  visionTitle?: string;
-  visionText?: string;
-  item0?: string;
-  item1?: string;
-  item2?: string;
-  item3?: string;
+function CheckCircleIcon() {
+  return (
+    <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  );
 }
 
-const OccupationalField: React.FC<occupationalFieldProps> = ({
-  visionTitle = 'Campo Ocupacional',
-  item0 = 'Son Fundamentales en la gestión y optimización de sistemas de información dentro de las organizaciones públicas y privadas.',
-  item1 = 'Se desempena en roles clave como analistas de sistemas, administradores de bases de datos, diseñadores de redes y seguridad informática, entre otros.',
-  item2 = ' Su expertise abarca desde la implementación de soluciones tecnológicas innovadoras hasta la dirección estratégica de proyectos de TI, asegurando la eficiencia operativa y el cumplimiento de objetivos empresariales.',
-  item3 = ' Además, están preparados para enfrentar desafíos constantes derivados de la rapida evolución tecnológica, adaptándose y aplicando conocimientos actualizados en áreas como inteligencia artificial, el big data y la ciberseguridad.',
-}) => {
+const OccupationalField: React.FC = async () => {
+  const t = await getTranslations('occupationalField');
+  const items: string[] = t.raw('items');
+
   return (
-    <Card className="mx-4 my-4 max-w-5xl">
-      <CardHeader>
-        <CardTitle>{visionTitle}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <ul className="space-y-2">
-          <li className="text-sm md:text-base">{item0}</li>
-          <li className="text-sm md:text-base">{item1}</li>
-          <li className="text-sm md:text-base">{item2}</li>
-          <li className="text-sm md:text-base">{item3}</li>
-        </ul>
-      </CardContent>
-    </Card>
+    <section className="w-full my-10">
+      <div className="border-l-4 border-blueti pl-4 mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-blueti dark:text-foreground">{t('title')}</h2>
+        <p className="text-muted-foreground text-sm mt-1">{t('subtitle')}</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {items.map((item, index) => (
+          <div
+            key={index}
+            className="flex gap-3 bg-card border border-border rounded-xl p-5 hover:border-blueti/30 hover:shadow-sm transition-all duration-200"
+          >
+            <span className="text-blueti dark:text-primary mt-0.5">
+              <CheckCircleIcon />
+            </span>
+            <p className="text-sm md:text-base text-foreground leading-relaxed">{item}</p>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
 
