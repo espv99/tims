@@ -9,6 +9,7 @@ import ProyectosVinculacion from '@/sections/landingpage/proyectosVinculacion';
 import ProyectosInvestigacion from '@/sections/landingpage/proyectosInvestigacion';
 import PdfReaderWrapper from '@/sections/landingpage/PdfReaderWrapper';
 import Video from '@/sections/landingpage/Video';
+import LearningOutcomes from '@/sections/landingpage/learningOutcomes';
 import Link from 'next/link';
 
 export default async function Home() {
@@ -55,6 +56,7 @@ export default async function Home() {
         <InfoBanner />
         <ProfessionalProfile />
         <OccupationalField />
+        <LearningOutcomes />
         <Objetivos />
         <ProyectosVinculacion />
         <ProyectosInvestigacion />

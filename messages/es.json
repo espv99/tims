@@ -4,6 +4,7 @@
     "timeline": "Cronograma",
     "club": "Club",
     "studentCouncil": "Consejo Estudiantil",
+    "personalDocente": "Docentes",
     "login": "Iniciar sesión",
     "brand": "Tecnologías de la Información"
   },
@@ -106,6 +107,14 @@
         "title": "Investigación Multidisciplinaria",
         "description": "Elevar el nivel de participación de grupos multidisciplinarios dentro de proyectos investigativos de TI, mejorando el nivel de vida de los diferentes actores de la sociedad."
       }
+    ],
+    "educationalLabel": "Objetivos Educacionales",
+    "educationalItems": [
+      "Aplicar habilidades de comunicación efectiva en los equipos de trabajo, adaptándose a diferentes contextos y desafíos de tecnologías emergentes que requieran una actitud crítica, desenvolviéndose de manera exitosa en escenarios complejos con responsabilidad.",
+      "Integrar diferentes tecnologías que contribuyan a la implementación de sistemas de comunicación y administración de datos eficientes y seguros que permitan optimizar los recursos de hardware y software de la empresa en la gestión de la información.",
+      "Diseñar proyectos de investigación científicos y tecnológicos innovadores que contribuyan al desarrollo sostenible local, nacional e internacional.",
+      "Administrar redes de datos por medio de protocolos y tecnologías de enrutamiento y comunicación de datos en sistemas basados en la nube, aplicaciones web o internet de las cosas.",
+      "Aplicar técnicas de Inteligencia Artificial para resolver problemas reales en diversos dominios y las implicaciones éticas y sociales en este campo."
     ]
   },
   "outreachProjects": {
@@ -154,6 +163,32 @@
     "rights": "Todos los derechos reservados.",
     "role": "Ingeniería en Tecnologías de la Información"
   },
+  "learningOutcomes": {
+    "title": "Resultados de Aprendizaje",
+    "subtitle": "Competencias que desarrolla el profesional egresado de la carrera",
+    "items": [
+      {
+        "number": "RA1",
+        "text": "Comunica efectivamente en español e inglés en diversos contextos profesionales."
+      },
+      {
+        "number": "RA2",
+        "text": "Aplica métodos y técnicas eficientes en el gobierno, auditoría y gestión de proyectos de Tecnologías de la Información para la administración de tecnologías informáticas fiables que protegen la información de los usuarios o corporaciones."
+      },
+      {
+        "number": "RA3",
+        "text": "Implementa soluciones basadas en tecnologías web y móvil para el cumplimiento de los requerimientos y estándares corporativos."
+      },
+      {
+        "number": "RA4",
+        "text": "Aplica las competencias adquiridas con liderazgo en actividades inherentes a la profesión para la construcción de soluciones innovadoras con sostenibilidad ambiental basada en TIC y TIP."
+      },
+      {
+        "number": "RA5",
+        "text": "Desarrolla diferentes tecnologías de redes para la optimización de la administración y gestión de grandes volúmenes de datos en sistemas distribuidos."
+      }
+    ]
+  },
   "login": {
     "title": "Iniciar Sesión",
     "description": "Ingresa tus credenciales para acceder al panel de administración",
@@ -167,11 +202,20 @@
   "admin": {
     "panelTitle": "Panel de Administración",
     "loading": "Cargando...",
+    "saving": "Guardando...",
+    "cancel": "Cancelar",
+    "edit": "Editar",
     "dashboard": {
       "title": "Panel de Administración TIMS",
-      "description": "Gestiona noticias y eventos desde aquí.",
+      "description": "Gestiona el contenido del sitio desde aquí.",
       "manageNews": "Gestionar Noticias",
-      "manageEvents": "Gestionar Eventos"
+      "manageEvents": "Gestionar Eventos",
+      "manageTeachers": "Gestionar Docentes",
+      "manageUsers": "Gestionar Usuarios",
+      "statsNews": "Noticias",
+      "statsEvents": "Eventos",
+      "statsTeachers": "Docentes",
+      "statsUsers": "Usuarios"
     },
     "news": {
       "pageTitle": "Gestionar Noticias",
@@ -206,7 +250,79 @@
       "deleteConfirm": "¿Estás seguro de que quieres eliminar este evento?",
       "createError": "Error al crear el evento",
       "deleteError": "Error al eliminar el evento"
+    },
+    "teachers": {
+      "pageTitle": "Gestionar Docentes",
+      "createTitle": "Agregar Docente",
+      "createDescription": "Agrega un nuevo docente al sistema.",
+      "editTitle": "Editar Docente",
+      "listTitle": "Personal Docente",
+      "empty": "No hay docentes registrados",
+      "fieldName": "Nombre completo",
+      "fieldTitle": "Título académico",
+      "fieldSpecialty": "Especialidad",
+      "fieldEmail": "Correo institucional",
+      "fieldPhoto": "URL de foto",
+      "submit": "Agregar Docente",
+      "submitEdit": "Guardar cambios",
+      "submitting": "Guardando...",
+      "delete": "Eliminar",
+      "deleteConfirm": "¿Estás seguro de que quieres eliminar este docente?",
+      "createError": "Error al agregar el docente",
+      "updateError": "Error al actualizar el docente",
+      "deleteError": "Error al eliminar el docente"
+    },
+    "users": {
+      "pageTitle": "Gestionar Usuarios",
+      "createTitle": "Crear Usuario",
+      "createDescription": "Crea un nuevo usuario con rol de acceso.",
+      "editTitle": "Editar Usuario",
+      "listTitle": "Usuarios registrados",
+      "empty": "No hay usuarios registrados",
+      "fieldName": "Nombre",
+      "fieldEmail": "Correo electrónico",
+      "fieldPassword": "Contraseña",
+      "fieldRole": "Rol",
+      "roles": {
+        "USER": "Usuario",
+        "EDITOR": "Editor",
+        "ADMIN": "Administrador"
+      },
+      "submit": "Crear Usuario",
+      "submitting": "Creando...",
+      "delete": "Eliminar",
+      "deleteConfirm": "¿Estás seguro de que quieres eliminar este usuario?",
+      "createError": "Error al crear el usuario",
+      "updateError": "Error al actualizar el usuario",
+      "deleteError": "Error al eliminar el usuario"
+    },
+    "settings": {
+      "pageTitle": "Configuración",
+      "cloudinaryTitle": "Credenciales Cloudinary",
+      "cloudinaryDescription": "Configura tu cuenta de Cloudinary para subir imágenes a tus publicaciones.",
+      "fieldCloudName": "Cloud Name",
+      "fieldApiKey": "API Key",
+      "fieldApiSecret": "API Secret",
+      "submit": "Guardar configuración",
+      "submitting": "Guardando...",
+      "saveSuccess": "Configuración guardada correctamente",
+      "saveError": "Error al guardar la configuración"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "news": "Noticias",
+      "events": "Eventos",
+      "teachers": "Docentes",
+      "users": "Usuarios",
+      "settings": "Configuración",
+      "logout": "Cerrar sesión"
     }
+  },
+  "teachers": {
+    "title": "Personal Docente",
+    "subtitle": "Cuerpo docente de la carrera de Ingeniería en Tecnologías de la Información",
+    "empty": "No hay docentes registrados aún.",
+    "emailLabel": "Correo"
   },
   "club": {
     "title": "Club TIMS",

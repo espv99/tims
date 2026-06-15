@@ -4,6 +4,7 @@
     "timeline": "Schedule",
     "club": "Club",
     "studentCouncil": "Student Council",
+    "personalDocente": "Faculty",
     "login": "Sign in",
     "brand": "Information Technologies"
   },
@@ -106,6 +107,14 @@
         "title": "Multidisciplinary Research",
         "description": "Raise the level of participation of multidisciplinary groups within IT research projects, improving the quality of life of different social actors."
       }
+    ],
+    "educationalLabel": "Educational Objectives",
+    "educationalItems": [
+      "Apply effective communication skills in work teams, adapting to different contexts and emerging technology challenges that require a critical attitude, performing successfully in complex scenarios with responsibility.",
+      "Integrate different technologies that contribute to the implementation of efficient and secure communication systems and data administration, allowing optimization of the company's hardware and software resources in information management.",
+      "Design innovative scientific and technological research projects that contribute to sustainable development at local, national, and international levels.",
+      "Manage data networks through routing protocols and data communication technologies in cloud-based systems, web applications, or the Internet of Things.",
+      "Apply Artificial Intelligence techniques to solve real problems across diverse domains and address the ethical and social implications of this field."
     ]
   },
   "outreachProjects": {
@@ -154,6 +163,32 @@
     "rights": "All rights reserved.",
     "role": "Information Technology Engineering"
   },
+  "learningOutcomes": {
+    "title": "Learning Outcomes",
+    "subtitle": "Competencies developed by graduates of the program",
+    "items": [
+      {
+        "number": "LO1",
+        "text": "Communicates effectively in Spanish and English across diverse professional contexts."
+      },
+      {
+        "number": "LO2",
+        "text": "Applies efficient methods and techniques in IT governance, auditing, and project management for administering reliable computing technologies that protect user and corporate information."
+      },
+      {
+        "number": "LO3",
+        "text": "Implements web and mobile technology solutions to meet corporate requirements and standards."
+      },
+      {
+        "number": "LO4",
+        "text": "Applies acquired competencies with leadership in profession-related activities to build innovative solutions with environmental sustainability based on ICT and TIP."
+      },
+      {
+        "number": "LO5",
+        "text": "Develops different network technologies for optimizing the administration and management of large data volumes in distributed systems."
+      }
+    ]
+  },
   "login": {
     "title": "Sign In",
     "description": "Enter your credentials to access the administration panel",
@@ -167,11 +202,20 @@
   "admin": {
     "panelTitle": "Administration Panel",
     "loading": "Loading...",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "edit": "Edit",
     "dashboard": {
       "title": "TIMS Administration Panel",
-      "description": "Manage news and events from here.",
+      "description": "Manage site content from here.",
       "manageNews": "Manage News",
-      "manageEvents": "Manage Events"
+      "manageEvents": "Manage Events",
+      "manageTeachers": "Manage Faculty",
+      "manageUsers": "Manage Users",
+      "statsNews": "Articles",
+      "statsEvents": "Events",
+      "statsTeachers": "Faculty",
+      "statsUsers": "Users"
     },
     "news": {
       "pageTitle": "Manage News",
@@ -206,7 +250,79 @@
       "deleteConfirm": "Are you sure you want to delete this event?",
       "createError": "Error creating event",
       "deleteError": "Error deleting event"
+    },
+    "teachers": {
+      "pageTitle": "Manage Faculty",
+      "createTitle": "Add Faculty Member",
+      "createDescription": "Add a new faculty member to the system.",
+      "editTitle": "Edit Faculty Member",
+      "listTitle": "Teaching Staff",
+      "empty": "No faculty members registered",
+      "fieldName": "Full name",
+      "fieldTitle": "Academic title",
+      "fieldSpecialty": "Specialty",
+      "fieldEmail": "Institutional email",
+      "fieldPhoto": "Photo URL",
+      "submit": "Add Faculty Member",
+      "submitEdit": "Save changes",
+      "submitting": "Saving...",
+      "delete": "Delete",
+      "deleteConfirm": "Are you sure you want to delete this faculty member?",
+      "createError": "Error adding faculty member",
+      "updateError": "Error updating faculty member",
+      "deleteError": "Error deleting faculty member"
+    },
+    "users": {
+      "pageTitle": "Manage Users",
+      "createTitle": "Create User",
+      "createDescription": "Create a new user with access role.",
+      "editTitle": "Edit User",
+      "listTitle": "Registered users",
+      "empty": "No users registered",
+      "fieldName": "Name",
+      "fieldEmail": "Email address",
+      "fieldPassword": "Password",
+      "fieldRole": "Role",
+      "roles": {
+        "USER": "User",
+        "EDITOR": "Editor",
+        "ADMIN": "Administrator"
+      },
+      "submit": "Create User",
+      "submitting": "Creating...",
+      "delete": "Delete",
+      "deleteConfirm": "Are you sure you want to delete this user?",
+      "createError": "Error creating user",
+      "updateError": "Error updating user",
+      "deleteError": "Error deleting user"
+    },
+    "settings": {
+      "pageTitle": "Settings",
+      "cloudinaryTitle": "Cloudinary Credentials",
+      "cloudinaryDescription": "Configure your Cloudinary account to upload images to your posts.",
+      "fieldCloudName": "Cloud Name",
+      "fieldApiKey": "API Key",
+      "fieldApiSecret": "API Secret",
+      "submit": "Save settings",
+      "submitting": "Saving...",
+      "saveSuccess": "Settings saved successfully",
+      "saveError": "Error saving settings"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "news": "News",
+      "events": "Events",
+      "teachers": "Faculty",
+      "users": "Users",
+      "settings": "Settings",
+      "logout": "Sign out"
     }
+  },
+  "teachers": {
+    "title": "Teaching Staff",
+    "subtitle": "Faculty of the Information Technology Engineering program",
+    "empty": "No faculty members registered yet.",
+    "emailLabel": "Email"
   },
   "club": {
     "title": "TIMS Club",

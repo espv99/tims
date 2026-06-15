@@ -7,8 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
-import IconMobileMenu from '@/components/icons/icon-mobile-menu.svg';
-import IconClose from '@/components/icons/icon-close.svg';
+import { Menu, X } from 'lucide-react';
 
 function SunIcon() {
   return (
@@ -52,10 +51,10 @@ export function Navbar() {
   const closeMenu = () => setIsMenuOpen(false);
 
   const navItems = [
-    { name: t('home'), href: '/' },
     { name: t('timeline'), href: '/timeline' },
     { name: t('club'), href: '/club' },
     { name: t('studentCouncil'), href: '/consejo-estudiantil' },
+    { name: t('personalDocente'), href: '/personal-docente' },
   ];
 
   return (
@@ -92,7 +91,7 @@ export function Navbar() {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
         >
-          {isMenuOpen ? <IconClose className="w-5 h-5" /> : <IconMobileMenu className="w-5 h-5" />}
+          {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 

@@ -15,7 +15,8 @@
       "Bash(uipro --version)",
       "Bash(uipro --help)",
       "Bash(uipro init *)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(grep -E \"\\\\.\\(ts|js|json\\)$\")"
     ]
   }
 }

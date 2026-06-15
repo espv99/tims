@@ -2,28 +2,38 @@
 
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import { CloudinaryUpload } from '@/components/admin/cloudinary-upload'
 
 interface News {
   id: string
   title: string
   content: string
+  imageUrl: string | null
   publishedAt: string | null
   createdAt: string
   author?: { name: string; email: string }
 }
 
+const emptyForm = { title: '', content: '', imageUrl: '' }
+
 export default function AdminNews() {
   const t = useTranslations('admin.news')
   const tAdmin = useTranslations('admin')
+  const { data: session } = useSession()
+  const isAdmin = session?.user?.role === 'ADMIN'
+
   const [news, setNews] = useState<News[]>([])
   const [loading, setLoading] = useState(true)
-  const [formData, setFormData] = useState({ title: '', content: '' })
+  const [formData, setFormData] = useState(emptyForm)
   const [submitting, setSubmitting] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editData, setEditData] = useState(emptyForm)
 
   useEffect(() => { fetchNews() }, [])
 
@@ -43,7 +53,25 @@ export default function AdminNews() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
-      if (res.ok) { setFormData({ title: '', content: '' }); fetchNews() }
+      if (res.ok) { setFormData(emptyForm); fetchNews() }
+      else alert(t('createError'))
+    } catch { alert(t('createError')) } finally { setSubmitting(false) }
+  }
+
+  const handleEdit = (item: News) => {
+    setEditingId(item.id)
+    setEditData({ title: item.title, content: item.content, imageUrl: item.imageUrl || '' })
+  }
+
+  const handleUpdate = async (id: string) => {
+    setSubmitting(true)
+    try {
+      const res = await fetch(`/api/news/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editData),
+      })
+      if (res.ok) { setEditingId(null); fetchNews() }
       else alert(t('createError'))
     } catch { alert(t('createError')) } finally { setSubmitting(false) }
   }
@@ -60,8 +88,8 @@ export default function AdminNews() {
   if (loading) return <div className="text-center py-8">{tAdmin('loading')}</div>
 
   return (
-    <div className="px-4 py-6 sm:px-0">
-      <h1 className="text-3xl font-bold text-foreground mb-6">{t('pageTitle')}</h1>
+    <div>
+      <h1 className="text-2xl font-bold text-foreground mb-6">{t('pageTitle')}</h1>
 
       <Card className="mb-6">
         <CardHeader>
@@ -72,15 +100,24 @@ export default function AdminNews() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Label htmlFor="title">{t('fieldTitle')}</Label>
-              <Input id="title" type="text" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
+              <Input id="title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
             </div>
             <div>
               <Label htmlFor="content">{t('fieldContent')}</Label>
               <Textarea id="content" value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} rows={4} required />
             </div>
-            <Button type="submit" disabled={submitting}>
-              {submitting ? t('submitting') : t('submit')}
-            </Button>
+            <div>
+              <Label>Imagen</Label>
+              <div className="mt-1 space-y-2">
+                <Input
+                  placeholder="https://..."
+                  value={formData.imageUrl}
+                  onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                />
+                <CloudinaryUpload value={formData.imageUrl} onChange={(url) => setFormData({ ...formData, imageUrl: url })} />
+              </div>
+            </div>
+            <Button type="submit" disabled={submitting}>{submitting ? t('submitting') : t('submit')}</Button>
           </form>
         </CardContent>
       </Card>
@@ -94,18 +131,49 @@ export default function AdminNews() {
             ) : (
               news.map((item) => (
                 <div key={item.id} className="py-4">
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <h3 className="text-lg font-medium">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {t('by')} {item.author?.name || item.author?.email} · {new Date(item.createdAt).toLocaleDateString()}
-                      </p>
-                      <p className="text-muted-foreground mt-2 line-clamp-2">{item.content}</p>
+                  {editingId === item.id ? (
+                    <div className="space-y-3">
+                      <Input value={editData.title} onChange={(e) => setEditData({ ...editData, title: e.target.value })} />
+                      <Textarea value={editData.content} onChange={(e) => setEditData({ ...editData, content: e.target.value })} rows={3} />
+                      <div className="space-y-1">
+                        <Input
+                          placeholder="https://..."
+                          value={editData.imageUrl}
+                          onChange={(e) => setEditData({ ...editData, imageUrl: e.target.value })}
+                        />
+                        <CloudinaryUpload value={editData.imageUrl} onChange={(url) => setEditData({ ...editData, imageUrl: url })} />
+                      </div>
+                      <div className="flex gap-2">
+                        <Button size="sm" disabled={submitting} onClick={() => handleUpdate(item.id)}>
+                          {submitting ? tAdmin('saving') : 'Guardar'}
+                        </Button>
+                        <Button size="sm" variant="outline" onClick={() => setEditingId(null)}>{tAdmin('cancel')}</Button>
+                      </div>
                     </div>
-                    <Button onClick={() => handleDelete(item.id)} variant="destructive" size="sm" className="ml-4">
-                      {t('delete')}
-                    </Button>
-                  </div>
+                  ) : (
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start gap-3">
+                          {item.imageUrl && (
+                            <img src={item.imageUrl} alt={item.title} className="w-14 h-14 sm:w-16 sm:h-16 rounded object-cover shrink-0" />
+                          )}
+                          <div className="min-w-0">
+                            <h3 className="text-base sm:text-lg font-medium">{item.title}</h3>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              {t('by')} {item.author?.name || item.author?.email} · {new Date(item.createdAt).toLocaleDateString()}
+                            </p>
+                            <p className="text-muted-foreground mt-1 line-clamp-2 text-sm">{item.content}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 shrink-0">
+                        <Button onClick={() => handleEdit(item)} variant="outline" size="sm">{tAdmin('edit')}</Button>
+                        {isAdmin && (
+                          <Button onClick={() => handleDelete(item.id)} variant="destructive" size="sm">{t('delete')}</Button>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))
             )}
