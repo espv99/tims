@@ -87,5 +87,23 @@ Después de publicar el informe se detectó un error del método: la medición d
 | Nuevo: números dorados con contraste 2.25:1 | Resuelto | `1b0a193` |
 | P2 `aria-expanded` y `aria-label` fijos | Resuelto: también se cierra con Escape y los ids son únicos | `9cbeb4c` |
 | P2 botones táctiles bajo 44px | Resuelto: todo el encabezado mide 44px o más (61px de alto en total) | `9cbeb4c` |
-| P2 rutas renderizadas en cada petición | Pendiente | |
+| P2 rutas renderizadas en cada petición | Medido, sin cambios necesarios (ver abajo) | |
 | P3 colores de Tailwind escritos a mano | Resuelto en las páginas en uso (tokens `blueti-muted`, `blueti-subtle`, `destructive-text`). Los dos archivos que seguían con colores fijos (`TestButton.tsx` y `visionMisionBanner.tsx`) no se importaban en ningún lado y se borraron | `be75ae2` |
+
+## Medición de rutas dinámicas
+
+Build de producción local (`next build` + `next start`), tiempo hasta el primer byte, 15 a 25 peticiones por ruta tras calentar. Es una medición desde la máquina de desarrollo, no desde Vercel.
+
+| Ruta | Mediana | Qué hace |
+|---|---|---|
+| `/logo.png` (archivo estático, referencia) | 2 ms | Sin servidor |
+| `/club`, `/consejo-estudiantil`, `/timeline`, `/login`, `/` | 6 a 7 ms | Se renderiza en el servidor, sin base de datos |
+| `/personal-docente` | 500 ms | Una consulta a la base |
+| `/api/news`, `/api/events`, `/api/teachers` | 497 a 500 ms | Una consulta a la base |
+
+Conclusiones:
+
+- **Renderizar cada petición cuesta unos 4 ms** respecto a un archivo estático. No hay ganancia que justifique pasar las páginas a estáticas, y hacerlo obligaría a mover el idioma de una cookie a rutas por idioma (`/es`, `/en`).
+- **El costo real es la base de datos:** cada consulta tarda unos 478 ms, incluso un `select 1`, y la primera de una conexión nueva 1.09 s. Es latencia de red entre esta máquina y el pooler de Supabase (us-east-1), no trabajo de la consulta.
+- **En producción debería ser mucho menor si la función de Vercel y Supabase están en la misma región.** Vercel usa `iad1` (este de EE. UU.) por defecto, que coincide con `us-east-1`. Falta verificarlo en el proyecto (Settings, Functions, Region) y medir en el sitio desplegado.
+- Si el despliegue mostrara lentitud en esas cuatro rutas, la mejora de menor riesgo es guardar en caché el resultado de la consulta (`unstable_cache` con `revalidate` y etiquetas), sin tocar el idioma.
