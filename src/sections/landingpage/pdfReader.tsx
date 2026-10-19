@@ -53,7 +53,7 @@ export default function PdfReader() {
 
   return (
     <section className="w-full my-10">
-      <div className="border-l-4 border-gold pl-4 mb-8">
+      <div className="mb-8">
         <h2 className="text-2xl md:text-3xl font-bold text-blueti dark:text-foreground">{t('title')}</h2>
         <p className="text-muted-foreground text-sm mt-1">{t('subtitle')}</p>
       </div>

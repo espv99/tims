@@ -12,19 +12,14 @@ const LearningOutcomes: React.FC = async () => {
         <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base leading-relaxed">{t('subtitle')}</p>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <ol className="border-b border-border">
         {items.map((item, index) => (
-          <div
-            key={index}
-            className="flex items-start gap-4 bg-card border border-border rounded-xl p-5 hover:border-blueti/30 transition-colors duration-200"
-          >
-            <span className="flex-shrink-0 w-10 h-10 rounded-lg bg-blueti/8 dark:bg-primary/10 flex items-center justify-center text-blueti dark:text-primary text-xs font-bold">
-              {item.number}
-            </span>
-            <p className="text-sm text-foreground leading-relaxed pt-2">{item.text}</p>
-          </div>
+          <li key={index} className="flex items-baseline gap-5 border-t border-border py-5">
+            <span className="w-12 flex-shrink-0 text-lg font-semibold tabular-nums text-blueti dark:text-primary">{item.number}</span>
+            <p className="text-sm md:text-base text-foreground leading-relaxed">{item.text}</p>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
   );
 };

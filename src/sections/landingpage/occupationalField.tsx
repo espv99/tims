@@ -15,24 +15,21 @@ const OccupationalField: React.FC = async () => {
 
   return (
     <section className="w-full my-10">
-      <div className="border-l-4 border-blueti pl-4 mb-8">
+      <div className="mb-8">
         <h2 className="text-2xl md:text-3xl font-bold text-blueti dark:text-foreground">{t('title')}</h2>
         <p className="text-muted-foreground text-sm mt-1">{t('subtitle')}</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 border-b border-border">
         {items.map((item, index) => (
-          <div
-            key={index}
-            className="flex gap-3 bg-card border border-border rounded-xl p-5 hover:border-blueti/30 transition-colors duration-200"
-          >
+          <li key={index} className="flex gap-3 border-t border-border py-4">
             <span className="text-blueti dark:text-primary mt-0.5">
               <CheckCircleIcon />
             </span>
             <p className="text-sm md:text-base text-foreground leading-relaxed">{item}</p>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };

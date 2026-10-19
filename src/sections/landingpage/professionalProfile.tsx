@@ -39,22 +39,19 @@ const ProfessionalProfile: React.FC = async () => {
         <p className="text-muted-foreground max-w-3xl mx-auto text-sm md:text-base leading-relaxed">{t('description')}</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 border-b border-border">
         {items.map((item, index) => (
-          <div
-            key={index}
-            className="bg-card border border-border rounded-xl p-5 hover:border-blueti/30 transition-colors duration-200 cursor-default"
-          >
-            <div className="flex items-start gap-3 mb-3">
-              <div className="flex-shrink-0 w-9 h-9 bg-blueti/8 dark:bg-primary/10 rounded-lg flex items-center justify-center text-blueti dark:text-primary mt-0.5">
-                {skillIcons[index]}
-              </div>
-              <h3 className="font-semibold text-sm leading-snug text-foreground">{item.title}</h3>
+          <li key={index} className="flex gap-4 border-t border-border py-5">
+            <div className="flex-shrink-0 w-9 h-9 bg-blueti/8 dark:bg-primary/10 rounded-lg flex items-center justify-center text-blueti dark:text-primary">
+              {skillIcons[index]}
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed pl-12">{item.description}</p>
-          </div>
+            <div>
+              <h3 className="font-semibold text-base leading-snug text-foreground">{item.title}</h3>
+              <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+            </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };

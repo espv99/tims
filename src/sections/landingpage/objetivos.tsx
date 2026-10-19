@@ -8,7 +8,7 @@ const Objetivos: React.FC = async () => {
 
   return (
     <section className="w-full my-10">
-      <div className="border-l-4 border-gold pl-4 mb-8">
+      <div className="mb-8">
         <h2 className="text-2xl md:text-3xl font-bold text-blueti dark:text-foreground">{t('title')}</h2>
         <p className="text-muted-foreground text-sm mt-1">{t('subtitle')}</p>
       </div>
@@ -20,40 +20,32 @@ const Objetivos: React.FC = async () => {
         <p className="text-base md:text-lg leading-relaxed">{t('generalText')}</p>
       </div>
 
-      <div className="space-y-3 mb-10">
+      <ol className="mb-14 border-b border-border">
         {items.map((item, index) => (
-          <div
+          <li
             key={index}
-            className="flex gap-4 bg-card border border-border rounded-xl p-5 hover:border-blueti/30 transition-colors duration-200"
+            className="grid gap-2 border-t border-border py-5 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-8"
           >
-            <div className="flex-shrink-0 w-8 h-8 bg-blueti/8 dark:bg-primary/10 rounded-full flex items-center justify-center text-blueti dark:text-primary font-bold text-sm">
-              {index + 1}
-            </div>
-            <div>
-              <h3 className="font-semibold text-sm md:text-base text-foreground mb-1">{item.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
-            </div>
-          </div>
+            <h3 className="font-semibold text-base text-foreground">
+              <span className="mr-3 tabular-nums text-blueti dark:text-primary">{index + 1}</span>
+              {item.title}
+            </h3>
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{item.description}</p>
+          </li>
         ))}
-      </div>
+      </ol>
 
-      <div className="border-l-4 border-blueti pl-4 mb-6">
-        <h3 className="text-xl md:text-2xl font-bold text-blueti dark:text-foreground">{t('educationalLabel')}</h3>
-      </div>
-
-      <div className="space-y-3">
+      <h3 className="mb-6 text-xl md:text-2xl font-bold text-blueti dark:text-foreground">{t('educationalLabel')}</h3>
+      <ol className="space-y-4">
         {educationalItems.map((text, index) => (
-          <div
-            key={index}
-            className="flex gap-4 bg-card border border-border rounded-xl p-5 hover:border-blueti/30 transition-colors duration-200"
-          >
-            <div className="flex-shrink-0 w-8 h-8 bg-gold/10 rounded-full flex items-center justify-center text-gold font-bold text-sm">
-              {index + 1}
-            </div>
-            <p className="text-sm text-foreground leading-relaxed pt-1">{text}</p>
-          </div>
+          <li key={index} className="flex gap-4">
+            <span className="w-6 flex-shrink-0 text-right font-semibold tabular-nums text-blueti dark:text-primary">
+              {index + 1}.
+            </span>
+            <p className="text-sm md:text-base text-foreground leading-relaxed">{text}</p>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
   );
 };
