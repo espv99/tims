@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import { prisma } from '@/lib/prisma'
+import { Header } from '@/sections/header/Header'
 import { Mail } from 'lucide-react'
 
 export default async function PersonalDocentePage() {
@@ -7,7 +8,8 @@ export default async function PersonalDocentePage() {
   const teachers = await prisma.teacher.findMany({ orderBy: { name: 'asc' } })
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
+      <Header />
       <main id="main-content" className="max-w-5xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
           <h1 className="text-3xl font-bold text-foreground">{t('title')}</h1>
