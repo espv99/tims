@@ -31,7 +31,7 @@ function MoonIcon() {
 
 function ThemeToggle() {
   const t = useTranslations('nav');
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
@@ -40,11 +40,11 @@ function ThemeToggle() {
 
   return (
     <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
       className="inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground hover:bg-muted transition-colors duration-200 cursor-pointer"
-      aria-label={theme === 'dark' ? t('themeToLight') : t('themeToDark')}
+      aria-label={resolvedTheme === 'dark' ? t('themeToLight') : t('themeToDark')}
     >
-      {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+      {resolvedTheme === 'dark' ? <SunIcon /> : <MoonIcon />}
     </button>
   );
 }
