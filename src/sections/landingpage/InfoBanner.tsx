@@ -66,7 +66,7 @@ const InfoBanner: React.FC<InfoBannerProps> = async ({
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="bg-card border border-border rounded-xl p-4 md:p-6 text-center hover:border-blueti/30 hover:shadow-md transition-all duration-200 cursor-default"
+            className="bg-card border border-border rounded-xl p-4 md:p-6 text-center hover:border-blueti/30 transition-colors duration-200 cursor-default"
           >
             <div className="flex justify-center mb-3 text-blueti dark:text-primary">{stat.icon}</div>
             <div className="text-xs text-muted-foreground mb-1">{stat.label}</div>

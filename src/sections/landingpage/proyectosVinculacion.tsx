@@ -30,7 +30,7 @@ const ProyectosVinculacion: React.FC = async () => {
         {items.map((item, index) => (
           <div
             key={index}
-            className="flex gap-4 bg-card border border-border rounded-xl p-5 hover:border-blueti/30 hover:shadow-sm transition-all duration-200"
+            className="flex gap-4 bg-card border border-border rounded-xl p-5 hover:border-blueti/30 transition-colors duration-200"
           >
             <div className="flex-shrink-0 text-gold mt-0.5">
               <LinkIcon />

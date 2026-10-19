@@ -34,7 +34,7 @@ export default async function Home() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="#informacion"
-              className="bg-gold hover:bg-gold-dark text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200 cursor-pointer"
+              className="bg-gold hover:bg-gold-dark text-blueti font-semibold px-6 py-3 rounded-lg transition-colors duration-200 cursor-pointer"
             >
               {t('ctaPrimary')}
             </a>

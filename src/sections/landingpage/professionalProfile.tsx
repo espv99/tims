@@ -43,7 +43,7 @@ const ProfessionalProfile: React.FC = async () => {
         {items.map((item, index) => (
           <div
             key={index}
-            className="bg-card border border-border rounded-xl p-5 hover:border-blueti/30 hover:shadow-md transition-all duration-200 cursor-default"
+            className="bg-card border border-border rounded-xl p-5 hover:border-blueti/30 transition-colors duration-200 cursor-default"
           >
             <div className="flex items-start gap-3 mb-3">
               <div className="flex-shrink-0 w-9 h-9 bg-blueti/8 dark:bg-primary/10 rounded-lg flex items-center justify-center text-blueti dark:text-primary mt-0.5">

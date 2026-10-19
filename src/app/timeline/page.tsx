@@ -149,7 +149,7 @@ export default function TimelinePage() {
                   {index < timelineItems.length - 1 && <div className="w-px flex-1 bg-border mt-1" />}
                 </div>
 
-                <div className="flex-1 bg-card border border-border rounded-xl p-5 mb-4 hover:border-blueti/30 hover:shadow-sm transition-all duration-200">
+                <div className="flex-1 bg-card border border-border rounded-xl p-5 mb-4 hover:border-blueti/30 transition-colors duration-200">
                   <div className="flex flex-wrap items-center gap-2 mb-3">
                     <Badge
                       variant={item.type === 'news' ? 'default' : 'secondary'}

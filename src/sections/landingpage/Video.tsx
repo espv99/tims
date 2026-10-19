@@ -34,7 +34,7 @@ const Video: React.FC<VideoProps> = ({
 
   return (
     <div className={`w-full max-w-5xl px-4 md:px-0 my-0 ${className}`}>
-      <div className="relative w-full bg-black rounded-lg overflow-hidden shadow-lg">
+      <div className="relative w-full bg-black rounded-lg overflow-hidden">
         <video
           className="w-full h-auto"
           controls={controls}
