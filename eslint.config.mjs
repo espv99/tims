@@ -16,7 +16,8 @@ const eslintConfig = [
     extends: ["next/core-web-vitals", "next/typescript", "prettier"],
     rules: {
       // Reglas básicas (evitar conflictos con Prettier)
-      semi: "error",
+      // El punto y coma lo decide Prettier (semi: false en .prettierrc.json), no ESLint
+      semi: "off",
       // Desactivar reglas de estilo que maneja Prettier
       quotes: "off",
       indent: "off",

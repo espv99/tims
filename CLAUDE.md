@@ -40,7 +40,7 @@ Supabase setup: create a public Storage bucket named `media`, then `npx prisma m
 ### Key Conventions
 
 - `@/*` path alias maps to `./src/*`
-- Prettier: 120-char line width, single quotes, trailing commas
+- Prettier (`.prettierrc.json`): 120-char line width, single quotes, trailing commas, no semicolons
 - SVGs imported via `@svgr/webpack` as React components (`next.config.ts`)
 - ESLint errors are ignored during builds (`next.config.ts`)
 - Global styles in `src/styles/globals.css` and `src/styles/brand.css`
