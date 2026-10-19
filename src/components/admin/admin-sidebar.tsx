@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import { useTranslations } from 'next-intl'
-import { LayoutDashboard, Newspaper, Calendar, GraduationCap, Users, Settings, LogOut, X } from 'lucide-react'
+import { LayoutDashboard, Newspaper, Calendar, GraduationCap, Users, LogOut, X } from 'lucide-react'
 
 interface AdminSidebarProps {
   role: string
@@ -31,7 +31,6 @@ export function AdminSidebar({ role, userName, userEmail, onClose }: AdminSideba
     { label: t('events'), href: '/admin/events', icon: Calendar },
     { label: t('teachers'), href: '/admin/teachers', icon: GraduationCap },
     ...(role === 'ADMIN' ? [{ label: t('users'), href: '/admin/users', icon: Users }] : []),
-    { label: t('settings'), href: '/admin/settings', icon: Settings },
   ]
 
   return (

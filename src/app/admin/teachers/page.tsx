@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { CloudinaryUpload } from '@/components/admin/cloudinary-upload'
+import { SupabaseUpload } from '@/components/admin/supabase-upload'
 
 interface Teacher {
   id: string
@@ -119,7 +119,7 @@ export default function AdminTeachers() {
               <Label>{t('fieldPhoto')}</Label>
               <div className="mt-1 space-y-2">
                 <Input placeholder="https://..." value={formData.photo} onChange={(e) => setFormData({ ...formData, photo: e.target.value })} />
-                <CloudinaryUpload value={formData.photo} onChange={(url) => setFormData({ ...formData, photo: url })} label="Subir foto" />
+                <SupabaseUpload value={formData.photo} onChange={(url) => setFormData({ ...formData, photo: url })} label="Subir foto" />
               </div>
             </div>
             <Button type="submit" disabled={submitting}>{submitting ? t('submitting') : t('submit')}</Button>
@@ -146,7 +146,7 @@ export default function AdminTeachers() {
                       </div>
                       <div className="space-y-1">
                         <Input placeholder="https://..." value={editData.photo} onChange={(e) => setEditData({ ...editData, photo: e.target.value })} />
-                        <CloudinaryUpload value={editData.photo} onChange={(url) => setEditData({ ...editData, photo: url })} label="Subir foto" />
+                        <SupabaseUpload value={editData.photo} onChange={(url) => setEditData({ ...editData, photo: url })} label="Subir foto" />
                       </div>
                       <div className="flex gap-2">
                         <Button size="sm" disabled={submitting} onClick={() => handleUpdate(item.id)}>
