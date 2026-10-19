@@ -85,7 +85,7 @@ Después de publicar el informe se detectó un error del método: la medición d
 | P2 franjas laterales ×7 | Resuelto | `1b0a193` |
 | P2 tarjetas idénticas ×5 | Resuelto: cada sección usa una forma distinta | `1b0a193` |
 | Nuevo: números dorados con contraste 2.25:1 | Resuelto | `1b0a193` |
-| P2 `aria-expanded` y `aria-label` fijos | Pendiente | |
-| P2 botones táctiles bajo 44px | Pendiente | |
+| P2 `aria-expanded` y `aria-label` fijos | Resuelto: también se cierra con Escape y los ids son únicos | `9cbeb4c` |
+| P2 botones táctiles bajo 44px | Resuelto: todo el encabezado mide 44px o más (61px de alto en total) | `9cbeb4c` |
 | P2 rutas renderizadas en cada petición | Pendiente | |
 | P3 colores de Tailwind escritos a mano | Pendiente | |
