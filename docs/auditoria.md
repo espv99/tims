@@ -54,7 +54,7 @@ Además, ninguna de las 5 páginas tiene `<img>`. `visionMisionBanner.tsx` tiene
 
 ## Lo que está bien
 
-- Contraste AA en las 5 páginas, en ambos temas. El único aviso es el texto de respaldo del `<video>`, que no se ve.
+- Contraste AA en casi todo el sitio, en ambos temas. La excepción (números dorados, ver "Correcciones a esta auditoría") ya está resuelta. El texto de respaldo del `<video>` no cuenta, porque no se ve.
 - Un solo `h1` por página y sin saltos de nivel de encabezado.
 - Sin desborde horizontal a 360px.
 - Sin errores de consola en las 5 páginas.
@@ -70,3 +70,22 @@ Además, ninguna de las 5 páginas tiene `<img>`. `visionMisionBanner.tsx` tiene
 5. **[P2] `/impeccable polish`:** como paso final, pasar los colores fijos a tokens.
 
 Repetir `/impeccable audit` después de los arreglos para comparar el puntaje (línea base: 13/20).
+
+## Correcciones a esta auditoría
+
+Después de publicar el informe se detectó un error del método: la medición de contraste ignoraba los textos de un solo carácter. Por eso no marcó los números dorados de los objetivos educativos (`text-gold` sobre `bg-gold/10`), que tenían **2.25:1** en tema claro (AA exige 4.5:1). Repetida la medición contando todos los textos, ese era el único fallo. Está resuelto (ver abajo). El puntaje de accesibilidad (3 de 4) no cambia.
+
+## Seguimiento
+
+| Hallazgo | Estado | Commit |
+|---|---|---|
+| P1 video pesado | Resuelto: 27.7 MB a 6.0 MB, portada de 1.5 MB a 36 KB, sin autoplay | `47ae0be` |
+| P1 sin `<main>` ni salto al contenido | Resuelto en las 5 páginas | `f0a071f` |
+| Nuevo: `personal-docente` sin encabezado | Resuelto | `ef77535` |
+| P2 franjas laterales ×7 | Resuelto | `1b0a193` |
+| P2 tarjetas idénticas ×5 | Resuelto: cada sección usa una forma distinta | `1b0a193` |
+| Nuevo: números dorados con contraste 2.25:1 | Resuelto | `1b0a193` |
+| P2 `aria-expanded` y `aria-label` fijos | Pendiente | |
+| P2 botones táctiles bajo 44px | Pendiente | |
+| P2 rutas renderizadas en cada petición | Pendiente | |
+| P3 colores de Tailwind escritos a mano | Pendiente | |
