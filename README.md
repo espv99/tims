@@ -28,7 +28,7 @@ DIRECT_URL=<conexión directa, usada por prisma migrate>
 
 Las claves están en Supabase, en **Project Settings → API**. `SUPABASE_SERVICE_ROLE_KEY` es secreta: nunca la subas a git ni le pongas el prefijo `NEXT_PUBLIC_`. En `.env.example` hay una plantilla.
 
-Opcionales para el seed: `ADMIN_EMAIL` y `ADMIN_PASSWORD` (por defecto `admin@tims.com` / `admin123`, solo para desarrollo).
+Obligatorias para el seed: `ADMIN_EMAIL` y `ADMIN_PASSWORD` (mínimo 12 caracteres). No hay valores por defecto: escríbelas en `.env`, nunca en el código.
 
 ### Configuración en Supabase
 

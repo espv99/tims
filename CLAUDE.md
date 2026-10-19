@@ -17,7 +17,7 @@ npm run lint     # Run ESLint
 # Database
 npx prisma generate     # Regenerate Prisma client after schema changes
 npx prisma migrate dev  # Apply schema migrations
-npx prisma db seed      # Create the admin in Supabase Auth + User row (admin@tims.com / admin123 by default)
+npx prisma db seed      # Create the admin in Supabase Auth + User row (needs ADMIN_EMAIL / ADMIN_PASSWORD in .env)
 npx prisma studio       # Open Prisma Studio GUI
 ```
 
@@ -29,7 +29,7 @@ See `.env.example`. Required in `.env`:
 - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Supabase project (Settings > API)
 - `SUPABASE_SERVICE_ROLE_KEY` — server-only; used for user admin and signed upload URLs
 - `DATABASE_URL` — Supabase pooled connection (Supavisor); `DIRECT_URL` — direct connection used by `prisma migrate`
-- `ADMIN_EMAIL` / `ADMIN_PASSWORD` — optional, used by the seed (defaults to admin@tims.com / admin123)
+- `ADMIN_EMAIL` / `ADMIN_PASSWORD` — required by the seed, no defaults (password 12+ characters)
 
 Supabase setup: create a public Storage bucket named `media`, then `npx prisma migrate deploy` and `npx prisma db seed`.
 

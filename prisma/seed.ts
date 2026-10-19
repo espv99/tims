@@ -10,9 +10,15 @@ async function main() {
     throw new Error('NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required')
   }
 
-  // Local-dev defaults only: always set ADMIN_EMAIL / ADMIN_PASSWORD outside development
-  const email = process.env.ADMIN_EMAIL || 'admin@tims.com'
-  const password = process.env.ADMIN_PASSWORD || 'admin123'
+  // No defaults on purpose: a known default password is a standing backdoor into the admin panel
+  const email = process.env.ADMIN_EMAIL?.trim()
+  const password = process.env.ADMIN_PASSWORD
+  if (!email || !password) {
+    throw new Error('ADMIN_EMAIL and ADMIN_PASSWORD are required (set them in .env, never in code)')
+  }
+  if (password.length < 12) {
+    throw new Error('ADMIN_PASSWORD must be at least 12 characters long')
+  }
 
   const supabase = createClient(url, serviceKey, { auth: { autoRefreshToken: false, persistSession: false } })
 
@@ -20,6 +26,7 @@ async function main() {
 
   let authId = created?.user?.id
   if (!authId) {
+    console.log('Auth user already exists: its password was left unchanged')
     // Already registered: look the user up so the profile row can be (re)linked
     const { data: list, error: listError } = await supabase.auth.admin.listUsers({ perPage: 1000 })
     if (listError) throw listError
