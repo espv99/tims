@@ -18,12 +18,12 @@ const Video: React.FC<VideoProps> = ({
   src,
   title = "Video",
   className = "",
-  autoplay = true,
+  autoplay = false,
   controls = true,
   loop = false,
   muted = true,
-  poster = "./media/media.png",
-  preload = "metadata",
+  poster = "/media/media.webp",
+  preload = "none",
 }) => {
   // Detectar el tipo de video basado en la extensión
   const getVideoType = (url: string): string => {
