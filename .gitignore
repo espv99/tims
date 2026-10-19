@@ -54,3 +54,4 @@ eslint.config.*
 .eslintrc.yml
 .eslintignore
 .eslintcache
+!.env.example
