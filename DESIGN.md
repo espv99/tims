@@ -13,7 +13,10 @@ colors:
   hairline: "#e2e8f0"
   night-surface: "#1e293b"
   night-muted: "#94a3b8"
-  alert-red: "#ef4444"
+  midnight-text: "#bfdbfe"
+  midnight-text-subtle: "#93c5fd"
+  alert-red: "#c52020"
+  alert-red-night: "#f87272"
 typography:
   display:
     fontFamily: "Poppins, Inter, ui-sans-serif, system-ui, sans-serif"
@@ -130,7 +133,9 @@ A committed navy with a single gold accent over cool, barely tinted neutrals.
 - **Hairline** (#e2e8f0): borders and dividers in light theme.
 - **Night Surface** (#1e293b): cards, muted surfaces and borders in dark theme.
 - **Night Muted** (#94a3b8): secondary text in dark theme.
-- **Alert Red** (#ef4444): destructive actions and error text only.
+- **Midnight Text** (#bfdbfe) and **Midnight Text Subtle** (#93c5fd): secondary and tertiary text on Midnight Institute surfaces (hero subtitle, footer). Tokens `blueti-muted` and `blueti-subtle`; never use stock Tailwind blues for this.
+- **Alert Red** (#c52020): destructive actions and error text in light theme (6.2:1 on white). Token `destructive` for fills and `destructive-text` for text.
+- **Alert Red Night** (#f87272): error text in dark theme, where Alert Red would sink into the background.
 
 ### Named Rules
 **The Seal Rule.** Mine Gold marks one thing at a time: the primary invitation or the active state. If gold appears in three places on a screen, two of them are wrong.
@@ -138,6 +143,8 @@ A committed navy with a single gold accent over cool, barely tinted neutrals.
 **The One Blue Rule.** There is a single brand blue, Midnight Institute. The stock shadcn blue (`hsl(221 83% 53%)`) currently behind `--primary` is drift and must be replaced by it.
 
 **The Gold-On-Navy Rule.** Gold text and gold fills sit on navy (6.7:1). Text on a gold fill is navy, never white (white on gold is 2.4:1 and fails AA).
+
+**The Token Rule.** Colors come from the tokens above (`blueti`, `gold`, `blueti-muted`, `blueti-subtle`, `destructive-text` and the shadcn semantic set). No raw Tailwind palette classes such as `text-blue-200` or `text-gray-700` in components.
 
 **The Dark Navy Rule.** In dark theme, navy is a surface and never a text or border color; it disappears against Ink Night. Switch interactive accents to Mine Gold or to a lightened navy tint.
 
