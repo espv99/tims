@@ -24,7 +24,7 @@ const OccupationalField: React.FC = async () => {
         {items.map((item, index) => (
           <div
             key={index}
-            className="flex gap-3 bg-card border border-border rounded-xl p-5 hover:border-blueti/30 hover:shadow-sm transition-all duration-200"
+            className="flex gap-3 bg-card border border-border rounded-xl p-5 hover:border-blueti/30 transition-colors duration-200"
           >
             <span className="text-blueti dark:text-primary mt-0.5">
               <CheckCircleIcon />

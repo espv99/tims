@@ -16,7 +16,7 @@ const LearningOutcomes: React.FC = async () => {
         {items.map((item, index) => (
           <div
             key={index}
-            className="flex items-start gap-4 bg-card border border-border rounded-xl p-5 hover:border-blueti/30 hover:shadow-sm transition-all duration-200"
+            className="flex items-start gap-4 bg-card border border-border rounded-xl p-5 hover:border-blueti/30 transition-colors duration-200"
           >
             <span className="flex-shrink-0 w-10 h-10 rounded-lg bg-blueti/8 dark:bg-primary/10 flex items-center justify-center text-blueti dark:text-primary text-xs font-bold">
               {item.number}

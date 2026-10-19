@@ -16,7 +16,7 @@ const Card: React.FC<CardProps> = ({ title, children, className = '', leading })
   );
 
   return (
-    <div className={`mx-4 my-4 rounded-xl bg-card border border-border overflow-hidden shadow-sm p-6 max-w-5xl text-foreground ${className}`}>
+    <div className={`mx-4 my-4 rounded-xl bg-card border border-border overflow-hidden p-6 max-w-5xl text-foreground ${className}`}>
       {leading ? (
         <div className="flex items-center gap-4">
           <div className="flex-shrink-0">{leading}</div>
