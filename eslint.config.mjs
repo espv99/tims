@@ -28,6 +28,14 @@ const eslintConfig = [
       "no-unused-labels": "error",
     },
   }),
+  // TypeScript ya valida los nombres (incluido el espacio de nombres global `React` de los tipos),
+  // así que `no-undef` solo genera falsos positivos en .ts/.tsx
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      "no-undef": "off",
+    },
+  },
   // Registro explícito del plugin Prettier en Flat Config
   {
     plugins: {
