@@ -3,14 +3,17 @@
 import { useRef, useState } from 'react'
 import { Upload, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { createClient } from '@/utils/supabase/client'
 
-interface CloudinaryUploadProps {
+const BUCKET = 'media'
+
+interface SupabaseUploadProps {
   value: string
   onChange: (url: string) => void
   label?: string
 }
 
-export function CloudinaryUpload({ value, onChange, label = 'Subir imagen' }: CloudinaryUploadProps) {
+export function SupabaseUpload({ value, onChange, label = 'Subir imagen' }: SupabaseUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -19,27 +22,23 @@ export function CloudinaryUpload({ value, onChange, label = 'Subir imagen' }: Cl
     setUploading(true)
     setError(null)
     try {
-      const signRes = await fetch('/api/cloudinary/sign', { method: 'POST' })
+      const signRes = await fetch('/api/storage/sign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fileName: file.name }),
+      })
       if (!signRes.ok) {
         const data = await signRes.json()
-        throw new Error(data.error || 'Error al obtener firma')
+        throw new Error(data.error || 'Error al obtener la URL de subida')
       }
-      const { signature, timestamp, apiKey, cloudName } = await signRes.json()
+      const { path, token, publicUrl } = await signRes.json()
 
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('api_key', apiKey)
-      formData.append('timestamp', String(timestamp))
-      formData.append('signature', signature)
+      const { error: uploadError } = await createClient()
+        .storage.from(BUCKET)
+        .uploadToSignedUrl(path, token, file, { contentType: file.type })
+      if (uploadError) throw new Error('Error al subir imagen')
 
-      const uploadRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, {
-        method: 'POST',
-        body: formData,
-      })
-
-      if (!uploadRes.ok) throw new Error('Error al subir imagen')
-      const uploadData = await uploadRes.json()
-      onChange(uploadData.secure_url)
+      onChange(publicUrl)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido')
     } finally {

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
+import { createAdminClient } from '@/utils/supabase/admin'
 
 export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -12,7 +13,7 @@ export async function GET(_request: NextRequest, { params }: { params: Promise<{
 
     const user = await prisma.user.findUnique({
       where: { id },
-      select: { id: true, name: true, email: true, role: true, cloudinaryCloudName: true, cloudinaryApiKey: true, cloudinaryApiSecret: true },
+      select: { id: true, name: true, email: true, role: true },
     })
 
     if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 })
@@ -30,7 +31,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     const body = await request.json()
 
-    // Only ADMIN can change roles; users can update their own Cloudinary settings
+    // Only ADMIN can change roles; users can update their own profile
     if (body.role !== undefined && session.user.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -38,14 +39,11 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { name, role, cloudinaryCloudName, cloudinaryApiKey, cloudinaryApiSecret } = body
+    const { name, role } = body
 
     const updateData: Record<string, unknown> = {}
     if (name !== undefined) updateData.name = name
     if (role !== undefined) updateData.role = role
-    if (cloudinaryCloudName !== undefined) updateData.cloudinaryCloudName = cloudinaryCloudName || null
-    if (cloudinaryApiKey !== undefined) updateData.cloudinaryApiKey = cloudinaryApiKey || null
-    if (cloudinaryApiSecret !== undefined) updateData.cloudinaryApiSecret = cloudinaryApiSecret || null
 
     const user = await prisma.user.update({
       where: { id },
@@ -71,7 +69,12 @@ export async function DELETE(_request: NextRequest, { params }: { params: Promis
       return NextResponse.json({ error: 'Cannot delete your own account' }, { status: 400 })
     }
 
-    await prisma.user.delete({ where: { id } })
+    // Deleting the auth user first: if it fails, the profile row stays and nothing is orphaned
+    const { error: deleteError } = await createAdminClient().auth.admin.deleteUser(id)
+    if (deleteError && deleteError.status !== 404) {
+      return NextResponse.json({ error: 'Failed to delete user' }, { status: 500 })
+    }
+    await prisma.user.deleteMany({ where: { id } })
     return NextResponse.json({ message: 'User deleted' })
   } catch {
     return NextResponse.json({ error: 'Failed to delete user' }, { status: 500 })

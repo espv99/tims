@@ -296,25 +296,12 @@
       "updateError": "Error updating user",
       "deleteError": "Error deleting user"
     },
-    "settings": {
-      "pageTitle": "Settings",
-      "cloudinaryTitle": "Cloudinary Credentials",
-      "cloudinaryDescription": "Configure your Cloudinary account to upload images to your posts.",
-      "fieldCloudName": "Cloud Name",
-      "fieldApiKey": "API Key",
-      "fieldApiSecret": "API Secret",
-      "submit": "Save settings",
-      "submitting": "Saving...",
-      "saveSuccess": "Settings saved successfully",
-      "saveError": "Error saving settings"
-    },
     "nav": {
       "dashboard": "Dashboard",
       "news": "News",
       "events": "Events",
       "teachers": "Faculty",
       "users": "Users",
-      "settings": "Settings",
       "logout": "Sign out"
     }
   },

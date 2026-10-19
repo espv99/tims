@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { useSession } from 'next-auth/react'
+import { useSession } from '@/components/session-provider'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { CloudinaryUpload } from '@/components/admin/cloudinary-upload'
+import { SupabaseUpload } from '@/components/admin/supabase-upload'
 
 interface News {
   id: string
@@ -114,7 +114,7 @@ export default function AdminNews() {
                   value={formData.imageUrl}
                   onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                 />
-                <CloudinaryUpload value={formData.imageUrl} onChange={(url) => setFormData({ ...formData, imageUrl: url })} />
+                <SupabaseUpload value={formData.imageUrl} onChange={(url) => setFormData({ ...formData, imageUrl: url })} />
               </div>
             </div>
             <Button type="submit" disabled={submitting}>{submitting ? t('submitting') : t('submit')}</Button>
@@ -141,7 +141,7 @@ export default function AdminNews() {
                           value={editData.imageUrl}
                           onChange={(e) => setEditData({ ...editData, imageUrl: e.target.value })}
                         />
-                        <CloudinaryUpload value={editData.imageUrl} onChange={(url) => setEditData({ ...editData, imageUrl: url })} />
+                        <SupabaseUpload value={editData.imageUrl} onChange={(url) => setEditData({ ...editData, imageUrl: url })} />
                       </div>
                       <div className="flex gap-2">
                         <Button size="sm" disabled={submitting} onClick={() => handleUpdate(item.id)}>

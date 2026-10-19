@@ -296,25 +296,12 @@
       "updateError": "Error al actualizar el usuario",
       "deleteError": "Error al eliminar el usuario"
     },
-    "settings": {
-      "pageTitle": "Configuración",
-      "cloudinaryTitle": "Credenciales Cloudinary",
-      "cloudinaryDescription": "Configura tu cuenta de Cloudinary para subir imágenes a tus publicaciones.",
-      "fieldCloudName": "Cloud Name",
-      "fieldApiKey": "API Key",
-      "fieldApiSecret": "API Secret",
-      "submit": "Guardar configuración",
-      "submitting": "Guardando...",
-      "saveSuccess": "Configuración guardada correctamente",
-      "saveError": "Error al guardar la configuración"
-    },
     "nav": {
       "dashboard": "Dashboard",
       "news": "Noticias",
       "events": "Eventos",
       "teachers": "Docentes",
       "users": "Usuarios",
-      "settings": "Configuración",
       "logout": "Cerrar sesión"
     }
   },
