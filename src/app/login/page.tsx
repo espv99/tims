@@ -29,6 +29,7 @@ function LoginForm() {
         setError(t('invalidCredentials'))
       } else {
         router.push(callbackUrl)
+        router.refresh()
       }
     } catch {
       setError(t('error'))

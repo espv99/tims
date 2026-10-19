@@ -1,64 +1,29 @@
-import NextAuth from "next-auth"
-import Credentials from "next-auth/providers/credentials"
-import { prisma } from "@/lib/prisma"
-import bcrypt from "bcryptjs"
+import { prisma } from '@/lib/prisma'
+import { createClient } from '@/utils/supabase/server'
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  secret: process.env.AUTH_SECRET,
-  session: { strategy: "jwt" },
-  pages: {
-    signIn: '/login',
-  },
-  providers: [
-    Credentials({
-      credentials: {
-        email: {},
-        password: {},
-      },
-      authorize: async (credentials) => {
-        if (!credentials?.email || !credentials?.password) return null
-
-        try {
-          const user = await prisma.user.findUnique({
-            where: { email: credentials.email as string }
-          })
-
-          if (!user || !user.password) return null
-
-          const isValid = await bcrypt.compare(
-            credentials.password as string,
-            user.password
-          )
-
-          if (!isValid) return null
-
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role
-          }
-        } catch (error) {
-          console.error('[auth] authorize error:', error)
-          return null
-        }
-      },
-    }),
-  ],
-  callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        token.id = user.id
-        token.role = user.role
-      }
-      return token
-    },
-    session({ session, token }) {
-      if (token) {
-        session.user.id = token.id as string
-        session.user.role = token.role as string
-      }
-      return session
-    }
+export interface AppSession {
+  user: {
+    id: string
+    role: string
+    name: string | null
+    email: string | null
   }
-})
+}
+
+// Resolves the current session from the Supabase auth cookie. The role lives in the
+// public "User" table, so a Supabase user without a profile row has no session.
+export async function auth(): Promise<AppSession | null> {
+  const supabase = await createClient()
+  const {
+    data: { user: authUser },
+  } = await supabase.auth.getUser()
+  if (!authUser) return null
+
+  const user = await prisma.user.findUnique({
+    where: { id: authUser.id },
+    select: { id: true, name: true, email: true, role: true },
+  })
+  if (!user) return null
+
+  return { user: { id: user.id, role: user.role, name: user.name, email: user.email } }
+}

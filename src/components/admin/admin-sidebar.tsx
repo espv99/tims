@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/utils/supabase/client'
 import { useTranslations } from 'next-intl'
 import { LayoutDashboard, Newspaper, Calendar, GraduationCap, Users, Settings, LogOut, X } from 'lucide-react'
 
@@ -16,6 +17,13 @@ interface AdminSidebarProps {
 export function AdminSidebar({ role, userName, userEmail, onClose }: AdminSidebarProps) {
   const t = useTranslations('admin.nav')
   const pathname = usePathname()
+  const router = useRouter()
+
+  const handleSignOut = async () => {
+    await createClient().auth.signOut()
+    router.push('/login')
+    router.refresh()
+  }
 
   const navItems = [
     { label: t('dashboard'), href: '/admin', icon: LayoutDashboard },
@@ -69,7 +77,7 @@ export function AdminSidebar({ role, userName, userEmail, onClose }: AdminSideba
 
       <div className="p-3 border-t border-border">
         <button
-          onClick={() => signOut({ callbackUrl: '/login' })}
+          onClick={() => handleSignOut()}
           className="flex items-center gap-3 w-full px-3 py-2.5 rounded-md text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors cursor-pointer"
         >
           <LogOut className="w-4 h-4 shrink-0" />
