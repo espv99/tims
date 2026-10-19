@@ -1,7 +1,7 @@
 'use client'
 
 import { Suspense, useState } from 'react'
-import { signIn } from 'next-auth/react'
+import { createClient } from '@/utils/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -24,8 +24,8 @@ function LoginForm() {
     setLoading(true)
     setError('')
     try {
-      const result = await signIn('credentials', { email, password, redirect: false })
-      if (result?.error) {
+      const { error: signInError } = await createClient().auth.signInWithPassword({ email, password })
+      if (signInError) {
         setError(t('invalidCredentials'))
       } else {
         router.push(callbackUrl)
