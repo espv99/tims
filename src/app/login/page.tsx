@@ -25,6 +25,7 @@ function LoginForm() {
     rawCallback && rawCallback.startsWith('/') && !rawCallback.startsWith('//') && !rawCallback.startsWith('/\\')
       ? rawCallback
       : '/'
+  const hasCallback = rawCallback !== null && callbackUrl === rawCallback
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,7 +37,15 @@ function LoginForm() {
         const isBadCredentials = signInError.code === 'invalid_credentials' || signInError.status === 400
         setError(isBadCredentials ? t('invalidCredentials') : t('error'))
       } else {
-        router.push(callbackUrl)
+        // Without an explicit destination, staff go straight to the panel
+        let destination = callbackUrl
+        if (!hasCallback) {
+          const res = await fetch('/api/me', { cache: 'no-store' })
+          const session = res.ok ? await res.json() : null
+          const role = session?.user?.role
+          if (role === 'ADMIN' || role === 'EDITOR') destination = '/admin'
+        }
+        router.push(destination)
         router.refresh()
       }
     } catch {

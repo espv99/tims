@@ -4,7 +4,10 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { useSession } from '@/components/session-provider';
+import { createClient } from '@/utils/supabase/client';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 import { Menu, X } from 'lucide-react';
@@ -45,6 +48,50 @@ function ThemeToggle() {
   );
 }
 
+function AuthActions({ mobile = false, onNavigate }: { mobile?: boolean; onNavigate?: () => void }) {
+  const t = useTranslations('nav');
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const buttonClass = mobile ? 'w-full' : '';
+
+  // Reserve the space while the session resolves so the header does not jump
+  if (status === 'loading') return <div aria-hidden className={mobile ? 'h-9' : 'ml-2 h-9 w-28'} />;
+
+  if (!session) {
+    return (
+      <Button asChild variant="outline" size="sm" className={mobile ? 'w-full' : 'ml-2'}>
+        <Link href="/login?callbackUrl=/admin" onClick={onNavigate}>
+          {t('login')}
+        </Link>
+      </Button>
+    );
+  }
+
+  const canManage = session.user.role === 'ADMIN' || session.user.role === 'EDITOR';
+
+  const handleSignOut = async () => {
+    await createClient().auth.signOut();
+    onNavigate?.();
+    router.push('/');
+    router.refresh();
+  };
+
+  return (
+    <div className={mobile ? 'flex flex-col gap-2' : 'ml-2 flex items-center gap-2'}>
+      {canManage && (
+        <Button asChild size="sm" className={buttonClass}>
+          <Link href="/admin" onClick={onNavigate}>
+            {t('panel')}
+          </Link>
+        </Button>
+      )}
+      <Button variant="outline" size="sm" className={buttonClass} onClick={handleSignOut}>
+        {t('logout')}
+      </Button>
+    </div>
+  );
+}
+
 export function Navbar() {
   const t = useTranslations('nav');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -77,9 +124,7 @@ export function Navbar() {
         ))}
         <LanguageSwitcher />
         <ThemeToggle />
-        <Button asChild variant="outline" size="sm" className="ml-2">
-          <Link href="/login?callbackUrl=/admin">{t('login')}</Link>
-        </Button>
+        <AuthActions />
       </div>
 
       {/* Mobile controls */}
@@ -110,11 +155,7 @@ export function Navbar() {
               </Link>
             ))}
             <div className="py-2 border-t border-border mt-1">
-              <Button asChild variant="outline" size="sm" className="w-full">
-                <Link href="/login?callbackUrl=/admin" onClick={closeMenu}>
-                  {t('login')}
-                </Link>
-              </Button>
+              <AuthActions mobile onNavigate={closeMenu} />
             </div>
           </div>
         </div>
