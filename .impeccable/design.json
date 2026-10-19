@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-19T00:00:00Z",
+  "title": "Design System: Ingeniería en Tecnologías de la Información, Sede Morona Santiago",
+  "extensions": {
+    "colorMeta": {
+      "midnight-institute": { "role": "primary", "displayName": "Midnight Institute", "canonical": "#001b55", "tonalRamp": ["#000a24", "#001240", "#001b55", "#1a3a85", "#4a65a8", "#8393c4", "#bcc4de", "#e6e9f4"] },
+      "mine-gold": { "role": "secondary", "displayName": "Mine Gold", "canonical": "#d79b05", "tonalRamp": ["#3d2c00", "#6b4b00", "#9a6f02", "#d79b05", "#e8b933", "#f2d06b", "#f8e4a3", "#fcf4d9"] },
+      "ink-night": { "role": "neutral", "displayName": "Ink Night", "canonical": "#020817", "tonalRamp": ["#020817", "#0f172a", "#1e293b", "#475569", "#64748b", "#94a3b8", "#cbd5e1", "#f1f5f9"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero title only, one per page." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles." },
+      "title": { "displayName": "Title", "purpose": "Card and list-item titles." },
+      "body": { "displayName": "Body", "purpose": "Running text, 65 to 75ch." },
+      "label": { "displayName": "Label", "purpose": "Hero badge and short tags." }
+    },
+    "shadows": [
+      { "name": "focus-ring", "value": "0 0 0 2px #ffffff, 0 0 0 4px #001b55", "purpose": "Keyboard focus on every interactive element." }
+    ],
+    "motion": [
+      { "name": "ease-out-quart", "value": "cubic-bezier(0.25, 1, 0.5, 1)", "purpose": "State transitions, 200ms." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button", "kind": "button", "refersTo": "button-primary",
+      "description": "Main action on light surfaces.",
+      "html": "<button class=\"ds-btn-primary\">Guardar cambios</button>",
+      "css": ".ds-btn-primary{background:#001b55;color:#fff;height:40px;padding:8px 16px;border:0;border-radius:8px;font:500 14px Inter,sans-serif;cursor:pointer;transition:background .2s}.ds-btn-primary:hover{background:#1a3a85}.ds-btn-primary:focus-visible{outline:none;box-shadow:0 0 0 2px #fff,0 0 0 4px #001b55}"
+    },
+    {
+      "name": "Gold CTA", "kind": "button", "refersTo": "button-cta",
+      "description": "Primary invitation on navy surfaces.",
+      "html": "<button class=\"ds-btn-cta\">Conocer la carrera</button>",
+      "css": ".ds-btn-cta{background:#d79b05;color:#001b55;padding:12px 24px;border:0;border-radius:8px;font:600 14px Inter,sans-serif;cursor:pointer;transition:background .2s}.ds-btn-cta:hover{background:#c48a04}.ds-btn-cta:focus-visible{outline:none;box-shadow:0 0 0 2px #001b55,0 0 0 4px #d79b05}"
+    },
+    {
+      "name": "Outline Button", "kind": "button", "refersTo": "button-outline",
+      "description": "Secondary action, such as login in the header.",
+      "html": "<button class=\"ds-btn-outline\">Iniciar sesión</button>",
+      "css": ".ds-btn-outline{background:#fff;color:#020817;height:36px;padding:8px 12px;border:1px solid #e2e8f0;border-radius:8px;font:500 14px Inter,sans-serif;cursor:pointer;transition:background .2s}.ds-btn-outline:hover{background:#f1f5f9}.ds-btn-outline:focus-visible{outline:none;box-shadow:0 0 0 2px #fff,0 0 0 4px #001b55}"
+    },
+    {
+      "name": "Text Input", "kind": "input", "refersTo": "input",
+      "description": "Form field with hairline stroke.",
+      "html": "<input class=\"ds-input\" placeholder=\"correo@espoch.edu.ec\" />",
+      "css": ".ds-input{width:240px;height:40px;padding:8px 12px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#020817;font:400 14px Inter,sans-serif}.ds-input::placeholder{color:#64748b}.ds-input:focus-visible{outline:none;box-shadow:0 0 0 2px #fff,0 0 0 4px #001b55}"
+    },
+    {
+      "name": "Card", "kind": "card", "refersTo": "card",
+      "description": "Flat container with hairline border.",
+      "html": "<div class=\"ds-card\"><h3>Proyecto de vinculación</h3><p>Descripción breve del proyecto y su impacto.</p></div>",
+      "css": ".ds-card{width:280px;padding:24px;border:1px solid #e2e8f0;border-radius:12px;background:#fff;color:#020817;font:400 16px/1.6 Inter,sans-serif}.ds-card h3{margin:0 0 8px;font:600 20px/1.3 Poppins,Inter,sans-serif}.ds-card p{margin:0;color:#64748b}"
+    },
+    {
+      "name": "Hero Badge", "kind": "chip", "refersTo": "badge",
+      "description": "Gold seal above the hero title, used once.",
+      "html": "<span class=\"ds-badge\">Sede Morona Santiago</span>",
+      "css": ".ds-badge{display:inline-block;padding:4px 12px;border-radius:9999px;background:#d79b05;color:#001b55;font:600 12px Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Faculty Lectern",
+    "overview": "A lectern is where a department speaks with authority and without raising its voice. Deep navy sets the institutional tone, gold appears only where something is being certified, announced or offered, and real content does the persuading. Surfaces are flat and tonal.",
+    "keyCharacteristics": [
+      "Navy-led, gold as a seal: the accent is rare on purpose.",
+      "Flat and tonal elevation; depth through color blocks and hairline borders.",
+      "One body family (Inter), one display voice (Poppins), strong weight contrast.",
+      "Light and dark themes; layouts survive Spanish and English copy at mobile width.",
+      "WCAG AA is the floor, not a goal."
+    ],
+    "rules": [
+      { "name": "The Seal Rule", "body": "Mine Gold marks one thing at a time: the primary invitation or the active state.", "section": "colors" },
+      { "name": "The One Blue Rule", "body": "There is a single brand blue, Midnight Institute. The stock shadcn blue behind --primary is drift and must be replaced.", "section": "colors" },
+      { "name": "The Gold-On-Navy Rule", "body": "Gold sits on navy; text on a gold fill is navy, never white.", "section": "colors" },
+      { "name": "The Heading Voice Rule", "body": "Headings are Poppins, everything else is Inter. No third family.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. If a card needs a shadow to be seen, its border or background is wrong.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do let Midnight Institute (#001b55) carry hero, footer and primary actions, and use Mine Gold (#d79b05) as a rare seal.",
+      "Do put navy text on gold fills and gold or white text on navy surfaces; check every pair for AA.",
+      "Do keep layouts intact at 360px width and in both Spanish and English strings."
+    ],
+    "donts": [
+      "Don't build a generic university portal: no stock-photo banners, carousels, logo walls or bureaucratic copy.",
+      "Don't build a SaaS/startup template: no gradients, no identical icon-and-heading cards, no hero metrics.",
+      "Don't use hacker clichés: no green terminal text, neon accents or Matrix effects.",
+      "Don't use white text on a gold fill (2.4:1).",
+      "Don't introduce a second blue."
+    ]
+  }
+}
