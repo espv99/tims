@@ -103,93 +103,95 @@ export default function TimelinePage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
 
-      <div className="bg-blueti text-white">
-        <div className="max-w-4xl mx-auto px-4 py-10">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">{t('title')}</h1>
-          <p className="text-blue-200 text-sm">{t('subtitle')}</p>
-        </div>
-      </div>
-
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="flex gap-2 mb-8">
-          {filters.map(({ key, label }) => (
-            <button
-              key={key}
-              onClick={() => setFilter(key)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 cursor-pointer ${
-                filter === key
-                  ? 'bg-blueti text-white'
-                  : 'bg-card border border-border text-muted-foreground hover:text-foreground hover:border-blueti/30'
-              }`}
-            >
-              {label}
-            </button>
-          ))}
+      <main id="main-content">
+        <div className="bg-blueti text-white">
+          <div className="max-w-4xl mx-auto px-4 py-10">
+            <h1 className="text-2xl md:text-3xl font-bold mb-2">{t('title')}</h1>
+            <p className="text-blue-200 text-sm">{t('subtitle')}</p>
+          </div>
         </div>
 
-        {loading ? (
-          <div className="space-y-0">
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </div>
-        ) : timelineItems.length === 0 ? (
-          <div className="bg-card border border-border rounded-xl p-12 text-center text-muted-foreground">
-            <svg className="w-12 h-12 mx-auto mb-4 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5" />
-            </svg>
-            {t('empty')}
-          </div>
-        ) : (
-          <div>
-            {timelineItems.map((item, index) => (
-              <div key={`${item.type}-${item.id}`} className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div className={`w-3 h-3 rounded-full flex-shrink-0 mt-5 ${item.type === 'news' ? 'bg-blueti' : 'bg-gold'}`} />
-                  {index < timelineItems.length - 1 && <div className="w-px flex-1 bg-border mt-1" />}
-                </div>
-
-                <div className="flex-1 bg-card border border-border rounded-xl p-5 mb-4 hover:border-blueti/30 transition-colors duration-200">
-                  <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <Badge
-                      variant={item.type === 'news' ? 'default' : 'secondary'}
-                      className={
-                        item.type === 'news'
-                          ? 'bg-blueti hover:bg-blueti/90'
-                          : 'bg-gold/15 text-gold hover:bg-gold/20 border-0'
-                      }
-                    >
-                      {item.type === 'news' ? t('typeNews') : t('typeEvent')}
-                    </Badge>
-                    <span className="text-xs text-muted-foreground">{formatDate(item.date, 'es')}</span>
-                  </div>
-
-                  <h2 className="font-semibold text-base md:text-lg text-foreground mb-2">{item.title}</h2>
-
-                  {item.type === 'news' ? (
-                    <div>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-2">{item.content}</p>
-                      {item.author && (
-                        <p className="text-xs text-muted-foreground">{t('by')} {item.author.name || item.author.email}</p>
-                      )}
-                    </div>
-                  ) : (
-                    <div>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-2">{item.description}</p>
-                      {item.location && (
-                        <p className="text-xs text-muted-foreground">
-                          <LocationIcon />
-                          {item.location}
-                        </p>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          <div className="flex gap-2 mb-8">
+            {filters.map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => setFilter(key)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 cursor-pointer ${
+                  filter === key
+                    ? 'bg-blueti text-white'
+                    : 'bg-card border border-border text-muted-foreground hover:text-foreground hover:border-blueti/30'
+                }`}
+              >
+                {label}
+              </button>
             ))}
           </div>
-        )}
-      </div>
+
+          {loading ? (
+            <div className="space-y-0">
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+            </div>
+          ) : timelineItems.length === 0 ? (
+            <div className="bg-card border border-border rounded-xl p-12 text-center text-muted-foreground">
+              <svg className="w-12 h-12 mx-auto mb-4 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5" />
+              </svg>
+              {t('empty')}
+            </div>
+          ) : (
+            <div>
+              {timelineItems.map((item, index) => (
+                <div key={`${item.type}-${item.id}`} className="flex gap-4">
+                  <div className="flex flex-col items-center">
+                    <div className={`w-3 h-3 rounded-full flex-shrink-0 mt-5 ${item.type === 'news' ? 'bg-blueti' : 'bg-gold'}`} />
+                    {index < timelineItems.length - 1 && <div className="w-px flex-1 bg-border mt-1" />}
+                  </div>
+
+                  <div className="flex-1 bg-card border border-border rounded-xl p-5 mb-4 hover:border-blueti/30 transition-colors duration-200">
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                      <Badge
+                        variant={item.type === 'news' ? 'default' : 'secondary'}
+                        className={
+                          item.type === 'news'
+                            ? 'bg-blueti hover:bg-blueti/90'
+                            : 'bg-gold/15 text-gold hover:bg-gold/20 border-0'
+                        }
+                      >
+                        {item.type === 'news' ? t('typeNews') : t('typeEvent')}
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">{formatDate(item.date, 'es')}</span>
+                    </div>
+
+                    <h2 className="font-semibold text-base md:text-lg text-foreground mb-2">{item.title}</h2>
+
+                    {item.type === 'news' ? (
+                      <div>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-2">{item.content}</p>
+                        {item.author && (
+                          <p className="text-xs text-muted-foreground">{t('by')} {item.author.name || item.author.email}</p>
+                        )}
+                      </div>
+                    ) : (
+                      <div>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-2">{item.description}</p>
+                        {item.location && (
+                          <p className="text-xs text-muted-foreground">
+                            <LocationIcon />
+                            {item.location}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 }

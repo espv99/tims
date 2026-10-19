@@ -8,7 +8,7 @@ export default async function PersonalDocentePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-5xl mx-auto px-4 py-12">
+      <main id="main-content" className="max-w-5xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
           <h1 className="text-3xl font-bold text-foreground">{t('title')}</h1>
           <p className="text-muted-foreground mt-2">{t('subtitle')}</p>
@@ -47,7 +47,7 @@ export default async function PersonalDocentePage() {
             ))}
           </div>
         )}
-      </div>
+      </main>
     </div>
   )
 }

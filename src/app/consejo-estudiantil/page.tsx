@@ -20,7 +20,7 @@ export default async function ConsejoEstudiantilPage() {
   return (
     <div className="bg-background text-foreground min-h-screen">
       <Header />
-      <div className="max-w-5xl mx-auto px-4 py-10 space-y-8">
+      <main id="main-content" className="max-w-5xl mx-auto px-4 py-10 space-y-8">
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{t('title')}</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">{t('description')}</p>
@@ -78,7 +78,7 @@ export default async function ConsejoEstudiantilPage() {
             </ul>
           </CardContent>
         </Card>
-      </div>
+      </main>
     </div>
   )
 }

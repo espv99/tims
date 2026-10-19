@@ -4,6 +4,7 @@ import { metadata } from "./metadata";
 import "../styles/globals.css";
 import "../styles/brand.css";
 import { Providers } from "@/components/providers";
+import { SkipLink } from "@/components/SkipLink";
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
 
@@ -16,6 +17,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang={locale} suppressHydrationWarning>
       <body className={`${inter.variable} ${poppins.variable} antialiased w-full`}>
         <NextIntlClientProvider>
+          <SkipLink />
           <Providers>
             {children}
           </Providers>
