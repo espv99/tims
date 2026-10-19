@@ -88,4 +88,4 @@ Después de publicar el informe se detectó un error del método: la medición d
 | P2 `aria-expanded` y `aria-label` fijos | Resuelto: también se cierra con Escape y los ids son únicos | `9cbeb4c` |
 | P2 botones táctiles bajo 44px | Resuelto: todo el encabezado mide 44px o más (61px de alto en total) | `9cbeb4c` |
 | P2 rutas renderizadas en cada petición | Pendiente | |
-| P3 colores de Tailwind escritos a mano | Resuelto en las páginas en uso (tokens `blueti-muted`, `blueti-subtle`, `destructive-text`). Quedan en `TestButton.tsx` y `visionMisionBanner.tsx`, que no se importan en ningún lado | `be75ae2` |
+| P3 colores de Tailwind escritos a mano | Resuelto en las páginas en uso (tokens `blueti-muted`, `blueti-subtle`, `destructive-text`). Los dos archivos que seguían con colores fijos (`TestButton.tsx` y `visionMisionBanner.tsx`) no se importaban en ningún lado y se borraron | `be75ae2` |
