@@ -1,6 +1,8 @@
 'use client'
 
 import { Suspense, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 import { createClient } from '@/utils/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
@@ -88,7 +90,10 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
+        <CardHeader className="items-center text-center">
+          <Link href="/" aria-label={t('backHome')} className="mb-2 rounded-full bg-white">
+            <Image src="/logo.png" alt="" width={64} height={64} priority />
+          </Link>
           <h1 className="text-2xl font-semibold leading-none tracking-tight">{t('title')}</h1>
           <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
@@ -96,6 +101,12 @@ export default function LoginPage() {
           <Suspense fallback={<div className="h-40" />}>
             <LoginForm />
           </Suspense>
+          <Link
+            href="/"
+            className="mt-6 block text-center text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+          >
+            {t('backHome')}
+          </Link>
         </CardContent>
       </Card>
     </div>

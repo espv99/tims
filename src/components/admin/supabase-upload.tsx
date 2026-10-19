@@ -76,7 +76,7 @@ export function SupabaseUpload({ value, onChange, label = 'Subir imagen' }: Supa
           }}
         />
       </div>
-      {error && <p className="text-xs text-destructive">{error}</p>}
+      {error && <p className="text-xs text-red-700 dark:text-red-400">{error}</p>}
       {value && (
         <img src={value} alt="preview" className="h-24 w-auto rounded-md object-cover border border-border" />
       )}

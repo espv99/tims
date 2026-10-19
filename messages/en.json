@@ -190,11 +190,12 @@
     ]
   },
   "login": {
-    "title": "Sign In",
+    "title": "Sign in",
     "description": "Enter your credentials to access the administration panel",
     "email": "Email",
     "password": "Password",
-    "submit": "Sign In",
+    "submit": "Sign in",
+    "backHome": "Back to home",
     "submitting": "Signing in...",
     "invalidCredentials": "Invalid credentials",
     "error": "Sign in error"
