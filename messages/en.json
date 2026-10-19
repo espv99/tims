@@ -7,12 +7,17 @@
     "personalDocente": "Faculty",
     "login": "Sign in",
     "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "themeToLight": "Switch to light theme",
+    "themeToDark": "Switch to dark theme",
     "panel": "Dashboard",
     "logout": "Sign out",
     "brand": "Information Technologies"
   },
   "lang": {
     "label": "Language",
+    "switch": "Switch language",
     "es": "Español",
     "en": "English"
   },

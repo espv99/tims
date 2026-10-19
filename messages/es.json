@@ -7,12 +7,17 @@
     "personalDocente": "Docentes",
     "login": "Iniciar sesión",
     "skipToContent": "Saltar al contenido",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "themeToLight": "Cambiar a tema claro",
+    "themeToDark": "Cambiar a tema oscuro",
     "panel": "Panel",
     "logout": "Cerrar sesión",
     "brand": "Tecnologías de la Información"
   },
   "lang": {
     "label": "Idioma",
+    "switch": "Cambiar idioma",
     "es": "Español",
     "en": "English"
   },

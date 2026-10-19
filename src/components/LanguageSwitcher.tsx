@@ -1,8 +1,8 @@
 'use client';
 
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useState, useRef, useEffect, useTransition } from 'react';
+import { useState, useRef, useEffect, useId, useTransition } from 'react';
 
 const languages = [
   { code: 'es', label: 'Español', short: 'ES' },
@@ -40,6 +40,8 @@ function CheckIcon() {
 }
 
 export function LanguageSwitcher() {
+  const t = useTranslations('lang');
+  const menuId = useId();
   const locale = useLocale();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -50,8 +52,15 @@ export function LanguageSwitcher() {
     function onClickOutside(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setOpen(false);
+    }
     document.addEventListener('mousedown', onClickOutside);
-    return () => document.removeEventListener('mousedown', onClickOutside);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', onClickOutside);
+      document.removeEventListener('keydown', onKeyDown);
+    };
   }, []);
 
   function switchLocale(next: string) {
@@ -67,9 +76,10 @@ export function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label="Switch language"
+        aria-label={t('switch')}
         aria-expanded={open}
-        className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors duration-200 cursor-pointer ${isPending ? 'opacity-50 pointer-events-none' : ''}`}
+        aria-controls={menuId}
+        className={`flex h-11 items-center gap-1.5 px-3 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors duration-200 cursor-pointer ${isPending ? 'opacity-50 pointer-events-none' : ''}`}
       >
         <GlobeIcon />
         <span className="text-xs font-semibold tracking-wide">{current.short}</span>
@@ -77,16 +87,17 @@ export function LanguageSwitcher() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-1.5 w-36 rounded-xl border border-border bg-card shadow-lg overflow-hidden z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+        <div id={menuId} className="absolute right-0 top-full mt-1.5 w-36 rounded-xl border border-border bg-card shadow-lg overflow-hidden z-50 animate-in fade-in slide-in-from-top-1 duration-150">
           {languages.map((lang) => {
             const isActive = locale === lang.code;
             return (
               <button
                 key={lang.code}
                 onClick={() => switchLocale(lang.code)}
-                className={`w-full flex items-center justify-between gap-2 px-3.5 py-2.5 text-sm cursor-pointer transition-colors duration-150 ${
+                aria-current={isActive ? 'true' : undefined}
+                className={`w-full flex items-center justify-between gap-2 px-3.5 py-3 text-sm cursor-pointer transition-colors duration-150 ${
                   isActive
-                    ? 'bg-blueti/8 text-blueti font-semibold'
+                    ? 'bg-blueti/8 text-blueti dark:bg-primary/10 dark:text-primary font-semibold'
                     : 'text-foreground hover:bg-muted'
                 }`}
               >
@@ -95,7 +106,7 @@ export function LanguageSwitcher() {
                   <span>{lang.label}</span>
                 </div>
                 {isActive && (
-                  <span className="text-blueti">
+                  <span className="text-blueti dark:text-primary">
                     <CheckIcon />
                   </span>
                 )}
