@@ -5,34 +5,42 @@ Sitio web oficial de la carrera de **Ingeniería en Tecnologías de la Informaci
 ## Stack
 
 - **Next.js 15** (App Router) · **TypeScript**
-- **PostgreSQL** · **Prisma ORM**
-- **NextAuth v5** (JWT + Credentials)
+- **Supabase** (PostgreSQL, Auth y Storage) · **Prisma ORM**
 - **Tailwind CSS 4** · **shadcn/ui**
 - **next-intl** (i18n: `es` / `en`)
-- **Cloudinary** (subida de imágenes por usuario)
 
 ## Requisitos
 
 - Node.js 18+
-- PostgreSQL (o cuenta en [Neon](https://neon.tech))
+- Un proyecto en [Supabase](https://supabase.com)
 
 ## Variables de entorno
 
 Crear un archivo `.env` en la raíz con:
 
 ```env
-DATABASE_URL=postgresql://...?sslmode=require
-AUTH_SECRET=<string aleatorio, mínimo 32 chars>
+NEXT_PUBLIC_SUPABASE_URL=https://<project-ref>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon / publishable key>
+SUPABASE_SERVICE_ROLE_KEY=<service_role key, solo servidor>
+DATABASE_URL=<conexión del pooler de Supabase, puerto 6543>
+DIRECT_URL=<conexión directa, usada por prisma migrate>
 ```
 
-Ejecutar `openssl rand -base64 32` para generar `AUTH_SECRET`.
+Las claves están en Supabase, en **Project Settings → API**. `SUPABASE_SERVICE_ROLE_KEY` es secreta: nunca la subas a git ni le pongas el prefijo `NEXT_PUBLIC_`. En `.env.example` hay una plantilla.
+
+Opcionales para el seed: `ADMIN_EMAIL` y `ADMIN_PASSWORD` (por defecto `admin@tims.com` / `admin123`, solo para desarrollo).
+
+### Configuración en Supabase
+
+1. Crear un bucket de Storage público llamado `media`.
+2. Aplicar las migraciones y crear el admin (ver Instalación).
 
 ## Instalación
 
 ```bash
 npm install
-npx prisma migrate dev
-npx prisma db seed      # Crea usuario admin@tims.com / admin123
+npx prisma migrate deploy
+npx prisma db seed      # Crea el admin en Supabase Auth y en la tabla User
 npm run dev
 ```
 
@@ -46,7 +54,7 @@ npm run lint     # ESLint
 
 npx prisma generate     # Regenerar cliente Prisma
 npx prisma migrate dev  # Aplicar migraciones
-npx prisma db seed      # Sembrar usuario admin
+npx prisma db seed      # Crear el usuario admin
 npx prisma studio       # GUI de base de datos
 ```
 
@@ -72,7 +80,6 @@ Acceso en `/admin`. Requiere rol **ADMIN** o **EDITOR**.
 | `/admin/events` | Gestión de eventos | ✓ CRUD | ✓ crear/editar |
 | `/admin/teachers` | Gestión de docentes | ✓ CRUD | ✓ crear/editar |
 | `/admin/users` | Gestión de usuarios y roles | ✓ solo ADMIN | ✗ |
-| `/admin/settings` | Credenciales Cloudinary | ✓ | ✓ |
 
 ### Roles
 
@@ -80,15 +87,13 @@ Acceso en `/admin`. Requiere rol **ADMIN** o **EDITOR**.
 - **EDITOR** — puede crear y editar contenido, sin eliminar ni gestionar usuarios
 - **USER** — sin acceso al panel
 
-### Cloudinary (subida de imágenes)
+### Autenticación
 
-Cada usuario configura sus propias credenciales en `/admin/settings`:
+El inicio de sesión usa Supabase Auth (correo y contraseña). El rol vive en la tabla `User` de Prisma, cuyo `id` es el mismo que el del usuario en Supabase Auth. Los usuarios se crean desde `/admin/users`, que los registra en ambos lados.
 
-1. Crear cuenta en [cloudinary.com](https://cloudinary.com)
-2. Copiar **Cloud Name**, **API Key** y **API Secret**
-3. Pegarlos en Configuración dentro del panel
+### Subida de imágenes
 
-Al crear/editar noticias, eventos o docentes, el botón **Subir imagen** usará esas credenciales para hacer un upload firmado directamente a Cloudinary.
+Al crear o editar noticias, eventos o docentes, el botón **Subir imagen** sube el archivo directo al bucket público `media` de Supabase Storage. El servidor firma la subida en `/api/storage/sign`, solo para ADMIN y EDITOR.
 
 ## Estructura del proyecto
 
@@ -98,11 +103,11 @@ src/
 │   ├── admin/           # Panel CMS (layout con sidebar)
 │   │   ├── events/      # CRUD eventos
 │   │   ├── news/        # CRUD noticias
-│   │   ├── settings/    # Config. Cloudinary por usuario
 │   │   ├── teachers/    # CRUD docentes
 │   │   └── users/       # Gestión usuarios (solo ADMIN)
 │   ├── api/
-│   │   ├── cloudinary/sign/  # Genera firma para upload
+│   │   ├── me/          # Sesión actual (usada por el cliente)
+│   │   ├── storage/sign/ # Firma la subida a Supabase Storage
 │   │   ├── events/      # REST API eventos
 │   │   ├── news/        # REST API noticias
 │   │   ├── teachers/    # REST API docentes
@@ -111,10 +116,12 @@ src/
 ├── components/
 │   ├── admin/
 │   │   ├── admin-sidebar.tsx     # Sidebar con navegación
-│   │   └── cloudinary-upload.tsx # Componente de subida
+│   │   └── supabase-upload.tsx   # Componente de subida
 │   └── ui/              # Componentes shadcn/ui
 ├── sections/            # Secciones del landing
-└── auth.ts              # Configuración NextAuth
+├── utils/supabase/      # Clientes de Supabase (browser, server, admin)
+├── middleware.ts        # Refresca la sesión de Supabase
+└── auth.ts              # auth(): sesión + rol desde Prisma
 prisma/
 ├── schema.prisma        # Modelos: User, News, Event, Teacher
 └── seed.ts              # Admin por defecto
