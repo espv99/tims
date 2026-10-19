@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
               <span className="text-xl font-bold tracking-tight">TIMS</span>
               <span className="text-gold text-xs font-semibold ml-2 uppercase tracking-widest">ESPOCH</span>
             </div>
-            <p className="text-blue-200 text-sm leading-relaxed">{t('description')}</p>
+            <p className="text-blueti-muted text-sm leading-relaxed">{t('description')}</p>
             <div className="flex gap-3 mt-1">
               <a
                 href="https://www.facebook.com/TIespochMorona"
@@ -86,7 +86,7 @@ const Footer: React.FC = () => {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-blue-200 hover:text-white text-sm transition-colors duration-200"
+                    className="text-blueti-muted hover:text-white text-sm transition-colors duration-200"
                   >
                     {tNav(link.labelKey)}
                   </Link>
@@ -101,14 +101,14 @@ const Footer: React.FC = () => {
             <div className="flex flex-col gap-3">
               <a
                 href="tel:+593978764482"
-                className="flex items-start gap-2 text-blue-200 hover:text-white text-sm transition-colors duration-200"
+                className="flex items-start gap-2 text-blueti-muted hover:text-white text-sm transition-colors duration-200"
               >
                 <PhoneIcon />
                 +593 978 764 482
               </a>
               <a
                 href="mailto:informaciontecnologias2020@gmail.com"
-                className="flex items-start gap-2 text-blue-200 hover:text-white text-sm transition-colors duration-200 break-all"
+                className="flex items-start gap-2 text-blueti-muted hover:text-white text-sm transition-colors duration-200 break-all"
               >
                 <EmailIcon />
                 informaciontecnologias2020@gmail.com
@@ -120,10 +120,10 @@ const Footer: React.FC = () => {
 
       <div className="border-t border-white/10">
         <div className="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-blue-300 text-xs">
+          <p className="text-blueti-subtle text-xs">
             © {new Date().getFullYear()} ESPOCH Sede Morona Santiago. {t('rights')}
           </p>
-          <p className="text-blue-400 text-xs">{t('role')}</p>
+          <p className="text-blueti-subtle text-xs">{t('role')}</p>
         </div>
       </div>
     </footer>

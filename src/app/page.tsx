@@ -29,7 +29,7 @@ export default async function Home() {
             <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-5">
               {t('title')}
             </h1>
-            <p className="text-blue-200 text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+            <p className="text-blueti-muted text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
               {t('description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">

@@ -24,6 +24,9 @@
   --blueti: #001b55;
   --gold: #d79b05;
   --gold-dark: #c48a04;
+  --blueti-muted: #bfdbfe;
+  --blueti-subtle: #93c5fd;
+  --destructive-text: 0 72% 45%;
 }
 
 .dark {
@@ -46,6 +49,7 @@
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 224.3 76.3% 94.1%;
+  --destructive-text: 0 91% 71%;
 }
 
 @theme inline {
@@ -71,6 +75,9 @@
   --color-blueti: var(--blueti);
   --color-gold: var(--gold);
   --color-gold-dark: var(--gold-dark);
+  --color-blueti-muted: var(--blueti-muted);
+  --color-blueti-subtle: var(--blueti-subtle);
+  --color-destructive-text: hsl(var(--destructive-text));
 
   --font-sans: var(--font-sans);
 }
