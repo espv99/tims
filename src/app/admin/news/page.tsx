@@ -35,13 +35,19 @@ export default function AdminNews() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editData, setEditData] = useState(emptyForm)
 
-  useEffect(() => { fetchNews() }, [])
+  useEffect(() => {
+    fetchNews()
+  }, [])
 
   const fetchNews = async () => {
     try {
       const res = await fetch('/api/news')
       if (res.ok) setNews(await res.json())
-    } catch (e) { console.error(e) } finally { setLoading(false) }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,9 +59,15 @@ export default function AdminNews() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
-      if (res.ok) { setFormData(emptyForm); fetchNews() }
-      else alert(t('createError'))
-    } catch { alert(t('createError')) } finally { setSubmitting(false) }
+      if (res.ok) {
+        setFormData(emptyForm)
+        fetchNews()
+      } else alert(t('createError'))
+    } catch {
+      alert(t('createError'))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleEdit = (item: News) => {
@@ -71,9 +83,15 @@ export default function AdminNews() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editData),
       })
-      if (res.ok) { setEditingId(null); fetchNews() }
-      else alert(t('createError'))
-    } catch { alert(t('createError')) } finally { setSubmitting(false) }
+      if (res.ok) {
+        setEditingId(null)
+        fetchNews()
+      } else alert(t('createError'))
+    } catch {
+      alert(t('createError'))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleDelete = async (id: string) => {
@@ -82,7 +100,9 @@ export default function AdminNews() {
       const res = await fetch(`/api/news/${id}`, { method: 'DELETE' })
       if (res.ok) fetchNews()
       else alert(t('deleteError'))
-    } catch { alert(t('deleteError')) }
+    } catch {
+      alert(t('deleteError'))
+    }
   }
 
   if (loading) return <div className="text-center py-8">{tAdmin('loading')}</div>
@@ -100,11 +120,22 @@ export default function AdminNews() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Label htmlFor="title">{t('fieldTitle')}</Label>
-              <Input id="title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
+              <Input
+                id="title"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="content">{t('fieldContent')}</Label>
-              <Textarea id="content" value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} rows={4} required />
+              <Textarea
+                id="content"
+                value={formData.content}
+                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                rows={4}
+                required
+              />
             </div>
             <div>
               <Label>Imagen</Label>
@@ -114,16 +145,23 @@ export default function AdminNews() {
                   value={formData.imageUrl}
                   onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                 />
-                <SupabaseUpload value={formData.imageUrl} onChange={(url) => setFormData({ ...formData, imageUrl: url })} />
+                <SupabaseUpload
+                  value={formData.imageUrl}
+                  onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+                />
               </div>
             </div>
-            <Button type="submit" disabled={submitting}>{submitting ? t('submitting') : t('submit')}</Button>
+            <Button type="submit" disabled={submitting}>
+              {submitting ? t('submitting') : t('submit')}
+            </Button>
           </form>
         </CardContent>
       </Card>
 
       <Card>
-        <CardHeader><CardTitle>{t('listTitle')}</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle>{t('listTitle')}</CardTitle>
+        </CardHeader>
         <CardContent>
           <div className="divide-y divide-border">
             {news.length === 0 ? (
@@ -133,21 +171,33 @@ export default function AdminNews() {
                 <div key={item.id} className="py-4">
                   {editingId === item.id ? (
                     <div className="space-y-3">
-                      <Input value={editData.title} onChange={(e) => setEditData({ ...editData, title: e.target.value })} />
-                      <Textarea value={editData.content} onChange={(e) => setEditData({ ...editData, content: e.target.value })} rows={3} />
+                      <Input
+                        value={editData.title}
+                        onChange={(e) => setEditData({ ...editData, title: e.target.value })}
+                      />
+                      <Textarea
+                        value={editData.content}
+                        onChange={(e) => setEditData({ ...editData, content: e.target.value })}
+                        rows={3}
+                      />
                       <div className="space-y-1">
                         <Input
                           placeholder="https://..."
                           value={editData.imageUrl}
                           onChange={(e) => setEditData({ ...editData, imageUrl: e.target.value })}
                         />
-                        <SupabaseUpload value={editData.imageUrl} onChange={(url) => setEditData({ ...editData, imageUrl: url })} />
+                        <SupabaseUpload
+                          value={editData.imageUrl}
+                          onChange={(url) => setEditData({ ...editData, imageUrl: url })}
+                        />
                       </div>
                       <div className="flex gap-2">
                         <Button size="sm" disabled={submitting} onClick={() => handleUpdate(item.id)}>
                           {submitting ? tAdmin('saving') : 'Guardar'}
                         </Button>
-                        <Button size="sm" variant="outline" onClick={() => setEditingId(null)}>{tAdmin('cancel')}</Button>
+                        <Button size="sm" variant="outline" onClick={() => setEditingId(null)}>
+                          {tAdmin('cancel')}
+                        </Button>
                       </div>
                     </div>
                   ) : (
@@ -155,21 +205,30 @@ export default function AdminNews() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start gap-3">
                           {item.imageUrl && (
-                            <img src={item.imageUrl} alt={item.title} className="w-14 h-14 sm:w-16 sm:h-16 rounded object-cover shrink-0" />
+                            <img
+                              src={item.imageUrl}
+                              alt={item.title}
+                              className="w-14 h-14 sm:w-16 sm:h-16 rounded object-cover shrink-0"
+                            />
                           )}
                           <div className="min-w-0">
                             <h3 className="text-base sm:text-lg font-medium">{item.title}</h3>
                             <p className="text-sm text-muted-foreground mt-1">
-                              {t('by')} {item.author?.name || item.author?.email} · {new Date(item.createdAt).toLocaleDateString()}
+                              {t('by')} {item.author?.name || item.author?.email} ·{' '}
+                              {new Date(item.createdAt).toLocaleDateString()}
                             </p>
                             <p className="text-muted-foreground mt-1 line-clamp-2 text-sm">{item.content}</p>
                           </div>
                         </div>
                       </div>
                       <div className="flex gap-2 shrink-0">
-                        <Button onClick={() => handleEdit(item)} variant="outline" size="sm">{tAdmin('edit')}</Button>
+                        <Button onClick={() => handleEdit(item)} variant="outline" size="sm">
+                          {tAdmin('edit')}
+                        </Button>
                         {isAdmin && (
-                          <Button onClick={() => handleDelete(item.id)} variant="destructive" size="sm">{t('delete')}</Button>
+                          <Button onClick={() => handleDelete(item.id)} variant="destructive" size="sm">
+                            {t('delete')}
+                          </Button>
                         )}
                       </div>
                     </div>

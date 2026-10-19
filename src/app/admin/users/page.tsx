@@ -38,7 +38,9 @@ export default function AdminUsers() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editRole, setEditRole] = useState<User['role']>('USER')
 
-  useEffect(() => { fetchUsers() }, [])
+  useEffect(() => {
+    fetchUsers()
+  }, [])
 
   if (status === 'authenticated' && session?.user?.role !== 'ADMIN') {
     redirect('/admin')
@@ -48,7 +50,11 @@ export default function AdminUsers() {
     try {
       const res = await fetch('/api/users')
       if (res.ok) setUsers(await res.json())
-    } catch (e) { console.error(e) } finally { setLoading(false) }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -60,12 +66,18 @@ export default function AdminUsers() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
-      if (res.ok) { setFormData(emptyForm); fetchUsers() }
-      else {
+      if (res.ok) {
+        setFormData(emptyForm)
+        fetchUsers()
+      } else {
         const data = await res.json()
         alert(data.error || t('createError'))
       }
-    } catch { alert(t('createError')) } finally { setSubmitting(false) }
+    } catch {
+      alert(t('createError'))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleUpdateRole = async (id: string) => {
@@ -76,9 +88,15 @@ export default function AdminUsers() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ role: editRole }),
       })
-      if (res.ok) { setEditingId(null); fetchUsers() }
-      else alert(t('updateError'))
-    } catch { alert(t('updateError')) } finally { setSubmitting(false) }
+      if (res.ok) {
+        setEditingId(null)
+        fetchUsers()
+      } else alert(t('updateError'))
+    } catch {
+      alert(t('updateError'))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleDelete = async (id: string) => {
@@ -90,7 +108,9 @@ export default function AdminUsers() {
         const data = await res.json()
         alert(data.error || t('deleteError'))
       }
-    } catch { alert(t('deleteError')) }
+    } catch {
+      alert(t('deleteError'))
+    }
   }
 
   if (loading) return <div className="text-center py-8">{tAdmin('loading')}</div>
@@ -109,15 +129,31 @@ export default function AdminUsers() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="name">{t('fieldName')}</Label>
-                <Input id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+                <Input
+                  id="name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                />
               </div>
               <div>
                 <Label htmlFor="email">{t('fieldEmail')}</Label>
-                <Input id="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
+                <Input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                />
               </div>
               <div>
                 <Label htmlFor="password">{t('fieldPassword')}</Label>
-                <Input id="password" type="password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} required />
+                <Input
+                  id="password"
+                  type="password"
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  required
+                />
               </div>
               <div>
                 <Label htmlFor="role">{t('fieldRole')}</Label>
@@ -133,13 +169,17 @@ export default function AdminUsers() {
                 </select>
               </div>
             </div>
-            <Button type="submit" disabled={submitting}>{submitting ? t('submitting') : t('submit')}</Button>
+            <Button type="submit" disabled={submitting}>
+              {submitting ? t('submitting') : t('submit')}
+            </Button>
           </form>
         </CardContent>
       </Card>
 
       <Card>
-        <CardHeader><CardTitle>{t('listTitle')}</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle>{t('listTitle')}</CardTitle>
+        </CardHeader>
         <CardContent>
           <div className="divide-y divide-border">
             {users.length === 0 ? (
@@ -167,7 +207,9 @@ export default function AdminUsers() {
                         <Button size="sm" disabled={submitting} onClick={() => handleUpdateRole(user.id)}>
                           {submitting ? tAdmin('saving') : 'OK'}
                         </Button>
-                        <Button size="sm" variant="outline" onClick={() => setEditingId(null)}>{tAdmin('cancel')}</Button>
+                        <Button size="sm" variant="outline" onClick={() => setEditingId(null)}>
+                          {tAdmin('cancel')}
+                        </Button>
                       </>
                     ) : (
                       <>
@@ -175,12 +217,17 @@ export default function AdminUsers() {
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => { setEditingId(user.id); setEditRole(user.role) }}
+                          onClick={() => {
+                            setEditingId(user.id)
+                            setEditRole(user.role)
+                          }}
                         >
                           {tAdmin('edit')}
                         </Button>
                         {session?.user?.id !== user.id && (
-                          <Button size="sm" variant="destructive" onClick={() => handleDelete(user.id)}>{t('delete')}</Button>
+                          <Button size="sm" variant="destructive" onClick={() => handleDelete(user.id)}>
+                            {t('delete')}
+                          </Button>
                         )}
                       </>
                     )}

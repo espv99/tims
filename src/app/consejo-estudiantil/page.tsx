@@ -46,12 +46,19 @@ export default async function ConsejoEstudiantilPage() {
         </div>
 
         <Card>
-          <CardHeader><CardTitle>{t('boardTitle')}</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle>{t('boardTitle')}</CardTitle>
+          </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {roles.map((role) => (
-                <div key={role} className="flex flex-col gap-2 rounded-lg border border-border bg-muted/40 p-4 hover:bg-muted/70 transition-colors">
-                  <Badge variant="secondary" className="w-fit text-xs">{role}</Badge>
+                <div
+                  key={role}
+                  className="flex flex-col gap-2 rounded-lg border border-border bg-muted/40 p-4 hover:bg-muted/70 transition-colors"
+                >
+                  <Badge variant="secondary" className="w-fit text-xs">
+                    {role}
+                  </Badge>
                   <p className="font-semibold text-foreground">{t('tbd')}</p>
                 </div>
               ))}
@@ -60,21 +67,33 @@ export default async function ConsejoEstudiantilPage() {
         </Card>
 
         <Card>
-          <CardHeader><CardTitle>{t('statutesTitle')}</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle>{t('statutesTitle')}</CardTitle>
+          </CardHeader>
           <CardContent className="text-muted-foreground leading-relaxed space-y-4">
             <p>{t('statutesIntro')}</p>
-            <p><strong>{t('chapter1')}</strong></p>
-            <p><strong>{t('chapter2')}</strong></p>
-            <p><strong>{t('chapter3')}</strong></p>
+            <p>
+              <strong>{t('chapter1')}</strong>
+            </p>
+            <p>
+              <strong>{t('chapter2')}</strong>
+            </p>
+            <p>
+              <strong>{t('chapter3')}</strong>
+            </p>
             <p className="text-sm italic border-l-2 border-primary pl-3">{t('statutesNote')}</p>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader><CardTitle>{t('functionsTitle')}</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle>{t('functionsTitle')}</CardTitle>
+          </CardHeader>
           <CardContent>
             <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
-              {functions.map((fn, i) => <li key={i}>{fn}</li>)}
+              {functions.map((fn, i) => (
+                <li key={i}>{fn}</li>
+              ))}
             </ul>
           </CardContent>
         </Card>

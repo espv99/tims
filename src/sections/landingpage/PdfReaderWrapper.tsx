@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic'
 
 function PdfViewerSkeleton() {
   return (
@@ -16,14 +16,14 @@ function PdfViewerSkeleton() {
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 const PdfReader = dynamic(() => import('./pdfReader'), {
   ssr: false,
   loading: () => <PdfViewerSkeleton />,
-});
+})
 
 export default function PdfReaderWrapper() {
-  return <PdfReader />;
+  return <PdfReader />
 }

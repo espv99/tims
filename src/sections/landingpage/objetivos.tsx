@@ -1,10 +1,10 @@
-import React from 'react';
-import { getTranslations } from 'next-intl/server';
+import React from 'react'
+import { getTranslations } from 'next-intl/server'
 
 const Objetivos: React.FC = async () => {
-  const t = await getTranslations('objectives');
-  const items: { title: string; description: string }[] = t.raw('items');
-  const educationalItems: string[] = t.raw('educationalItems');
+  const t = await getTranslations('objectives')
+  const items: { title: string; description: string }[] = t.raw('items')
+  const educationalItems: string[] = t.raw('educationalItems')
 
   return (
     <section className="w-full my-10">
@@ -14,9 +14,7 @@ const Objetivos: React.FC = async () => {
       </div>
 
       <div className="bg-blueti text-white rounded-xl p-6 md:p-8 mb-6">
-        <span className="text-gold text-xs font-bold uppercase tracking-widest mb-3 block">
-          {t('generalLabel')}
-        </span>
+        <span className="text-gold text-xs font-bold uppercase tracking-widest mb-3 block">{t('generalLabel')}</span>
         <p className="text-base md:text-lg leading-relaxed">{t('generalText')}</p>
       </div>
 
@@ -47,7 +45,7 @@ const Objetivos: React.FC = async () => {
         ))}
       </ol>
     </section>
-  );
-};
+  )
+}
 
-export default Objetivos;
+export default Objetivos

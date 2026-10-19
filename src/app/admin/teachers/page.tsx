@@ -34,13 +34,19 @@ export default function AdminTeachers() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editData, setEditData] = useState(emptyForm)
 
-  useEffect(() => { fetchTeachers() }, [])
+  useEffect(() => {
+    fetchTeachers()
+  }, [])
 
   const fetchTeachers = async () => {
     try {
       const res = await fetch('/api/teachers')
       if (res.ok) setTeachers(await res.json())
-    } catch (e) { console.error(e) } finally { setLoading(false) }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -52,14 +58,26 @@ export default function AdminTeachers() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
-      if (res.ok) { setFormData(emptyForm); fetchTeachers() }
-      else alert(t('createError'))
-    } catch { alert(t('createError')) } finally { setSubmitting(false) }
+      if (res.ok) {
+        setFormData(emptyForm)
+        fetchTeachers()
+      } else alert(t('createError'))
+    } catch {
+      alert(t('createError'))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleEdit = (item: Teacher) => {
     setEditingId(item.id)
-    setEditData({ name: item.name, title: item.title || '', specialty: item.specialty || '', email: item.email || '', photo: item.photo || '' })
+    setEditData({
+      name: item.name,
+      title: item.title || '',
+      specialty: item.specialty || '',
+      email: item.email || '',
+      photo: item.photo || '',
+    })
   }
 
   const handleUpdate = async (id: string) => {
@@ -70,9 +88,15 @@ export default function AdminTeachers() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editData),
       })
-      if (res.ok) { setEditingId(null); fetchTeachers() }
-      else alert(t('updateError'))
-    } catch { alert(t('updateError')) } finally { setSubmitting(false) }
+      if (res.ok) {
+        setEditingId(null)
+        fetchTeachers()
+      } else alert(t('updateError'))
+    } catch {
+      alert(t('updateError'))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleDelete = async (id: string) => {
@@ -81,7 +105,9 @@ export default function AdminTeachers() {
       const res = await fetch(`/api/teachers/${id}`, { method: 'DELETE' })
       if (res.ok) fetchTeachers()
       else alert(t('deleteError'))
-    } catch { alert(t('deleteError')) }
+    } catch {
+      alert(t('deleteError'))
+    }
   }
 
   if (loading) return <div className="text-center py-8">{tAdmin('loading')}</div>
@@ -100,35 +126,65 @@ export default function AdminTeachers() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="name">{t('fieldName')}</Label>
-                <Input id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
+                <Input
+                  id="name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
+                />
               </div>
               <div>
                 <Label htmlFor="title">{t('fieldTitle')}</Label>
-                <Input id="title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} />
+                <Input
+                  id="title"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                />
               </div>
               <div>
                 <Label htmlFor="specialty">{t('fieldSpecialty')}</Label>
-                <Input id="specialty" value={formData.specialty} onChange={(e) => setFormData({ ...formData, specialty: e.target.value })} />
+                <Input
+                  id="specialty"
+                  value={formData.specialty}
+                  onChange={(e) => setFormData({ ...formData, specialty: e.target.value })}
+                />
               </div>
               <div>
                 <Label htmlFor="email">{t('fieldEmail')}</Label>
-                <Input id="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
+                <Input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                />
               </div>
             </div>
             <div>
               <Label>{t('fieldPhoto')}</Label>
               <div className="mt-1 space-y-2">
-                <Input placeholder="https://..." value={formData.photo} onChange={(e) => setFormData({ ...formData, photo: e.target.value })} />
-                <SupabaseUpload value={formData.photo} onChange={(url) => setFormData({ ...formData, photo: url })} label="Subir foto" />
+                <Input
+                  placeholder="https://..."
+                  value={formData.photo}
+                  onChange={(e) => setFormData({ ...formData, photo: e.target.value })}
+                />
+                <SupabaseUpload
+                  value={formData.photo}
+                  onChange={(url) => setFormData({ ...formData, photo: url })}
+                  label="Subir foto"
+                />
               </div>
             </div>
-            <Button type="submit" disabled={submitting}>{submitting ? t('submitting') : t('submit')}</Button>
+            <Button type="submit" disabled={submitting}>
+              {submitting ? t('submitting') : t('submit')}
+            </Button>
           </form>
         </CardContent>
       </Card>
 
       <Card>
-        <CardHeader><CardTitle>{t('listTitle')}</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle>{t('listTitle')}</CardTitle>
+        </CardHeader>
         <CardContent>
           <div className="divide-y divide-border">
             {teachers.length === 0 ? (
@@ -139,27 +195,58 @@ export default function AdminTeachers() {
                   {editingId === item.id ? (
                     <div className="space-y-3">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <Input placeholder={t('fieldName')} value={editData.name} onChange={(e) => setEditData({ ...editData, name: e.target.value })} />
-                        <Input placeholder={t('fieldTitle')} value={editData.title} onChange={(e) => setEditData({ ...editData, title: e.target.value })} />
-                        <Input placeholder={t('fieldSpecialty')} value={editData.specialty} onChange={(e) => setEditData({ ...editData, specialty: e.target.value })} />
-                        <Input placeholder={t('fieldEmail')} type="email" value={editData.email} onChange={(e) => setEditData({ ...editData, email: e.target.value })} />
+                        <Input
+                          placeholder={t('fieldName')}
+                          value={editData.name}
+                          onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+                        />
+                        <Input
+                          placeholder={t('fieldTitle')}
+                          value={editData.title}
+                          onChange={(e) => setEditData({ ...editData, title: e.target.value })}
+                        />
+                        <Input
+                          placeholder={t('fieldSpecialty')}
+                          value={editData.specialty}
+                          onChange={(e) => setEditData({ ...editData, specialty: e.target.value })}
+                        />
+                        <Input
+                          placeholder={t('fieldEmail')}
+                          type="email"
+                          value={editData.email}
+                          onChange={(e) => setEditData({ ...editData, email: e.target.value })}
+                        />
                       </div>
                       <div className="space-y-1">
-                        <Input placeholder="https://..." value={editData.photo} onChange={(e) => setEditData({ ...editData, photo: e.target.value })} />
-                        <SupabaseUpload value={editData.photo} onChange={(url) => setEditData({ ...editData, photo: url })} label="Subir foto" />
+                        <Input
+                          placeholder="https://..."
+                          value={editData.photo}
+                          onChange={(e) => setEditData({ ...editData, photo: e.target.value })}
+                        />
+                        <SupabaseUpload
+                          value={editData.photo}
+                          onChange={(url) => setEditData({ ...editData, photo: url })}
+                          label="Subir foto"
+                        />
                       </div>
                       <div className="flex gap-2">
                         <Button size="sm" disabled={submitting} onClick={() => handleUpdate(item.id)}>
                           {submitting ? tAdmin('saving') : t('submitEdit')}
                         </Button>
-                        <Button size="sm" variant="outline" onClick={() => setEditingId(null)}>{tAdmin('cancel')}</Button>
+                        <Button size="sm" variant="outline" onClick={() => setEditingId(null)}>
+                          {tAdmin('cancel')}
+                        </Button>
                       </div>
                     </div>
                   ) : (
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                       <div className="flex items-center gap-3 min-w-0">
                         {item.photo ? (
-                          <img src={item.photo} alt={item.name} className="w-11 h-11 rounded-full object-cover shrink-0" />
+                          <img
+                            src={item.photo}
+                            alt={item.name}
+                            className="w-11 h-11 rounded-full object-cover shrink-0"
+                          />
                         ) : (
                           <div className="w-11 h-11 rounded-full bg-muted flex items-center justify-center text-base font-bold text-muted-foreground shrink-0">
                             {item.name.charAt(0).toUpperCase()}
@@ -173,9 +260,13 @@ export default function AdminTeachers() {
                         </div>
                       </div>
                       <div className="flex gap-2 shrink-0">
-                        <Button onClick={() => handleEdit(item)} variant="outline" size="sm">{tAdmin('edit')}</Button>
+                        <Button onClick={() => handleEdit(item)} variant="outline" size="sm">
+                          {tAdmin('edit')}
+                        </Button>
                         {isAdmin && (
-                          <Button onClick={() => handleDelete(item.id)} variant="destructive" size="sm">{t('delete')}</Button>
+                          <Button onClick={() => handleDelete(item.id)} variant="destructive" size="sm">
+                            {t('delete')}
+                          </Button>
                         )}
                       </div>
                     </div>

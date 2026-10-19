@@ -35,16 +35,22 @@ export default function AdminEvents() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editData, setEditData] = useState(emptyForm)
 
-  useEffect(() => { fetchEvents() }, [])
+  useEffect(() => {
+    fetchEvents()
+  }, [])
 
   const fetchEvents = async () => {
     try {
       const res = await fetch('/api/events')
       if (res.ok) setEvents(await res.json())
-    } catch (e) { console.error(e) } finally { setLoading(false) }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const toDatetimeLocal = (iso: string) => iso ? iso.slice(0, 16) : ''
+  const toDatetimeLocal = (iso: string) => (iso ? iso.slice(0, 16) : '')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -55,9 +61,15 @@ export default function AdminEvents() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
-      if (res.ok) { setFormData(emptyForm); fetchEvents() }
-      else alert(t('createError'))
-    } catch { alert(t('createError')) } finally { setSubmitting(false) }
+      if (res.ok) {
+        setFormData(emptyForm)
+        fetchEvents()
+      } else alert(t('createError'))
+    } catch {
+      alert(t('createError'))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleEdit = (item: Event) => {
@@ -79,9 +91,15 @@ export default function AdminEvents() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editData),
       })
-      if (res.ok) { setEditingId(null); fetchEvents() }
-      else alert(t('createError'))
-    } catch { alert(t('createError')) } finally { setSubmitting(false) }
+      if (res.ok) {
+        setEditingId(null)
+        fetchEvents()
+      } else alert(t('createError'))
+    } catch {
+      alert(t('createError'))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleDelete = async (id: string) => {
@@ -90,7 +108,9 @@ export default function AdminEvents() {
       const res = await fetch(`/api/events/${id}`, { method: 'DELETE' })
       if (res.ok) fetchEvents()
       else alert(t('deleteError'))
-    } catch { alert(t('deleteError')) }
+    } catch {
+      alert(t('deleteError'))
+    }
   }
 
   if (loading) return <div className="text-center py-8">{tAdmin('loading')}</div>
@@ -108,19 +128,40 @@ export default function AdminEvents() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Label htmlFor="title">{t('fieldTitle')}</Label>
-              <Input id="title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
+              <Input
+                id="title"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="description">{t('fieldDescription')}</Label>
-              <Textarea id="description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} rows={4} required />
+              <Textarea
+                id="description"
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                rows={4}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="eventDate">{t('fieldDate')}</Label>
-              <Input id="eventDate" type="datetime-local" value={formData.eventDate} onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })} required />
+              <Input
+                id="eventDate"
+                type="datetime-local"
+                value={formData.eventDate}
+                onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="location">{t('fieldLocation')}</Label>
-              <Input id="location" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} />
+              <Input
+                id="location"
+                value={formData.location}
+                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+              />
             </div>
             <div>
               <Label>Imagen</Label>
@@ -130,16 +171,23 @@ export default function AdminEvents() {
                   value={formData.imageUrl}
                   onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                 />
-                <SupabaseUpload value={formData.imageUrl} onChange={(url) => setFormData({ ...formData, imageUrl: url })} />
+                <SupabaseUpload
+                  value={formData.imageUrl}
+                  onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+                />
               </div>
             </div>
-            <Button type="submit" disabled={submitting}>{submitting ? t('submitting') : t('submit')}</Button>
+            <Button type="submit" disabled={submitting}>
+              {submitting ? t('submitting') : t('submit')}
+            </Button>
           </form>
         </CardContent>
       </Card>
 
       <Card>
-        <CardHeader><CardTitle>{t('listTitle')}</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle>{t('listTitle')}</CardTitle>
+        </CardHeader>
         <CardContent>
           <div className="divide-y divide-border">
             {events.length === 0 ? (
@@ -149,19 +197,43 @@ export default function AdminEvents() {
                 <div key={event.id} className="py-4">
                   {editingId === event.id ? (
                     <div className="space-y-3">
-                      <Input value={editData.title} onChange={(e) => setEditData({ ...editData, title: e.target.value })} />
-                      <Textarea value={editData.description} onChange={(e) => setEditData({ ...editData, description: e.target.value })} rows={3} />
-                      <Input type="datetime-local" value={editData.eventDate} onChange={(e) => setEditData({ ...editData, eventDate: e.target.value })} />
-                      <Input placeholder={t('fieldLocation')} value={editData.location} onChange={(e) => setEditData({ ...editData, location: e.target.value })} />
+                      <Input
+                        value={editData.title}
+                        onChange={(e) => setEditData({ ...editData, title: e.target.value })}
+                      />
+                      <Textarea
+                        value={editData.description}
+                        onChange={(e) => setEditData({ ...editData, description: e.target.value })}
+                        rows={3}
+                      />
+                      <Input
+                        type="datetime-local"
+                        value={editData.eventDate}
+                        onChange={(e) => setEditData({ ...editData, eventDate: e.target.value })}
+                      />
+                      <Input
+                        placeholder={t('fieldLocation')}
+                        value={editData.location}
+                        onChange={(e) => setEditData({ ...editData, location: e.target.value })}
+                      />
                       <div className="space-y-1">
-                        <Input placeholder="https://..." value={editData.imageUrl} onChange={(e) => setEditData({ ...editData, imageUrl: e.target.value })} />
-                        <SupabaseUpload value={editData.imageUrl} onChange={(url) => setEditData({ ...editData, imageUrl: url })} />
+                        <Input
+                          placeholder="https://..."
+                          value={editData.imageUrl}
+                          onChange={(e) => setEditData({ ...editData, imageUrl: e.target.value })}
+                        />
+                        <SupabaseUpload
+                          value={editData.imageUrl}
+                          onChange={(url) => setEditData({ ...editData, imageUrl: url })}
+                        />
                       </div>
                       <div className="flex gap-2">
                         <Button size="sm" disabled={submitting} onClick={() => handleUpdate(event.id)}>
                           {submitting ? tAdmin('saving') : 'Guardar'}
                         </Button>
-                        <Button size="sm" variant="outline" onClick={() => setEditingId(null)}>{tAdmin('cancel')}</Button>
+                        <Button size="sm" variant="outline" onClick={() => setEditingId(null)}>
+                          {tAdmin('cancel')}
+                        </Button>
                       </div>
                     </div>
                   ) : (
@@ -169,7 +241,11 @@ export default function AdminEvents() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start gap-3">
                           {event.imageUrl && (
-                            <img src={event.imageUrl} alt={event.title} className="w-14 h-14 sm:w-16 sm:h-16 rounded object-cover shrink-0" />
+                            <img
+                              src={event.imageUrl}
+                              alt={event.title}
+                              className="w-14 h-14 sm:w-16 sm:h-16 rounded object-cover shrink-0"
+                            />
                           )}
                           <div className="min-w-0">
                             <h3 className="text-base sm:text-lg font-medium">{event.title}</h3>
@@ -181,9 +257,13 @@ export default function AdminEvents() {
                         </div>
                       </div>
                       <div className="flex gap-2 shrink-0">
-                        <Button onClick={() => handleEdit(event)} variant="outline" size="sm">{tAdmin('edit')}</Button>
+                        <Button onClick={() => handleEdit(event)} variant="outline" size="sm">
+                          {tAdmin('edit')}
+                        </Button>
                         {isAdmin && (
-                          <Button onClick={() => handleDelete(event.id)} variant="destructive" size="sm">{t('delete')}</Button>
+                          <Button onClick={() => handleDelete(event.id)} variant="destructive" size="sm">
+                            {t('delete')}
+                          </Button>
                         )}
                       </div>
                     </div>

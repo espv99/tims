@@ -19,12 +19,16 @@ export function AdminShell({ role, userName, userEmail, children }: AdminShellPr
   const pathname = usePathname()
 
   // Close drawer on route change
-  useEffect(() => { setSidebarOpen(false) }, [pathname])
+  useEffect(() => {
+    setSidebarOpen(false)
+  }, [pathname])
 
   // Prevent body scroll when drawer open
   useEffect(() => {
     document.body.style.overflow = sidebarOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [sidebarOpen])
 
   return (
@@ -44,12 +48,7 @@ export function AdminShell({ role, userName, userEmail, children }: AdminShellPr
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <AdminSidebar
-          role={role}
-          userName={userName}
-          userEmail={userEmail}
-          onClose={() => setSidebarOpen(false)}
-        />
+        <AdminSidebar role={role} userName={userName} userEmail={userEmail} onClose={() => setSidebarOpen(false)} />
       </div>
 
       {/* Main content */}

@@ -1,19 +1,19 @@
-import { getTranslations } from 'next-intl/server';
-import Header from '@/sections/header/Header';
-import Footer from '@/sections/footer/Footer';
-import InfoBanner from '@/sections/landingpage/InfoBanner';
-import OccupationalField from '@/sections/landingpage/occupationalField';
-import ProfessionalProfile from '@/sections/landingpage/professionalProfile';
-import Objetivos from '@/sections/landingpage/objetivos';
-import ProyectosVinculacion from '@/sections/landingpage/proyectosVinculacion';
-import ProyectosInvestigacion from '@/sections/landingpage/proyectosInvestigacion';
-import PdfReaderWrapper from '@/sections/landingpage/PdfReaderWrapper';
-import Video from '@/sections/landingpage/Video';
-import LearningOutcomes from '@/sections/landingpage/learningOutcomes';
-import Link from 'next/link';
+import { getTranslations } from 'next-intl/server'
+import Header from '@/sections/header/Header'
+import Footer from '@/sections/footer/Footer'
+import InfoBanner from '@/sections/landingpage/InfoBanner'
+import OccupationalField from '@/sections/landingpage/occupationalField'
+import ProfessionalProfile from '@/sections/landingpage/professionalProfile'
+import Objetivos from '@/sections/landingpage/objetivos'
+import ProyectosVinculacion from '@/sections/landingpage/proyectosVinculacion'
+import ProyectosInvestigacion from '@/sections/landingpage/proyectosInvestigacion'
+import PdfReaderWrapper from '@/sections/landingpage/PdfReaderWrapper'
+import Video from '@/sections/landingpage/Video'
+import LearningOutcomes from '@/sections/landingpage/learningOutcomes'
+import Link from 'next/link'
 
 export default async function Home() {
-  const t = await getTranslations('hero');
+  const t = await getTranslations('hero')
 
   return (
     <div className="relative w-full font-sans bg-background text-foreground">
@@ -26,9 +26,7 @@ export default async function Home() {
             <span className="inline-block bg-gold/20 text-gold text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-5">
               {t('badge')}
             </span>
-            <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-5">
-              {t('title')}
-            </h1>
+            <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-5">{t('title')}</h1>
             <p className="text-blueti-muted text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
               {t('description')}
             </p>
@@ -67,5 +65,5 @@ export default async function Home() {
 
       <Footer />
     </div>
-  );
+  )
 }

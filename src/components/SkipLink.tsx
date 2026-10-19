@@ -1,8 +1,8 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server'
 
 // First focusable element on every page: lets keyboard and screen reader users jump past the header.
 export async function SkipLink() {
-  const t = await getTranslations('nav');
+  const t = await getTranslations('nav')
 
   return (
     <a
@@ -11,5 +11,5 @@ export async function SkipLink() {
     >
       {t('skipToContent')}
     </a>
-  );
+  )
 }

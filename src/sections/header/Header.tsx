@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import { Navbar } from './Navbar';
+import { Navbar } from './Navbar'
 
 export function Header() {
   return (
@@ -9,7 +9,7 @@ export function Header() {
         <Navbar />
       </div>
     </header>
-  );
+  )
 }
 
-export default Header;
+export default Header

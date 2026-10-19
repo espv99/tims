@@ -21,7 +21,10 @@ export default async function PersonalDocentePage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {teachers.map((teacher) => (
-              <div key={teacher.id} className="bg-card border border-border rounded-xl p-6 flex flex-col items-center text-center">
+              <div
+                key={teacher.id}
+                className="bg-card border border-border rounded-xl p-6 flex flex-col items-center text-center"
+              >
                 {teacher.photo ? (
                   <img
                     src={teacher.photo}

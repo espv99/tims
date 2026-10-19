@@ -1,31 +1,29 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
-import Header from '@/sections/header/Header';
-import { Badge } from '@/components/ui/badge';
+import { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
+import Header from '@/sections/header/Header'
+import { Badge } from '@/components/ui/badge'
 
 interface News {
-  id: string;
-  title: string;
-  content: string;
-  publishedAt: string | null;
-  createdAt: string;
-  author?: { name: string; email: string };
+  id: string
+  title: string
+  content: string
+  publishedAt: string | null
+  createdAt: string
+  author?: { name: string; email: string }
 }
 
 interface Event {
-  id: string;
-  title: string;
-  description: string;
-  eventDate: string;
-  location?: string;
-  createdAt: string;
+  id: string
+  title: string
+  description: string
+  eventDate: string
+  location?: string
+  createdAt: string
 }
 
-type TimelineItem =
-  | (News & { type: 'news'; date: string })
-  | (Event & { type: 'event'; date: string });
+type TimelineItem = (News & { type: 'news'; date: string }) | (Event & { type: 'event'; date: string })
 
 function SkeletonCard() {
   return (
@@ -44,16 +42,20 @@ function SkeletonCard() {
         <div className="h-4 w-2/3 bg-muted rounded" />
       </div>
     </div>
-  );
+  )
 }
 
 function LocationIcon() {
   return (
     <svg className="w-4 h-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+      />
     </svg>
-  );
+  )
 }
 
 function formatDate(dateStr: string, locale: string) {
@@ -61,43 +63,43 @@ function formatDate(dateStr: string, locale: string) {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  });
+  })
 }
 
 export default function TimelinePage() {
-  const t = useTranslations('timeline');
-  const [news, setNews] = useState<News[]>([]);
-  const [events, setEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<'all' | 'news' | 'event'>('all');
+  const t = useTranslations('timeline')
+  const [news, setNews] = useState<News[]>([])
+  const [events, setEvents] = useState<Event[]>([])
+  const [loading, setLoading] = useState(true)
+  const [filter, setFilter] = useState<'all' | 'news' | 'event'>('all')
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [newsRes, eventsRes] = await Promise.all([fetch('/api/news'), fetch('/api/events')]);
-        if (newsRes.ok) setNews(await newsRes.json());
-        if (eventsRes.ok) setEvents(await eventsRes.json());
+        const [newsRes, eventsRes] = await Promise.all([fetch('/api/news'), fetch('/api/events')])
+        if (newsRes.ok) setNews(await newsRes.json())
+        if (eventsRes.ok) setEvents(await eventsRes.json())
       } catch (error) {
-        console.error('Failed to fetch data:', error);
+        console.error('Failed to fetch data:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   const timelineItems: TimelineItem[] = [
     ...news.map((item) => ({ ...item, type: 'news' as const, date: item.publishedAt || item.createdAt })),
     ...events.map((item) => ({ ...item, type: 'event' as const, date: item.eventDate })),
   ]
     .filter((item) => filter === 'all' || item.type === filter)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   const filters = [
     { key: 'all' as const, label: t('filterAll') },
     { key: 'news' as const, label: t('filterNews') },
     { key: 'event' as const, label: t('filterEvents') },
-  ];
+  ]
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -136,8 +138,18 @@ export default function TimelinePage() {
             </div>
           ) : timelineItems.length === 0 ? (
             <div className="bg-card border border-border rounded-xl p-12 text-center text-muted-foreground">
-              <svg className="w-12 h-12 mx-auto mb-4 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5" />
+              <svg
+                className="w-12 h-12 mx-auto mb-4 opacity-30"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5"
+                />
               </svg>
               {t('empty')}
             </div>
@@ -146,7 +158,9 @@ export default function TimelinePage() {
               {timelineItems.map((item, index) => (
                 <div key={`${item.type}-${item.id}`} className="flex gap-4">
                   <div className="flex flex-col items-center">
-                    <div className={`w-3 h-3 rounded-full flex-shrink-0 mt-5 ${item.type === 'news' ? 'bg-blueti' : 'bg-gold'}`} />
+                    <div
+                      className={`w-3 h-3 rounded-full flex-shrink-0 mt-5 ${item.type === 'news' ? 'bg-blueti' : 'bg-gold'}`}
+                    />
                     {index < timelineItems.length - 1 && <div className="w-px flex-1 bg-border mt-1" />}
                   </div>
 
@@ -171,7 +185,9 @@ export default function TimelinePage() {
                       <div>
                         <p className="text-sm text-muted-foreground leading-relaxed mb-2">{item.content}</p>
                         {item.author && (
-                          <p className="text-xs text-muted-foreground">{t('by')} {item.author.name || item.author.email}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {t('by')} {item.author.name || item.author.email}
+                          </p>
                         )}
                       </div>
                     ) : (
@@ -193,5 +209,5 @@ export default function TimelinePage() {
         </div>
       </main>
     </div>
-  );
+  )
 }

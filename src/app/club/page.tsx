@@ -44,12 +44,19 @@ export default async function ClubPage() {
         </div>
 
         <Card>
-          <CardHeader><CardTitle>{t('boardTitle')}</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle>{t('boardTitle')}</CardTitle>
+          </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {roles.map((role) => (
-                <div key={role} className="flex flex-col gap-2 rounded-lg border border-border bg-muted/40 p-4 hover:bg-muted/70 transition-colors">
-                  <Badge variant="secondary" className="w-fit text-xs">{role}</Badge>
+                <div
+                  key={role}
+                  className="flex flex-col gap-2 rounded-lg border border-border bg-muted/40 p-4 hover:bg-muted/70 transition-colors"
+                >
+                  <Badge variant="secondary" className="w-fit text-xs">
+                    {role}
+                  </Badge>
                   <p className="font-semibold text-foreground">{t('tbd')}</p>
                 </div>
               ))}
