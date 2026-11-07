@@ -11,6 +11,9 @@ import PdfReaderWrapper from '@/sections/landingpage/PdfReaderWrapper'
 import Video from '@/sections/landingpage/Video'
 import LearningOutcomes from '@/sections/landingpage/learningOutcomes'
 import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = { alternates: { canonical: '/' } }
 
 export default async function Home() {
   const t = await getTranslations('hero')

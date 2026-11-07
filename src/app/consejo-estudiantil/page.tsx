@@ -1,4 +1,5 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { Header } from '@/sections/header/Header'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -6,6 +7,8 @@ import { BoardGrid } from '@/components/board/board-grid'
 
 // Board members are edited from the admin panel, so never serve a statically frozen copy.
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = { alternates: { canonical: '/consejo-estudiantil' } }
 
 export default async function ConsejoEstudiantilPage() {
   const t = await getTranslations('council')
