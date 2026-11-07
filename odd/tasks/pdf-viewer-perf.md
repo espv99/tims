@@ -12,7 +12,7 @@
 - [x] T1 Self-host the pdf.js worker (match installed `pdfjs-dist` version), drop the unpkg URL — worker copied from pdfjs-dist@4.8.69 (version react-pdf resolves) to public/pdf.worker.min.mjs; tsc/prettier ok; no unpkg refs
 - [x] T2 Mount the viewer only when it nears the viewport (IntersectionObserver), with a fixed-height placeholder to avoid layout shift — IntersectionObserver (200px margin, disconnect on hit) in PdfReaderWrapper; skeleton keeps 520px; tsc/eslint/prettier ok
 - [x] T3 Render only pages near the viewport and size pages to the container width instead of `800 * scale` — per-page IntersectionObserver (600px margin) with fixed-size slots; width from ResizeObserver x scale; checked at 320px in browser: no page overflow, zoom scrolls inside the region, nothing fetched before the section nears the viewport
-- [ ] T4 A11y: scroll region `tabIndex=0` + `role="region"` + `aria-label`, controls and download link at least 44px tall
+- [x] T4 A11y: scroll region `tabIndex=0` + `role="region"` + `aria-label`, controls and download link at least 44px tall — region/tabIndex/aria-label (viewerLabel in es+en), min-h-11 on controls and download link; tsc/eslint ok
 
 ## Acceptance
 - No request to unpkg; worker served from own origin.

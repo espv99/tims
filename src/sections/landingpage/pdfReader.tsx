@@ -179,7 +179,7 @@ export default function PdfReader() {
               onClick={() => setScale((s) => Math.max(s - SCALE_STEP, MIN_SCALE))}
               disabled={scale <= MIN_SCALE}
               aria-label={t('zoomOut')}
-              className="cursor-pointer"
+              className="cursor-pointer min-h-11 min-w-11"
             >
               <ZoomOutIcon />
             </Button>
@@ -192,7 +192,7 @@ export default function PdfReader() {
               onClick={() => setScale((s) => Math.min(s + SCALE_STEP, MAX_SCALE))}
               disabled={scale >= MAX_SCALE}
               aria-label={t('zoomIn')}
-              className="cursor-pointer"
+              className="cursor-pointer min-h-11 min-w-11"
             >
               <ZoomInIcon />
             </Button>
@@ -201,7 +201,7 @@ export default function PdfReader() {
               size="sm"
               onClick={() => setScale(1.0)}
               aria-label={t('zoomReset')}
-              className="cursor-pointer"
+              className="cursor-pointer min-h-11 min-w-11"
             >
               <ResetIcon />
             </Button>
@@ -210,7 +210,7 @@ export default function PdfReader() {
           <a
             href={PDF_FILE}
             download="malla_curricular_propuesta.pdf"
-            className="inline-flex items-center gap-2 px-3 py-1.5 bg-blueti hover:bg-blueti/90 text-white text-sm font-medium rounded-md transition-colors duration-200 cursor-pointer"
+            className="inline-flex items-center gap-2 min-h-11 px-4 py-1.5 bg-blueti hover:bg-blueti/90 text-white text-sm font-medium rounded-md transition-colors duration-200 cursor-pointer"
           >
             <DownloadIcon />
             {t('download')}
@@ -220,7 +220,10 @@ export default function PdfReader() {
         {/* PDF viewport */}
         <div
           ref={containerRef}
-          className="overflow-auto bg-muted/20"
+          role="region"
+          tabIndex={0}
+          aria-label={t('viewerLabel')}
+          className="overflow-auto bg-muted/20 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blueti"
           style={{ height: '520px', scrollbarWidth: 'thin' }}
         >
           <Document
