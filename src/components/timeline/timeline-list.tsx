@@ -37,8 +37,10 @@ function LocationIcon() {
   )
 }
 
+// Fixed zone so the server-rendered HTML and the hydrated client agree whatever timezone each one runs in
 function formatDate(dateStr: string, locale: string) {
   return new Date(dateStr).toLocaleDateString(locale === 'en' ? 'en-US' : 'es-EC', {
+    timeZone: 'America/Guayaquil',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
