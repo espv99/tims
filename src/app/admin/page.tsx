@@ -2,25 +2,45 @@ import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Newspaper, Calendar, GraduationCap, Users } from 'lucide-react'
 
+const LIST_LIMIT = 5
+
+function startOfToday() {
+  const date = new Date()
+  date.setHours(0, 0, 0, 0)
+  return date
+}
+
 export default async function AdminDashboard() {
   const [t, session] = await Promise.all([getTranslations('admin.dashboard'), auth()])
+  const isAdmin = session?.user.role === 'ADMIN'
 
-  const [newsCount, eventsCount, teachersCount, usersCount] = await Promise.all([
+  const [newsCount, eventsCount, teachersCount, usersCount, upcomingEvents, latestNews] = await Promise.all([
     prisma.news.count(),
     prisma.event.count(),
     prisma.teacher.count(),
-    prisma.user.count(),
+    isAdmin ? prisma.user.count() : Promise.resolve(null),
+    prisma.event.findMany({
+      where: { eventDate: { gte: startOfToday() } },
+      orderBy: { eventDate: 'asc' },
+      take: LIST_LIMIT,
+      select: { id: true, title: true, eventDate: true, location: true },
+    }),
+    prisma.news.findMany({
+      where: { publishedAt: { not: null } },
+      orderBy: { publishedAt: 'desc' },
+      take: LIST_LIMIT,
+      select: { id: true, title: true, publishedAt: true },
+    }),
   ])
 
   const stats = [
     { label: t('statsNews'), value: newsCount, href: '/admin/news', icon: Newspaper },
     { label: t('statsEvents'), value: eventsCount, href: '/admin/events', icon: Calendar },
     { label: t('statsTeachers'), value: teachersCount, href: '/admin/teachers', icon: GraduationCap },
-    { label: t('statsUsers'), value: usersCount, href: '/admin/users', icon: Users },
+    ...(usersCount === null ? [] : [{ label: t('statsUsers'), value: usersCount, href: '/admin/users', icon: Users }]),
   ]
 
   return (
@@ -45,23 +65,8 @@ export default async function AdminDashboard() {
           </Link>
         ))}
       </div>
-
-      <div className="flex flex-wrap gap-3">
-        <Button asChild>
-          <Link href="/admin/news">{t('manageNews')}</Link>
-        </Button>
-        <Button asChild variant="secondary">
-          <Link href="/admin/events">{t('manageEvents')}</Link>
-        </Button>
-        <Button asChild variant="secondary">
-          <Link href="/admin/teachers">{t('manageTeachers')}</Link>
-        </Button>
-        {session?.user.role === 'ADMIN' && (
-          <Button asChild variant="outline">
-            <Link href="/admin/users">{t('manageUsers')}</Link>
-          </Button>
-        )}
-      </div>
+      {/* upcomingEvents and latestNews are rendered by the dashboard sections */}
+      <span hidden data-upcoming={upcomingEvents.length} data-latest={latestNews.length} />
     </div>
   )
 }
