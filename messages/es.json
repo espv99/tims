@@ -215,16 +215,24 @@
     "cancel": "Cancelar",
     "edit": "Editar",
     "dashboard": {
-      "title": "Panel de Administración TIMS",
       "description": "Gestiona el contenido del sitio desde aquí.",
-      "manageNews": "Gestionar Noticias",
-      "manageEvents": "Gestionar Eventos",
-      "manageTeachers": "Gestionar Docentes",
-      "manageUsers": "Gestionar Usuarios",
       "statsNews": "Noticias",
       "statsEvents": "Eventos",
       "statsTeachers": "Docentes",
-      "statsUsers": "Usuarios"
+      "statsUsers": "Usuarios",
+      "countersHeading": "Resumen",
+      "quickActions": "Acciones rápidas",
+      "newNews": "Nueva noticia",
+      "newEvent": "Nuevo evento",
+      "viewAll": "Ver todo",
+      "upcomingEvents": "Próximos eventos",
+      "eventsEmptyTitle": "No hay eventos próximos",
+      "eventsEmptyHint": "Los eventos con fecha futura aparecerán aquí.",
+      "eventsEmptyAction": "Crear un evento",
+      "latestNews": "Últimas noticias",
+      "newsEmptyTitle": "Aún no hay noticias publicadas",
+      "newsEmptyHint": "Las noticias que publiques aparecerán aquí.",
+      "newsEmptyAction": "Publicar una noticia"
     },
     "news": {
       "pageTitle": "Gestionar Noticias",
@@ -311,7 +319,10 @@
       "events": "Eventos",
       "teachers": "Docentes",
       "users": "Usuarios",
-      "logout": "Cerrar sesión"
+      "logout": "Cerrar sesión",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNav": "Navegación principal"
     }
   },
   "teachers": {
