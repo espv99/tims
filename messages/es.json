@@ -307,8 +307,8 @@
     },
     "board": {
       "pageTitle": "Gestionar Directivas",
-      "pageDescription": "Define quién ocupa cada cargo del Club y del Consejo Estudiantil. Los cambios se reflejan de inmediato en las páginas públicas.",
-      "clubTitle": "Directiva del Club",
+      "pageDescription": "Define quién ocupa cada cargo de Evolución Tecnológica y del Consejo Estudiantil. Los cambios se reflejan de inmediato en las páginas públicas.",
+      "clubTitle": "Directiva de Evolución Tecnológica",
       "councilTitle": "Directiva del Consejo Estudiantil",
       "empty": "Por definir",
       "roles": {
@@ -385,7 +385,7 @@
     "missionText": "Fomentar el desarrollo académico, técnico y profesional de los estudiantes de TI mediante actividades extracurriculares, proyectos colaborativos y la vinculación con la industria tecnológica, fortaleciendo el aprendizaje continuo y el trabajo en equipo.",
     "visionTitle": "Visión",
     "visionText": "Ser el referente estudiantil de innovación tecnológica en la región, formando profesionales íntegros capaces de liderar proyectos de impacto social y económico, integrando los avances en inteligencia artificial, ciberseguridad y transformación digital.",
-    "boardTitle": "Directiva del Club",
+    "boardTitle": "Directiva de Evolución Tecnológica",
     "tbd": "Por definir",
     "roles": {
       "president": "Presidente",

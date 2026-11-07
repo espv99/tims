@@ -307,8 +307,8 @@
     },
     "board": {
       "pageTitle": "Manage Boards",
-      "pageDescription": "Set who holds each position on the Club and the Student Council boards. Changes show up right away on the public pages.",
-      "clubTitle": "Club board",
+      "pageDescription": "Set who holds each position on the Evolución Tecnológica and Student Council boards. Changes show up right away on the public pages.",
+      "clubTitle": "Evolución Tecnológica board",
       "councilTitle": "Student Council board",
       "empty": "To be announced",
       "roles": {
@@ -385,7 +385,7 @@
     "missionText": "Foster the academic, technical, and professional development of IT students through extracurricular activities, collaborative projects, and links with the technology industry, strengthening continuous learning and teamwork.",
     "visionTitle": "Vision",
     "visionText": "Be the student benchmark for technological innovation in the region, training well-rounded professionals capable of leading projects with social and economic impact, integrating advances in artificial intelligence, cybersecurity, and digital transformation.",
-    "boardTitle": "Club Board",
+    "boardTitle": "Evolución Tecnológica Board",
     "tbd": "To be defined",
     "roles": {
       "president": "President",
