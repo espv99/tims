@@ -14,7 +14,7 @@
 - [x] T1 Dashboard data + page layout (server queries: next 5 upcoming events, latest 5 news, counters; role-aware: users counter only for ADMIN) — tsc/prettier/eslint clean; users count query skipped for EDITOR; commit fd29647
 - [x] T2 Dashboard components with empty states: counters row, UpcomingEvents, LatestNews, QuickActions — tsc/prettier/eslint clean; es/en dashboard keys added in same commit so it renders; commit c74214a
 - [x] T3 Sidebar and topbar polish (active state, responsive, user menu area), keeping existing behavior — aria-current, 44px targets, focus rings, Escape closes drawer, hidden drawer not focusable; tsc/prettier/eslint clean; commit 37dd36f
-- [x] T4 i18n keys in es and en for everything new; no hardcoded strings — shell/sidebar aria labels moved to admin.nav; removed unused dashboard.title/manage* keys (rg: zero references); dashboard keys were added in T2 commit; commit HASH4
+- [x] T4 i18n keys in es and en for everything new; no hardcoded strings — shell/sidebar aria labels moved to admin.nav; removed unused dashboard.title/manage* keys (rg: zero references); dashboard keys were added in T2 commit; commit d1d4d1f
 
 ## Acceptance
 - `/admin` shows upcoming events, latest news, counters and quick actions; empty states when there is no data.
