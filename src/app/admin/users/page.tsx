@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { useSession } from '@/components/session-provider'
-import { redirect } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -55,7 +54,7 @@ function PageSkeleton() {
 export default function AdminUsers() {
   const t = useTranslations('admin.users')
   const tAdmin = useTranslations('admin')
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
 
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
@@ -67,10 +66,6 @@ export default function AdminUsers() {
   useEffect(() => {
     fetchUsers()
   }, [])
-
-  if (status === 'authenticated' && session?.user?.role !== 'ADMIN') {
-    redirect('/admin')
-  }
 
   const fetchUsers = async () => {
     try {
