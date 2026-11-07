@@ -54,7 +54,7 @@ export default async function AdminDashboard() {
 
       <DashboardCounters heading={t('countersHeading')} counters={counters} />
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <UpcomingEvents events={upcomingEvents} />
         <LatestNews news={latestNews} />
       </div>
