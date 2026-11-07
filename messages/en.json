@@ -434,5 +434,23 @@
     "zoomOut": "Zoom out",
     "zoomReset": "Reset zoom",
     "viewerLabel": "Curriculum PDF viewer"
+  },
+  "seo": {
+    "timeline": {
+      "title": "News and events",
+      "description": "News and events from the Information Technology Engineering program, ESPOCH Morona Santiago campus."
+    },
+    "club": {
+      "title": "Evolución Tecnológica student club",
+      "description": "Evolución Tecnológica, the Information Technology student club at ESPOCH Morona Santiago: mission, vision and board."
+    },
+    "council": {
+      "title": "Student Council",
+      "description": "Student Council of the Information Technology Engineering program, ESPOCH Morona Santiago campus: mission, vision and board."
+    },
+    "teachers": {
+      "title": "Faculty",
+      "description": "Faculty of the Information Technology Engineering program, ESPOCH Morona Santiago campus."
+    }
   }
 }

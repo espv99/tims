@@ -6,7 +6,10 @@ import { TimelineList, type TimelineEvent, type TimelineNews } from '@/component
 
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = { alternates: { canonical: '/timeline' } }
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('seo.timeline')
+  return { title: t('title'), description: t('description'), alternates: { canonical: '/timeline' } }
+}
 
 async function getTimelineData(): Promise<{ news: TimelineNews[]; events: TimelineEvent[] }> {
   try {
