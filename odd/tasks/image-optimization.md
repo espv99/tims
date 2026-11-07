@@ -15,10 +15,10 @@
 **Constraints:** no new dependencies (native canvas / createImageBitmap); keep Prettier style; i18n for every new visible string in both messages files; do not touch lockfiles; verify with `npx tsc --noEmit`, `npx eslint <files>`, `npx prettier --check <code files>` (not `npm run lint`).
 
 ## Tasks
-- [x] T1 Compression util + SupabaseUpload integration (limit, WebP, maxDimension prop, no video) -- tsc, prettier, eslint (0 errors) clean; messages key sets identical; commit PLACEHOLDER1
-- [x] T2 Whitelist validation in /api/storage/sign -- tsc, prettier, eslint clean; 400 behaviour exercised in the end-to-end check; commit PLACEHOLDER2
-- [ ] T3 next/image config and usages
-- [ ] T4 CLAUDE.md storage docs
+- [x] T1 Compression util + SupabaseUpload integration (limit, WebP, maxDimension prop, no video) -- tsc, prettier, eslint (0 errors) clean; messages key sets identical; commit e4d375e
+- [x] T2 Whitelist validation in /api/storage/sign -- tsc, prettier, eslint clean; 400 behaviour exercised in the end-to-end check; commit 2d38084
+- [x] T3 next/image config and usages -- tsc/eslint clean, next build passes; e2e: teacher photo renders on /personal-docente (local host unoptimized by helper; /_next/image accepted the local URL on Next 15.4.10); commit 925ec73
+- [x] T4 CLAUDE.md storage docs -- CLAUDE.md Storage section updated; commit (this one)
 
 ## Acceptance
 - A 4 MB phone JPEG uploaded for a teacher ends as a WebP <= 512 KB with max side 800 px.
@@ -34,4 +34,4 @@ No test suite: RED/GREEN exception. Typecheck, lint, prettier, build, and a real
 Delegated direct: one writer (4 tasks, 8+ files; reading prepares the write).
 
 ## Progress / evidence
-(none yet)
+Route: delegated direct. E2E on local Supabase+Storage (prod build): 3.7 MB 3000x2400 JPEG -> stored WebP 51 KB 800x640; .txt rejected with unsupported-format error; sign route 400 for .exe, 200 for .JPG.

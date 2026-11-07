@@ -73,6 +73,11 @@ Supabase Auth (email + password) via `@supabase/ssr` cookies. Three roles in the
 
 Images upload to the public Supabase bucket `media`. `/api/storage/sign` (ADMIN/EDITOR) returns a signed upload URL; `SupabaseUpload` (`src/components/admin/supabase-upload.tsx`) uploads directly from the browser and returns the public URL.
 
+- Images are compressed client-side (`src/lib/compress-image.ts`) to WebP <= 512 KB before upload. Only JPEG, PNG and WebP inputs are accepted; the longest side is capped at 1600 px (teacher photos: 800 px, via the `maxDimension` prop).
+- `/api/storage/sign` whitelists the extensions `webp`, `jpg`, `jpeg` and `png` and responds 400 otherwise.
+- Bucket setup (Supabase dashboard): public bucket `media`, file size limit 524288 bytes, allowed MIME types `image/jpeg`, `image/png`, `image/webp`. The code cannot enforce size server-side because uploads go directly from the browser to Storage, so the bucket limit is the server-side safety net.
+- Images are rendered with `next/image`; `images.remotePatterns` in `next.config.ts` is derived from `NEXT_PUBLIC_SUPABASE_URL`, and URLs on localhost/127.0.0.1 are rendered unoptimized (`src/lib/image-url.ts`).
+
 ### API Routes
 
 RESTful JSON APIs under `src/app/api/`. Pattern: `/api/news/route.ts` (collection) + `/api/news/[id]/route.ts` (single resource). Same pattern for events.
