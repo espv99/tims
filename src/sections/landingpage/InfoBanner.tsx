@@ -1,54 +1,6 @@
 import React from 'react'
 import { getTranslations } from 'next-intl/server'
 
-function CalendarIcon() {
-  return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
-      />
-    </svg>
-  )
-}
-
-function BuildingIcon() {
-  return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"
-      />
-    </svg>
-  )
-}
-
-function FreeIcon() {
-  return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
-  )
-}
-
-function UserIcon() {
-  return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-      />
-    </svg>
-  )
-}
-
 interface InfoBannerProps {
   approvalInitial?: string
   approvalUpdated?: string
@@ -63,10 +15,10 @@ const InfoBanner: React.FC<InfoBannerProps> = async ({
   const t = await getTranslations('infoBanner')
 
   const stats = [
-    { icon: <CalendarIcon />, label: t('duration'), value: t('durationValue') },
-    { icon: <BuildingIcon />, label: t('modality'), value: t('modalityValue') },
-    { icon: <FreeIcon />, label: t('cost'), value: t('costValue') },
-    { icon: <UserIcon />, label: t('coordinator'), value: coordinator },
+    { label: t('duration'), value: t('durationValue') },
+    { label: t('modality'), value: t('modalityValue') },
+    { label: t('cost'), value: t('costValue') },
+    { label: t('coordinator'), value: coordinator },
   ]
 
   return (
@@ -78,12 +30,11 @@ const InfoBanner: React.FC<InfoBannerProps> = async ({
         </p>
       </div>
 
-      <dl className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 mb-10">
+      <dl className="grid grid-cols-2 md:grid-cols-4 gap-px mb-10 rounded-xl overflow-hidden bg-white/15">
         {stats.map((stat) => (
-          <div key={stat.label} className="border-t-2 border-blueti dark:border-primary pt-4">
-            <div className="mb-3 text-blueti dark:text-primary">{stat.icon}</div>
-            <dt className="text-xs text-muted-foreground mb-1">{stat.label}</dt>
-            <dd className="font-semibold text-foreground text-base md:text-lg">{stat.value}</dd>
+          <div key={stat.label} className="bg-blueti px-5 py-6 md:px-6 md:py-8">
+            <dd className="text-xl md:text-3xl font-bold text-gold leading-tight text-balance">{stat.value}</dd>
+            <dt className="mt-2 text-sm text-blueti-muted">{stat.label}</dt>
           </div>
         ))}
       </dl>
