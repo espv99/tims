@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Menu } from 'lucide-react'
@@ -18,6 +18,28 @@ export function AdminShell({ role, userName, userEmail, children }: AdminShellPr
   const tNav = useTranslations('admin.nav')
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = usePathname()
+  const sidebarRef = useRef<HTMLDivElement>(null)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+  const wasOpen = useRef(false)
+
+  // Move focus into the drawer when it opens and back to the toggle when it closes
+  useEffect(() => {
+    let outer = 0
+    let inner = 0
+    if (sidebarOpen) {
+      // The visibility transition starts hidden (not focusable) on the first frame, so wait two frames
+      outer = requestAnimationFrame(() => {
+        inner = requestAnimationFrame(() => sidebarRef.current?.querySelector<HTMLElement>('a[href], button')?.focus())
+      })
+    } else if (wasOpen.current) {
+      toggleRef.current?.focus()
+    }
+    wasOpen.current = sidebarOpen
+    return () => {
+      cancelAnimationFrame(outer)
+      cancelAnimationFrame(inner)
+    }
+  }, [sidebarOpen])
 
   // Close drawer on route change
   useEffect(() => {
@@ -56,6 +78,7 @@ export function AdminShell({ role, userName, userEmail, children }: AdminShellPr
       {/* Sidebar — fixed drawer on mobile, static on desktop */}
       <div
         id="admin-sidebar"
+        ref={sidebarRef}
         className={`fixed inset-y-0 left-0 z-50 transition-[transform,visibility] duration-200 ease-in-out motion-reduce:transition-none md:sticky md:top-0 md:z-auto md:h-dvh md:translate-x-0 md:visible ${
           sidebarOpen ? 'visible translate-x-0' : 'invisible -translate-x-full'
         }`}
@@ -64,9 +87,10 @@ export function AdminShell({ role, userName, userEmail, children }: AdminShellPr
       </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0" inert={sidebarOpen}>
         <header className="sticky top-0 z-30 flex min-h-14 items-center gap-2 border-b border-border bg-card px-4 py-1 md:px-6">
           <button
+            ref={toggleRef}
             className="-ml-2 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-md text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none md:hidden"
             onClick={() => setSidebarOpen(true)}
             aria-label={tNav('openMenu')}
