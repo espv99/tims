@@ -2,10 +2,32 @@ import type { Metadata } from 'next'
 
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://timacas.vercel.app'
 
+export const siteName = 'Ingeniería en Tecnologías de la Información - ESPOCH Morona Santiago'
+export const defaultTitle = 'Ingeniería en Tecnologías de la Información - ESPOCH Sede Morona Santiago | Ecuador'
+
+// Page-level `openGraph` replaces the root one entirely, so every page must carry the full block.
+export function pageMetadata({
+  title,
+  description,
+  path,
+}: {
+  title: string
+  description: string
+  path: string
+}): Metadata {
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: { type: 'website', locale: 'es_EC', siteName, url: path, title, description },
+    twitter: { card: 'summary_large_image', title, description },
+  }
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Ingeniería en Tecnologías de la Información - ESPOCH Sede Morona Santiago | Ecuador',
+    default: defaultTitle,
     template: '%s | Ingeniería TI - ESPOCH Morona Santiago',
   },
   description:
@@ -30,7 +52,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'es_EC',
     url: siteUrl,
-    siteName: 'Ingeniería en Tecnologías de la Información - ESPOCH Morona Santiago',
+    siteName,
     title: 'Ingeniería en Tecnologías de la Información - ESPOCH Sede Morona Santiago',
     description:
       'Carrera de Ingeniería en Tecnologías de la Información, ESPOCH Sede Morona Santiago, Ecuador. Formación en TI en la región amazónica.',
