@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import Header from '@/sections/header/Header'
 import { Badge } from '@/components/ui/badge'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface News {
   id: string
@@ -27,19 +28,19 @@ type TimelineItem = (News & { type: 'news'; date: string }) | (Event & { type: '
 
 function SkeletonCard() {
   return (
-    <div className="flex gap-4 animate-pulse">
-      <div className="flex flex-col items-center gap-1">
-        <div className="w-3 h-3 rounded-full bg-muted mt-1.5 flex-shrink-0" />
-        <div className="w-px flex-1 bg-muted" />
+    <div className="flex gap-4">
+      <div className="flex flex-col items-center">
+        <Skeleton className="w-3 h-3 rounded-full mt-5 flex-shrink-0" />
+        <div className="w-px flex-1 bg-border mt-1" />
       </div>
-      <div className="flex-1 bg-card border border-border rounded-xl p-5 mb-6">
-        <div className="flex gap-2 mb-3">
-          <div className="h-5 w-16 bg-muted rounded-full" />
-          <div className="h-5 w-24 bg-muted rounded-full" />
+      <div className="flex-1 bg-card border border-border rounded-xl p-5 mb-4">
+        <div className="flex items-center gap-2 mb-3">
+          <Skeleton className="h-5 w-16 rounded-full" />
+          <Skeleton className="h-4 w-24" />
         </div>
-        <div className="h-5 w-3/4 bg-muted rounded mb-2" />
-        <div className="h-4 w-full bg-muted rounded mb-1" />
-        <div className="h-4 w-2/3 bg-muted rounded" />
+        <Skeleton className="h-5 w-3/4 mb-2" />
+        <Skeleton className="h-4 w-full mb-1" />
+        <Skeleton className="h-4 w-2/3" />
       </div>
     </div>
   )
@@ -131,7 +132,7 @@ export default function TimelinePage() {
           </div>
 
           {loading ? (
-            <div className="space-y-0">
+            <div>
               <SkeletonCard />
               <SkeletonCard />
               <SkeletonCard />

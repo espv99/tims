@@ -6,6 +6,7 @@ import { useSession } from '@/components/session-provider'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { SupabaseUpload } from '@/components/admin/supabase-upload'
@@ -21,6 +22,34 @@ interface Event {
 }
 
 const emptyForm = { title: '', description: '', eventDate: '', location: '', imageUrl: '' }
+
+function PageSkeleton() {
+  return (
+    <div>
+      <Skeleton className="h-8 w-48 mb-6" />
+      <Skeleton className="h-64 w-full mb-6 rounded-xl" />
+      <Card>
+        <CardHeader>
+          <Skeleton className="h-6 w-40" />
+        </CardHeader>
+        <CardContent>
+          <div className="divide-y divide-border">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="py-4 flex items-start gap-3">
+                <Skeleton className="w-14 h-14 sm:w-16 sm:h-16 shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <Skeleton className="h-5 w-1/2" />
+                  <Skeleton className="h-4 w-1/3" />
+                  <Skeleton className="h-4 w-3/4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
 
 export default function AdminEvents() {
   const t = useTranslations('admin.events')
@@ -113,7 +142,7 @@ export default function AdminEvents() {
     }
   }
 
-  if (loading) return <div className="text-center py-8">{tAdmin('loading')}</div>
+  if (loading) return <PageSkeleton />
 
   return (
     <div>
