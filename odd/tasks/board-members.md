@@ -14,7 +14,7 @@ Out of scope: applying the migration to production (user runs `prisma migrate de
 
 ## Tasks
 - [x] T1 Schema + migration + `/api/board` — route: delegated direct; tsc/eslint/prettier clean, migration applied on local Postgres, `prisma migrate diff` shows no drift
-- [ ] T2 Admin page `/admin/board`, sidebar link, messages es/en
+- [x] T2 Admin page `/admin/board`, sidebar link, messages es/en — route: delegated direct; tsc/eslint/prettier clean, es/en key sets identical; browser e2e recorded under T3
 - [ ] T3 Public pages `/club` and `/consejo-estudiantil` read members; CLAUDE.md docs
 
 ## Acceptance
