@@ -12,8 +12,8 @@
 
 ## Tasks
 - [x] T1 Dashboard data + page layout (server queries: next 5 upcoming events, latest 5 news, counters; role-aware: users counter only for ADMIN) — tsc/prettier/eslint clean; users count query skipped for EDITOR; commit fd29647
-- [x] T2 Dashboard components with empty states: counters row, UpcomingEvents, LatestNews, QuickActions — tsc/prettier/eslint clean; es/en dashboard keys added in same commit so it renders; commit HASH2
-- [ ] T3 Sidebar and topbar polish (active state, responsive, user menu area), keeping existing behavior
+- [x] T2 Dashboard components with empty states: counters row, UpcomingEvents, LatestNews, QuickActions — tsc/prettier/eslint clean; es/en dashboard keys added in same commit so it renders; commit c74214a
+- [x] T3 Sidebar and topbar polish (active state, responsive, user menu area), keeping existing behavior — aria-current, 44px targets, focus rings, Escape closes drawer, hidden drawer not focusable; tsc/prettier/eslint clean; commit HASH3
 - [ ] T4 i18n keys in es and en for everything new; no hardcoded strings
 
 ## Acceptance

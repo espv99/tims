@@ -34,7 +34,7 @@ export function AdminSidebar({ role, userName, userEmail, onClose }: AdminSideba
   ]
 
   return (
-    <aside className="w-72 md:w-64 h-full min-h-screen bg-card border-r border-border flex flex-col">
+    <aside className="flex h-dvh w-72 max-w-[85vw] flex-col border-r border-border bg-card md:w-64 md:max-w-none">
       <div className="p-4 border-b border-border flex items-start justify-between gap-2">
         <div className="min-w-0">
           <p className="font-semibold text-sm text-foreground truncate">{userName || userEmail}</p>
@@ -46,28 +46,29 @@ export function AdminSidebar({ role, userName, userEmail, onClose }: AdminSideba
         {onClose && (
           <button
             onClick={onClose}
-            className="md:hidden shrink-0 rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors cursor-pointer"
+            className="-mr-2 -mt-2 flex size-11 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none md:hidden cursor-pointer"
             aria-label="Cerrar menú"
           >
-            <X className="w-4 h-4" />
+            <X className="size-5" aria-hidden="true" />
           </button>
         )}
       </div>
 
-      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+      <nav aria-label="Navegación principal" className="flex-1 space-y-1 overflow-y-auto p-3">
         {navItems.map((item) => {
-          const isActive = pathname === item.href
+          const isActive = item.href === '/admin' ? pathname === item.href : pathname.startsWith(item.href)
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors cursor-pointer ${
+              aria-current={isActive ? 'page' : undefined}
+              className={`flex min-h-11 items-center gap-3 rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none ${
                 isActive
                   ? 'bg-primary text-primary-foreground'
                   : 'text-muted-foreground hover:bg-muted hover:text-foreground'
               }`}
             >
-              <item.icon className="w-4 h-4 shrink-0" />
+              <item.icon className="size-4 shrink-0" aria-hidden="true" />
               {item.label}
             </Link>
           )
@@ -77,9 +78,9 @@ export function AdminSidebar({ role, userName, userEmail, onClose }: AdminSideba
       <div className="p-3 border-t border-border">
         <button
           onClick={() => handleSignOut()}
-          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-md text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors cursor-pointer"
+          className="flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-md px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
         >
-          <LogOut className="w-4 h-4 shrink-0" />
+          <LogOut className="size-4 shrink-0" aria-hidden="true" />
           {t('logout')}
         </button>
       </div>

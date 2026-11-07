@@ -23,6 +23,16 @@ export function AdminShell({ role, userName, userEmail, children }: AdminShellPr
     setSidebarOpen(false)
   }, [pathname])
 
+  // Close drawer with Escape
+  useEffect(() => {
+    if (!sidebarOpen) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSidebarOpen(false)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [sidebarOpen])
+
   // Prevent body scroll when drawer open
   useEffect(() => {
     document.body.style.overflow = sidebarOpen ? 'hidden' : ''
@@ -44,8 +54,9 @@ export function AdminShell({ role, userName, userEmail, children }: AdminShellPr
 
       {/* Sidebar — fixed drawer on mobile, static on desktop */}
       <div
-        className={`fixed inset-y-0 left-0 z-50 transition-transform duration-300 ease-in-out md:static md:translate-x-0 md:z-auto ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        id="admin-sidebar"
+        className={`fixed inset-y-0 left-0 z-50 transition-[transform,visibility] duration-200 ease-in-out motion-reduce:transition-none md:sticky md:top-0 md:z-auto md:h-dvh md:translate-x-0 md:visible ${
+          sidebarOpen ? 'visible translate-x-0' : 'invisible -translate-x-full'
         }`}
       >
         <AdminSidebar role={role} userName={userName} userEmail={userEmail} onClose={() => setSidebarOpen(false)} />
@@ -53,18 +64,20 @@ export function AdminShell({ role, userName, userEmail, children }: AdminShellPr
 
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="bg-card border-b border-border px-4 md:px-6 py-3 flex items-center gap-3 sticky top-0 z-30">
+        <header className="sticky top-0 z-30 flex min-h-14 items-center gap-2 border-b border-border bg-card px-4 py-1 md:px-6">
           <button
-            className="md:hidden rounded-md p-2 text-foreground hover:bg-muted transition-colors cursor-pointer"
+            className="-ml-2 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-md text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none md:hidden"
             onClick={() => setSidebarOpen(true)}
             aria-label="Abrir menú"
+            aria-controls="admin-sidebar"
+            aria-expanded={sidebarOpen}
           >
-            <Menu className="w-5 h-5" />
+            <Menu className="size-5" aria-hidden="true" />
           </button>
-          <h1 className="text-base font-semibold text-foreground">{t('panelTitle')}</h1>
+          <h1 className="truncate text-base font-semibold text-foreground">{t('panelTitle')}</h1>
         </header>
 
-        <main className="flex-1 p-4 md:p-6">{children}</main>
+        <main className="min-w-0 flex-1 p-4 md:p-6">{children}</main>
       </div>
     </div>
   )
