@@ -15,7 +15,7 @@
 
 ## Tasks
 - [x] T1 CardTitle heading + club/council h2 + aria-hidden glyph (tsc, eslint, prettier clean)
-- [ ] T2 --input contrast >= 3:1 (light and dark), computed not estimated
+- [x] T2 --input contrast >= 3:1 (light and dark), computed not estimated (light 1.23->3.21, dark 1.37->3.16; border-input also used by button outline and admin/users selects)
 - [ ] T3 Video i18n strings + teacher photo attributes
 - [ ] T4 Drop unnecessary 'use client'
 - [ ] T5 prefers-reduced-motion fallback
