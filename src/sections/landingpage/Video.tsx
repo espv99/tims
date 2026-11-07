@@ -1,8 +1,15 @@
 import React from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
+
+export interface VideoCaption {
+  src: string
+  srcLang: string
+  label: string
+}
 
 interface VideoProps {
   src: string
+  captions?: VideoCaption[]
   title?: string
   className?: string
   autoplay?: boolean
@@ -15,6 +22,7 @@ interface VideoProps {
 
 const Video: React.FC<VideoProps> = ({
   src,
+  captions = [],
   title = 'Video',
   className = '',
   autoplay = false,
@@ -25,6 +33,7 @@ const Video: React.FC<VideoProps> = ({
   preload = 'none',
 }) => {
   const t = useTranslations('hero')
+  const locale = useLocale()
 
   // Detectar el tipo de video basado en la extensión
   const getVideoType = (url: string): string => {
@@ -48,6 +57,17 @@ const Video: React.FC<VideoProps> = ({
           playsInline
         >
           <source src={src} type={getVideoType(src)} />
+          {/* The video starts muted, so captions in the site language are on by default */}
+          {captions.map((caption) => (
+            <track
+              key={caption.srcLang}
+              kind="captions"
+              src={caption.src}
+              srcLang={caption.srcLang}
+              label={caption.label}
+              default={caption.srcLang === locale}
+            />
+          ))}
           {t('videoFallback')}
         </video>
       </div>
