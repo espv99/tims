@@ -29,6 +29,10 @@ export default async function PersonalDocentePage() {
                   <img
                     src={teacher.photo}
                     alt={teacher.name}
+                    width={96}
+                    height={96}
+                    loading="lazy"
+                    decoding="async"
                     className="w-24 h-24 rounded-full object-cover border-2 border-border mb-4"
                   />
                 ) : (

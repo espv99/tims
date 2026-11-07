@@ -46,7 +46,7 @@ export default async function Home() {
             </div>
           </div>
           <div className="pb-12 flex justify-center px-4">
-            <Video src="/media/videopr.mp4" title="Video de la carrera" />
+            <Video src="/media/videopr.mp4" title={t('videoTitle')} />
           </div>
         </section>
 

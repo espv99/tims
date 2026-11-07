@@ -26,7 +26,9 @@
     "title": "Ingeniería en Tecnologías de la Información",
     "description": "Forma profesionales capaces de gestionar y optimizar sistemas de información, adaptados a las tendencias tecnológicas del entorno local, regional y nacional.",
     "ctaPrimary": "Conoce la carrera",
-    "ctaSecondary": "Ver Cronograma"
+    "ctaSecondary": "Ver Cronograma",
+    "videoTitle": "Video de presentación de la carrera",
+    "videoFallback": "Tu navegador no admite la reproducción de video."
   },
   "infoBanner": {
     "title": "Información General",
