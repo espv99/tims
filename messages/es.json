@@ -385,6 +385,7 @@
     "download": "Descargar",
     "zoomIn": "Acercar",
     "zoomOut": "Alejar",
-    "zoomReset": "Restablecer zoom"
+    "zoomReset": "Restablecer zoom",
+    "viewerLabel": "Visor de la malla curricular en PDF"
   }
 }

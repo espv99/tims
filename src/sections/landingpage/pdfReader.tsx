@@ -1,17 +1,69 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect, type RefObject } from 'react'
 import { useTranslations } from 'next-intl'
 import { Document, Page, pdfjs } from 'react-pdf'
 import { Button } from '@/components/ui/button'
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
+// Self-hosted copy of pdfjs-dist@4.8.69 (the version react-pdf 9.2.1 resolves); keep in sync on upgrades.
+pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs'
 
 const PDF_FILE = '/docs/malla_curricular_propuesta.pdf'
-const BASE_WIDTH = 800
+const HORIZONTAL_PADDING = 32
+const FALLBACK_CONTAINER_WIDTH = 320
+const DEFAULT_PAGE_RATIO = Math.SQRT2
+const PAGE_MARGIN = 16
+const NEAR_PAGE_MARGIN = '600px 0px'
 const MIN_SCALE = 0.5
 const MAX_SCALE = 3.0
 const SCALE_STEP = 0.25
+
+function PdfPage({
+  pageNumber,
+  width,
+  ratio,
+  rootRef,
+  onRatio,
+}: {
+  pageNumber: number
+  width: number
+  ratio: number
+  rootRef: RefObject<HTMLDivElement | null>
+  onRatio: (pageNumber: number, ratio: number) => void
+}) {
+  const slotRef = useRef<HTMLDivElement>(null)
+  const [isNear, setIsNear] = useState(pageNumber === 1)
+
+  useEffect(() => {
+    const node = slotRef.current
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setIsNear(true)
+      return
+    }
+    const observer = new IntersectionObserver(([entry]) => setIsNear(entry.isIntersecting), {
+      root: rootRef.current,
+      rootMargin: NEAR_PAGE_MARGIN,
+    })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [rootRef])
+
+  // The slot keeps a fixed size so unrendered pages hold their place in the scroll area.
+  return (
+    <div ref={slotRef} style={{ width, height: Math.round(width * ratio), marginBottom: PAGE_MARGIN }}>
+      {isNear && (
+        <Page
+          pageNumber={pageNumber}
+          renderTextLayer={false}
+          renderAnnotationLayer={false}
+          className="shadow-sm"
+          width={width}
+          onLoadSuccess={(page) => onRatio(pageNumber, page.originalHeight / page.originalWidth)}
+        />
+      )}
+    </div>
+  )
+}
 
 function ZoomOutIcon() {
   return (
@@ -93,7 +145,22 @@ export default function PdfReader() {
   const t = useTranslations('pdfViewer')
   const [numPages, setNumPages] = useState<number>()
   const [scale, setScale] = useState(1.0)
+  const [containerWidth, setContainerWidth] = useState(FALLBACK_CONTAINER_WIDTH)
+  const [ratios, setRatios] = useState<Record<number, number>>({})
   const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const node = containerRef.current
+    if (!node || typeof ResizeObserver === 'undefined') return
+    const observer = new ResizeObserver(([entry]) => setContainerWidth(Math.round(entry.contentRect.width)))
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
+  const handleRatio = (pageNumber: number, ratio: number) =>
+    setRatios((prev) => (prev[pageNumber] === ratio ? prev : { ...prev, [pageNumber]: ratio }))
+
+  const pageWidth = Math.max(Math.round((containerWidth - HORIZONTAL_PADDING) * scale), 1)
 
   return (
     <section className="w-full my-10">
@@ -112,7 +179,7 @@ export default function PdfReader() {
               onClick={() => setScale((s) => Math.max(s - SCALE_STEP, MIN_SCALE))}
               disabled={scale <= MIN_SCALE}
               aria-label={t('zoomOut')}
-              className="cursor-pointer"
+              className="cursor-pointer min-h-11 min-w-11"
             >
               <ZoomOutIcon />
             </Button>
@@ -125,7 +192,7 @@ export default function PdfReader() {
               onClick={() => setScale((s) => Math.min(s + SCALE_STEP, MAX_SCALE))}
               disabled={scale >= MAX_SCALE}
               aria-label={t('zoomIn')}
-              className="cursor-pointer"
+              className="cursor-pointer min-h-11 min-w-11"
             >
               <ZoomInIcon />
             </Button>
@@ -134,7 +201,7 @@ export default function PdfReader() {
               size="sm"
               onClick={() => setScale(1.0)}
               aria-label={t('zoomReset')}
-              className="cursor-pointer"
+              className="cursor-pointer min-h-11 min-w-11"
             >
               <ResetIcon />
             </Button>
@@ -143,7 +210,7 @@ export default function PdfReader() {
           <a
             href={PDF_FILE}
             download="malla_curricular_propuesta.pdf"
-            className="inline-flex items-center gap-2 px-3 py-1.5 bg-blueti hover:bg-blueti/90 text-white text-sm font-medium rounded-md transition-colors duration-200 cursor-pointer"
+            className="inline-flex items-center gap-2 min-h-11 px-4 py-1.5 bg-blueti hover:bg-blueti/90 text-white text-sm font-medium rounded-md transition-colors duration-200 cursor-pointer"
           >
             <DownloadIcon />
             {t('download')}
@@ -153,23 +220,26 @@ export default function PdfReader() {
         {/* PDF viewport */}
         <div
           ref={containerRef}
-          className="overflow-auto bg-muted/20"
+          role="region"
+          tabIndex={0}
+          aria-label={t('viewerLabel')}
+          className="overflow-auto bg-muted/20 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blueti"
           style={{ height: '520px', scrollbarWidth: 'thin' }}
         >
           <Document
             file={PDF_FILE}
             onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-            className="flex flex-col items-center py-4 min-w-fit"
+            className="flex flex-col items-center px-4 pt-4 min-w-fit"
           >
             {numPages &&
               Array.from({ length: numPages }, (_, i) => (
-                <Page
+                <PdfPage
                   key={`page_${i + 1}`}
                   pageNumber={i + 1}
-                  renderTextLayer={false}
-                  renderAnnotationLayer={false}
-                  className="mb-4 shadow-sm"
-                  width={BASE_WIDTH * scale}
+                  width={pageWidth}
+                  ratio={ratios[i + 1] ?? ratios[1] ?? DEFAULT_PAGE_RATIO}
+                  rootRef={containerRef}
+                  onRatio={handleRatio}
                 />
               ))}
           </Document>
