@@ -16,7 +16,7 @@
 
 ## Tasks
 - [x] T1 Compression util + SupabaseUpload integration (limit, WebP, maxDimension prop, no video) -- tsc, prettier, eslint (0 errors) clean; messages key sets identical; commit PLACEHOLDER1
-- [ ] T2 Whitelist validation in /api/storage/sign
+- [x] T2 Whitelist validation in /api/storage/sign -- tsc, prettier, eslint clean; 400 behaviour exercised in the end-to-end check; commit PLACEHOLDER2
 - [ ] T3 next/image config and usages
 - [ ] T4 CLAUDE.md storage docs
 
