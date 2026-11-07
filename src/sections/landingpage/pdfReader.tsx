@@ -5,7 +5,8 @@ import { useTranslations } from 'next-intl'
 import { Document, Page, pdfjs } from 'react-pdf'
 import { Button } from '@/components/ui/button'
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
+// Self-hosted copy of pdfjs-dist@4.8.69 (the version react-pdf 9.2.1 resolves); keep in sync on upgrades.
+pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs'
 
 const PDF_FILE = '/docs/malla_curricular_propuesta.pdf'
 const BASE_WIDTH = 800
