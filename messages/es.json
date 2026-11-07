@@ -434,5 +434,23 @@
     "zoomOut": "Alejar",
     "zoomReset": "Restablecer zoom",
     "viewerLabel": "Visor de la malla curricular en PDF"
+  },
+  "seo": {
+    "timeline": {
+      "title": "Noticias y eventos",
+      "description": "Noticias y eventos de la carrera de Ingeniería en Tecnologías de la Información, ESPOCH Sede Morona Santiago."
+    },
+    "club": {
+      "title": "Evolución Tecnológica, club estudiantil",
+      "description": "Evolución Tecnológica, club estudiantil de Tecnologías de la Información de la ESPOCH Sede Morona Santiago: misión, visión y directiva."
+    },
+    "council": {
+      "title": "Consejo Estudiantil",
+      "description": "Consejo Estudiantil de la carrera de Ingeniería en Tecnologías de la Información, ESPOCH Sede Morona Santiago: misión, visión y directiva."
+    },
+    "teachers": {
+      "title": "Personal docente",
+      "description": "Docentes de la carrera de Ingeniería en Tecnologías de la Información, ESPOCH Sede Morona Santiago."
+    }
   }
 }

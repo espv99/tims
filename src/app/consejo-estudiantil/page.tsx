@@ -8,7 +8,10 @@ import { BoardGrid } from '@/components/board/board-grid'
 // Board members are edited from the admin panel, so never serve a statically frozen copy.
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = { alternates: { canonical: '/consejo-estudiantil' } }
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('seo.council')
+  return { title: t('title'), description: t('description'), alternates: { canonical: '/consejo-estudiantil' } }
+}
 
 export default async function ConsejoEstudiantilPage() {
   const t = await getTranslations('council')

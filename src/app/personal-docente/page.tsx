@@ -6,7 +6,10 @@ import Image from 'next/image'
 import { isLocalImageUrl } from '@/lib/image-url'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { alternates: { canonical: '/personal-docente' } }
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('seo.teachers')
+  return { title: t('title'), description: t('description'), alternates: { canonical: '/personal-docente' } }
+}
 
 export default async function PersonalDocentePage() {
   const t = await getTranslations('teachers')
