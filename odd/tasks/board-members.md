@@ -13,7 +13,7 @@ Prisma model + hand-written migration; `/api/board` (GET public, PUT upsert by b
 Out of scope: applying the migration to production (user runs `prisma migrate deploy`), free-form roles.
 
 ## Tasks
-- [ ] T1 Schema + migration + `/api/board`
+- [x] T1 Schema + migration + `/api/board` — route: delegated direct; tsc/eslint/prettier clean, migration applied on local Postgres, `prisma migrate diff` shows no drift
 - [ ] T2 Admin page `/admin/board`, sidebar link, messages es/en
 - [ ] T3 Public pages `/club` and `/consejo-estudiantil` read members; CLAUDE.md docs
 
