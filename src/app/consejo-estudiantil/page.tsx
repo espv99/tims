@@ -1,6 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
+import { pageMetadata } from '@/app/metadata'
 import { Header } from '@/sections/header/Header'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { BoardGrid } from '@/components/board/board-grid'
@@ -10,7 +11,7 @@ export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('seo.council')
-  return { title: t('title'), description: t('description'), alternates: { canonical: '/consejo-estudiantil' } }
+  return pageMetadata({ title: t('title'), description: t('description'), path: '/consejo-estudiantil' })
 }
 
 export default async function ConsejoEstudiantilPage() {

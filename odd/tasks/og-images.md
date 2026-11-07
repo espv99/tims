@@ -17,10 +17,12 @@ Today there is no OG image at all, and per-page titles don't reach the social ca
 Out of scope: changing titles/descriptions already shipped, new fonts files, admin/login pages.
 
 ## Tasks
-- [ ] T1 Shared renderer + 5 image routes + `pageMetadata` helper + pages wired
+- [x] T1 Shared renderer + 5 image routes + `pageMetadata` helper + pages wired
 
 ## Acceptance
 tsc/eslint/prettier clean on touched files; build passes; for each of the 5 pages the HTML has `og:image` and `twitter:image` with absolute URLs under `https://timacas.vercel.app` (or NEXT_PUBLIC_SITE_URL), `og:title` equals the page title, and the image URL returns 200 `image/png` of 1200x630; images look right (view at least two via Playwright screenshot or by saving the PNG and opening it).
 
 ## Progress / evidence
-(none yet; Engram mirror pending)
+- T1 route: delegated direct (writer; 2+ non-trivial files). No test suite exists, so RED/GREEN does not apply.
+- T1 evidence: tsc, eslint (0 errors) and prettier clean; next build passes; the 5 pages emit og:title/description/image and twitter:image (absolute https://timacas.vercel.app URLs; twitter:image comes from opengraph-image automatically, so no twitter-image files); all 5 images 200 image/png 1200x630; home and consejo-estudiantil/club PNGs viewed, accents render and nothing is clipped.
+- Engram mirror pending.

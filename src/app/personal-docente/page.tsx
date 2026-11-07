@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server'
+import { pageMetadata } from '@/app/metadata'
 import { prisma } from '@/lib/prisma'
 import { Header } from '@/sections/header/Header'
 import { Mail } from 'lucide-react'
@@ -8,7 +9,7 @@ import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('seo.teachers')
-  return { title: t('title'), description: t('description'), alternates: { canonical: '/personal-docente' } }
+  return pageMetadata({ title: t('title'), description: t('description'), path: '/personal-docente' })
 }
 
 export default async function PersonalDocentePage() {
