@@ -10,10 +10,20 @@ import ProyectosInvestigacion from '@/sections/landingpage/proyectosInvestigacio
 import PdfReaderWrapper from '@/sections/landingpage/PdfReaderWrapper'
 import Video from '@/sections/landingpage/Video'
 import LearningOutcomes from '@/sections/landingpage/learningOutcomes'
+import type React from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { alternates: { canonical: '/' } }
+
+// The dark tone reuses the theme's `dark` tokens inside a blueti band, so child sections need no extra styling
+function Band({ tone = 'light', children }: { tone?: 'light' | 'dark'; children: React.ReactNode }) {
+  return (
+    <div className={tone === 'dark' ? 'dark w-full bg-blueti text-foreground' : 'w-full'}>
+      <div className="w-full max-w-5xl mx-auto px-4 py-5 flex flex-col">{children}</div>
+    </div>
+  )
+}
 
 export default async function Home() {
   const t = await getTranslations('hero')
@@ -60,16 +70,26 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Main content */}
-        <div id="informacion" className="w-full max-w-5xl mx-auto px-4 py-10 flex flex-col gap-0">
-          <InfoBanner />
-          <ProfessionalProfile />
-          <OccupationalField />
-          <LearningOutcomes />
-          <Objetivos />
-          <ProyectosVinculacion />
-          <ProyectosInvestigacion />
-          <PdfReaderWrapper />
+        {/* Main content: alternating light and blueti bands */}
+        <div id="informacion" className="flex flex-col">
+          <Band>
+            <InfoBanner />
+          </Band>
+          <Band tone="dark">
+            <ProfessionalProfile />
+          </Band>
+          <Band>
+            <OccupationalField />
+          </Band>
+          <Band tone="dark">
+            <LearningOutcomes />
+          </Band>
+          <Band>
+            <Objetivos />
+            <ProyectosVinculacion />
+            <ProyectosInvestigacion />
+            <PdfReaderWrapper />
+          </Band>
         </div>
       </main>
 
