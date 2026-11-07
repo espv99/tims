@@ -20,6 +20,9 @@ function supabaseImagePatterns(): NonNullable<NextConfig['images']>['remotePatte
 }
 
 const nextConfig: NextConfig = {
+  // Next streams <meta> tags into <body> for user agents it does not know as search bots, and Google's
+  // site-verification fetcher is one of them, so it never sees the tag. Serve metadata in <head> for everyone.
+  htmlLimitedBots: /.*/,
   images: {
     remotePatterns: supabaseImagePatterns(),
   },
