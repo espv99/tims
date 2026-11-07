@@ -59,3 +59,28 @@ model Teacher {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+enum BoardBody {
+  CLUB
+  COUNCIL
+}
+
+enum BoardRole {
+  PRESIDENT
+  VICE_PRESIDENT
+  SECRETARY
+  TREASURER
+  MEMBER
+}
+
+model BoardMember {
+  id        String    @id @default(cuid())
+  body      BoardBody
+  role      BoardRole
+  name      String
+  photo     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@unique([body, role])
+}

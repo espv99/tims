@@ -57,6 +57,7 @@ Supabase setup: create a public Storage bucket named `media`, then `npx prisma m
 | `/admin` | Admin dashboard (ADMIN role only) |
 | `/admin/news` | News CRUD |
 | `/admin/events` | Events CRUD |
+| `/admin/board` | Club and Student Council board members (ADMIN and EDITOR) |
 
 ### Authentication & Authorization
 
@@ -81,6 +82,10 @@ Images upload to the public Supabase bucket `media`. `/api/storage/sign` (ADMIN/
 ### API Routes
 
 RESTful JSON APIs under `src/app/api/`. Pattern: `/api/news/route.ts` (collection) + `/api/news/[id]/route.ts` (single resource). Same pattern for events.
+
+### Board members
+
+`BoardMember` (`BoardBody` CLUB/COUNCIL x `BoardRole` PRESIDENT/VICE_PRESIDENT/SECRETARY/TREASURER/MEMBER, unique per body+role, optional photo) feeds the board grids on `/club` and `/consejo-estudiantil`. Roles without a holder keep showing the `tbd` text. `/api/board`: GET is public (`?body=CLUB|COUNCIL` optional); PUT upserts by body+role and DELETE (`?body=&role=`) clears a role, both ADMIN/EDITOR. The public pages are `force-dynamic` and read Prisma through `src/components/board/board-grid.tsx`. Production needs `npx prisma migrate deploy` to create the table (until then the pages fall back to "Por definir").
 
 ### Database
 
