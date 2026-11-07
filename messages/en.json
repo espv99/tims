@@ -224,7 +224,20 @@
       "statsNews": "Articles",
       "statsEvents": "Events",
       "statsTeachers": "Faculty",
-      "statsUsers": "Users"
+      "statsUsers": "Users",
+      "countersHeading": "Overview",
+      "quickActions": "Quick actions",
+      "newNews": "New article",
+      "newEvent": "New event",
+      "viewAll": "View all",
+      "upcomingEvents": "Upcoming events",
+      "eventsEmptyTitle": "No upcoming events",
+      "eventsEmptyHint": "Events with a future date will show up here.",
+      "eventsEmptyAction": "Create an event",
+      "latestNews": "Latest news",
+      "newsEmptyTitle": "No news published yet",
+      "newsEmptyHint": "Articles you publish will show up here.",
+      "newsEmptyAction": "Publish an article"
     },
     "news": {
       "pageTitle": "Manage News",

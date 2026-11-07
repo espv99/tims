@@ -224,7 +224,20 @@
       "statsNews": "Noticias",
       "statsEvents": "Eventos",
       "statsTeachers": "Docentes",
-      "statsUsers": "Usuarios"
+      "statsUsers": "Usuarios",
+      "countersHeading": "Resumen",
+      "quickActions": "Acciones rápidas",
+      "newNews": "Nueva noticia",
+      "newEvent": "Nuevo evento",
+      "viewAll": "Ver todo",
+      "upcomingEvents": "Próximos eventos",
+      "eventsEmptyTitle": "No hay eventos próximos",
+      "eventsEmptyHint": "Los eventos con fecha futura aparecerán aquí.",
+      "eventsEmptyAction": "Crear un evento",
+      "latestNews": "Últimas noticias",
+      "newsEmptyTitle": "Aún no hay noticias publicadas",
+      "newsEmptyHint": "Las noticias que publiques aparecerán aquí.",
+      "newsEmptyAction": "Publicar una noticia"
     },
     "news": {
       "pageTitle": "Gestionar Noticias",

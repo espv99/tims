@@ -11,8 +11,8 @@
 **Constraints:** product register (design serves the task); no gradients, no glass, no identical icon-card template, no hero metrics; brand tokens only (navy `--primary`, gold accent), light and dark must both work; WCAG 2.1 AA (contrast >= 4.5:1, 44px targets, visible focus); mobile first; Spanish primary + English; Prettier style; no new dependencies; do not touch lockfiles; use `npx tsc --noEmit` and `npx eslint` (not `npm run lint`). Do not invent routes: link only to routes that exist.
 
 ## Tasks
-- [x] T1 Dashboard data + page layout (server queries: next 5 upcoming events, latest 5 news, counters; role-aware: users counter only for ADMIN) — tsc/prettier/eslint clean; users count query skipped for EDITOR; commit HASH1
-- [ ] T2 Dashboard components with empty states: counters row, UpcomingEvents, LatestNews, QuickActions
+- [x] T1 Dashboard data + page layout (server queries: next 5 upcoming events, latest 5 news, counters; role-aware: users counter only for ADMIN) — tsc/prettier/eslint clean; users count query skipped for EDITOR; commit fd29647
+- [x] T2 Dashboard components with empty states: counters row, UpcomingEvents, LatestNews, QuickActions — tsc/prettier/eslint clean; es/en dashboard keys added in same commit so it renders; commit HASH2
 - [ ] T3 Sidebar and topbar polish (active state, responsive, user menu area), keeping existing behavior
 - [ ] T4 i18n keys in es and en for everything new; no hardcoded strings
 
