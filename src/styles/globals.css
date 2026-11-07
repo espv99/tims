@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* Tailwind 4 keys dark: to prefers-color-scheme by default; follow the .dark class set by next-themes instead */
+@custom-variant dark (&:is(.dark *));
+
 :root {
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
