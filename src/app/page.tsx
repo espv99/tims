@@ -49,7 +49,14 @@ export default async function Home() {
             </div>
           </div>
           <div className="pb-12 flex justify-center px-4">
-            <Video src="/media/videopr.mp4" title={t('videoTitle')} />
+            <Video
+              src="/media/videopr.mp4"
+              title={t('videoTitle')}
+              captions={[
+                { src: '/media/videopr.es.vtt', srcLang: 'es', label: 'Español' },
+                { src: '/media/videopr.en.vtt', srcLang: 'en', label: 'English' },
+              ]}
+            />
           </div>
         </section>
 
