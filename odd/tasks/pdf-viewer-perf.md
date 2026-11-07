@@ -27,4 +27,4 @@ No test suite: RED/GREEN exception. Typecheck, prettier, eslint, and a network c
 Delegated direct: one writer (reading prepares the write; 2+ non-trivial files).
 
 ## Progress / evidence
-(none yet)
+Commits: T1 43837f2, T2 04a734a, T3 58dc3f3, T4 5ba26c8. Route: delegated direct. Checks: tsc clean; eslint 0 errors; prettier ok on touched src files (messages/*.json were already non-Prettier at HEAD); worker 200 on dev server; 320px browser check passed. No RED/GREEN: no test suite.
