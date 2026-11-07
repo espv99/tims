@@ -47,14 +47,14 @@ export function AdminSidebar({ role, userName, userEmail, onClose }: AdminSideba
           <button
             onClick={onClose}
             className="-mr-2 -mt-2 flex size-11 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none md:hidden cursor-pointer"
-            aria-label="Cerrar menú"
+            aria-label={t('closeMenu')}
           >
             <X className="size-5" aria-hidden="true" />
           </button>
         )}
       </div>
 
-      <nav aria-label="Navegación principal" className="flex-1 space-y-1 overflow-y-auto p-3">
+      <nav aria-label={t('mainNav')} className="flex-1 space-y-1 overflow-y-auto p-3">
         {navItems.map((item) => {
           const isActive = item.href === '/admin' ? pathname === item.href : pathname.startsWith(item.href)
           return (

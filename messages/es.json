@@ -215,12 +215,7 @@
     "cancel": "Cancelar",
     "edit": "Editar",
     "dashboard": {
-      "title": "Panel de Administración TIMS",
       "description": "Gestiona el contenido del sitio desde aquí.",
-      "manageNews": "Gestionar Noticias",
-      "manageEvents": "Gestionar Eventos",
-      "manageTeachers": "Gestionar Docentes",
-      "manageUsers": "Gestionar Usuarios",
       "statsNews": "Noticias",
       "statsEvents": "Eventos",
       "statsTeachers": "Docentes",
@@ -324,7 +319,10 @@
       "events": "Eventos",
       "teachers": "Docentes",
       "users": "Usuarios",
-      "logout": "Cerrar sesión"
+      "logout": "Cerrar sesión",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNav": "Navegación principal"
     }
   },
   "teachers": {

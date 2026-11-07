@@ -215,12 +215,7 @@
     "cancel": "Cancel",
     "edit": "Edit",
     "dashboard": {
-      "title": "TIMS Administration Panel",
       "description": "Manage site content from here.",
-      "manageNews": "Manage News",
-      "manageEvents": "Manage Events",
-      "manageTeachers": "Manage Faculty",
-      "manageUsers": "Manage Users",
       "statsNews": "Articles",
       "statsEvents": "Events",
       "statsTeachers": "Faculty",
@@ -324,7 +319,10 @@
       "events": "Events",
       "teachers": "Faculty",
       "users": "Users",
-      "logout": "Sign out"
+      "logout": "Sign out",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "mainNav": "Main navigation"
     }
   },
   "teachers": {

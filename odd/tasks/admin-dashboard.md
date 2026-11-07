@@ -13,8 +13,8 @@
 ## Tasks
 - [x] T1 Dashboard data + page layout (server queries: next 5 upcoming events, latest 5 news, counters; role-aware: users counter only for ADMIN) — tsc/prettier/eslint clean; users count query skipped for EDITOR; commit fd29647
 - [x] T2 Dashboard components with empty states: counters row, UpcomingEvents, LatestNews, QuickActions — tsc/prettier/eslint clean; es/en dashboard keys added in same commit so it renders; commit c74214a
-- [x] T3 Sidebar and topbar polish (active state, responsive, user menu area), keeping existing behavior — aria-current, 44px targets, focus rings, Escape closes drawer, hidden drawer not focusable; tsc/prettier/eslint clean; commit HASH3
-- [ ] T4 i18n keys in es and en for everything new; no hardcoded strings
+- [x] T3 Sidebar and topbar polish (active state, responsive, user menu area), keeping existing behavior — aria-current, 44px targets, focus rings, Escape closes drawer, hidden drawer not focusable; tsc/prettier/eslint clean; commit 37dd36f
+- [x] T4 i18n keys in es and en for everything new; no hardcoded strings — shell/sidebar aria labels moved to admin.nav; removed unused dashboard.title/manage* keys (rg: zero references); dashboard keys were added in T2 commit; commit HASH4
 
 ## Acceptance
 - `/admin` shows upcoming events, latest news, counters and quick actions; empty states when there is no data.
@@ -29,4 +29,4 @@ No test suite: RED/GREEN exception. Typecheck, prettier, eslint. A browser check
 Delegated direct: one writer (4 tasks, 6+ non-trivial files; reading prepares the write).
 
 ## Progress / evidence
-(none yet)
+Route: delegated direct. Verification: tsc, prettier (touched code files), eslint clean. No browser check (no authenticated admin session). Contrast pairs: foreground/card, muted-foreground/card and /muted-50 hover, primary/card, foreground/muted (date block).

@@ -15,6 +15,7 @@ interface AdminShellProps {
 
 export function AdminShell({ role, userName, userEmail, children }: AdminShellProps) {
   const t = useTranslations('admin')
+  const tNav = useTranslations('admin.nav')
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = usePathname()
 
@@ -68,7 +69,7 @@ export function AdminShell({ role, userName, userEmail, children }: AdminShellPr
           <button
             className="-ml-2 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-md text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none md:hidden"
             onClick={() => setSidebarOpen(true)}
-            aria-label="Abrir menú"
+            aria-label={tNav('openMenu')}
             aria-controls="admin-sidebar"
             aria-expanded={sidebarOpen}
           >
