@@ -216,6 +216,20 @@
     "saving": "Guardando...",
     "cancel": "Cancelar",
     "edit": "Editar",
+    "upload": {
+      "label": "Subir imagen",
+      "photoLabel": "Subir foto",
+      "uploading": "Subiendo...",
+      "remove": "Quitar imagen",
+      "previewAlt": "Vista previa",
+      "finalSize": "Tamaño final: {size} KB",
+      "unsupportedType": "Formato no admitido. Usa una imagen JPEG, PNG o WebP.",
+      "decodeFailed": "No se pudo leer la imagen. Prueba con otro archivo.",
+      "tooLarge": "No se pudo reducir la imagen a 512 KB. Prueba con una imagen más pequeña.",
+      "signFailed": "No se pudo obtener la URL de subida",
+      "uploadFailed": "Error al subir la imagen",
+      "unknownError": "Error desconocido"
+    },
     "dashboard": {
       "description": "Gestiona el contenido del sitio desde aquí.",
       "statsNews": "Noticias",

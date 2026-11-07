@@ -2,6 +2,8 @@ import { getTranslations } from 'next-intl/server'
 import { prisma } from '@/lib/prisma'
 import { Header } from '@/sections/header/Header'
 import { Mail } from 'lucide-react'
+import Image from 'next/image'
+import { isLocalImageUrl } from '@/lib/image-url'
 
 export default async function PersonalDocentePage() {
   const t = await getTranslations('teachers')
@@ -26,13 +28,12 @@ export default async function PersonalDocentePage() {
                 className="bg-card border border-border rounded-xl p-6 flex flex-col items-center text-center"
               >
                 {teacher.photo ? (
-                  <img
+                  <Image
                     src={teacher.photo}
                     alt={teacher.name}
                     width={96}
                     height={96}
-                    loading="lazy"
-                    decoding="async"
+                    unoptimized={isLocalImageUrl(teacher.photo)}
                     className="w-24 h-24 rounded-full object-cover border-2 border-border mb-4"
                   />
                 ) : (

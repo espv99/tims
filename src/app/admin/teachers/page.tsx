@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
+import { isLocalImageUrl } from '@/lib/image-url'
 import { useSession } from '@/components/session-provider'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -199,7 +201,8 @@ export default function AdminTeachers() {
                 <SupabaseUpload
                   value={formData.photo}
                   onChange={(url) => setFormData({ ...formData, photo: url })}
-                  label="Subir foto"
+                  label={tAdmin('upload.photoLabel')}
+                  maxDimension={800}
                 />
               </div>
             </div>
@@ -255,7 +258,8 @@ export default function AdminTeachers() {
                         <SupabaseUpload
                           value={editData.photo}
                           onChange={(url) => setEditData({ ...editData, photo: url })}
-                          label="Subir foto"
+                          label={tAdmin('upload.photoLabel')}
+                          maxDimension={800}
                         />
                       </div>
                       <div className="flex gap-2">
@@ -271,9 +275,12 @@ export default function AdminTeachers() {
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                       <div className="flex items-center gap-3 min-w-0">
                         {item.photo ? (
-                          <img
+                          <Image
                             src={item.photo}
                             alt={item.name}
+                            width={44}
+                            height={44}
+                            unoptimized={isLocalImageUrl(item.photo)}
                             className="w-11 h-11 rounded-full object-cover shrink-0"
                           />
                         ) : (
