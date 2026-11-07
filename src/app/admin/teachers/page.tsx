@@ -6,6 +6,7 @@ import { useSession } from '@/components/session-provider'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Label } from '@/components/ui/label'
 import { SupabaseUpload } from '@/components/admin/supabase-upload'
 
@@ -20,6 +21,34 @@ interface Teacher {
 }
 
 const emptyForm = { name: '', title: '', specialty: '', email: '', photo: '' }
+
+function PageSkeleton() {
+  return (
+    <div>
+      <Skeleton className="h-8 w-48 mb-6" />
+      <Skeleton className="h-64 w-full mb-6 rounded-xl" />
+      <Card>
+        <CardHeader>
+          <Skeleton className="h-6 w-40" />
+        </CardHeader>
+        <CardContent>
+          <div className="divide-y divide-border">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="py-4 flex items-center gap-3">
+                <Skeleton className="w-11 h-11 rounded-full shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <Skeleton className="h-4 w-1/3" />
+                  <Skeleton className="h-4 w-1/4" />
+                  <Skeleton className="h-3 w-1/2" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
 
 export default function AdminTeachers() {
   const t = useTranslations('admin.teachers')
@@ -110,7 +139,7 @@ export default function AdminTeachers() {
     }
   }
 
-  if (loading) return <div className="text-center py-8">{tAdmin('loading')}</div>
+  if (loading) return <PageSkeleton />
 
   return (
     <div>

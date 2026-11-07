@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Label } from '@/components/ui/label'
 
 interface User {
@@ -24,6 +25,31 @@ const roleVariant: Record<User['role'], 'default' | 'secondary' | 'outline'> = {
   ADMIN: 'default',
   EDITOR: 'secondary',
   USER: 'outline',
+}
+
+function PageSkeleton() {
+  return (
+    <div>
+      <Skeleton className="h-8 w-48 mb-6" />
+      <Skeleton className="h-64 w-full mb-6 rounded-xl" />
+      <Card>
+        <CardHeader>
+          <Skeleton className="h-6 w-40" />
+        </CardHeader>
+        <CardContent>
+          <div className="divide-y divide-border">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="py-4 space-y-2">
+                <Skeleton className="h-4 w-1/3" />
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="h-3 w-24" />
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
 }
 
 export default function AdminUsers() {
@@ -113,7 +139,7 @@ export default function AdminUsers() {
     }
   }
 
-  if (loading) return <div className="text-center py-8">{tAdmin('loading')}</div>
+  if (loading) return <PageSkeleton />
 
   return (
     <div>
