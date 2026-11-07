@@ -1,9 +1,12 @@
+import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import Header from '@/sections/header/Header'
 import { prisma } from '@/lib/prisma'
 import { TimelineList, type TimelineEvent, type TimelineNews } from '@/components/timeline/timeline-list'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = { alternates: { canonical: '/timeline' } }
 
 async function getTimelineData(): Promise<{ news: TimelineNews[]; events: TimelineEvent[] }> {
   try {

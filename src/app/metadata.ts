@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://espoch.edu.ec'
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://timacas.vercel.app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -48,6 +48,5 @@ export const metadata: Metadata = {
   verification: {
     google: '9nRuM_4g3lRnTpjyhDxECY8G7v0TzZVplSCH4y9JRI4',
   },
-  alternates: { canonical: siteUrl },
   category: 'education',
 }
