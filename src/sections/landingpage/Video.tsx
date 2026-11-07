@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { useTranslations } from 'next-intl'
 
 interface VideoProps {
   src: string
@@ -25,6 +26,8 @@ const Video: React.FC<VideoProps> = ({
   poster = '/media/media.webp',
   preload = 'none',
 }) => {
+  const t = useTranslations('hero')
+
   // Detectar el tipo de video basado en la extensión
   const getVideoType = (url: string): string => {
     if (url.endsWith('.webm')) return 'video/webm'
@@ -47,7 +50,7 @@ const Video: React.FC<VideoProps> = ({
           playsInline
         >
           <source src={src} type={getVideoType(src)} />
-          Tu navegador no soporta el elemento de video.
+          {t('videoFallback')}
         </video>
       </div>
     </div>
