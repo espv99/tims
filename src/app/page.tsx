@@ -34,7 +34,7 @@ export default async function Home() {
 
       <main id="main-content">
         {/* Hero */}
-        <section className="w-full bg-blueti">
+        <section className="w-full bg-blueti bg-dots">
           <div className="max-w-5xl mx-auto px-4 py-16 md:py-20 text-center">
             <span className="inline-block bg-gold/20 text-gold text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-5">
               {t('badge')}

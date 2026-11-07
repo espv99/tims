@@ -32,7 +32,7 @@ const InfoBanner: React.FC<InfoBannerProps> = async ({
 
       <dl className="grid grid-cols-2 md:grid-cols-4 gap-px mb-10 rounded-xl overflow-hidden bg-white/15">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-blueti px-5 py-6 md:px-6 md:py-8">
+          <div key={stat.label} className="bg-blueti bg-dots px-5 py-6 md:px-6 md:py-8">
             <dd className="text-xl md:text-3xl font-bold text-gold leading-tight text-balance">{stat.value}</dd>
             <dt className="mt-2 text-sm text-blueti-muted">{stat.label}</dt>
           </div>
