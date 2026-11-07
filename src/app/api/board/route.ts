@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
 import { BOARD_ROLES, isBoardBody, isBoardRole } from '@/lib/board'
+import { isSupabaseStorageUrl } from '@/lib/image-url'
 
 const MAX_NAME_LENGTH = 120
 const MAX_PHOTO_LENGTH = 2048
@@ -62,11 +63,9 @@ export async function PUT(request: NextRequest) {
       if (typeof payload.photo !== 'string' || payload.photo.length > MAX_PHOTO_LENGTH) {
         return NextResponse.json({ error: 'Invalid photo URL' }, { status: 400 })
       }
-      try {
-        const { protocol } = new URL(payload.photo)
-        if (protocol !== 'http:' && protocol !== 'https:') throw new Error('bad protocol')
-      } catch {
-        return NextResponse.json({ error: 'Invalid photo URL' }, { status: 400 })
+      // Only this project's public Storage URLs: next/image cannot render other hosts and would break the page
+      if (!isSupabaseStorageUrl(payload.photo)) {
+        return NextResponse.json({ error: 'Photo must be an image uploaded to Storage' }, { status: 400 })
       }
       photo = payload.photo
     }
