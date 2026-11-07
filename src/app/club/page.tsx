@@ -27,16 +27,22 @@ export default async function ClubPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-primary">◎</span> {t('missionTitle')}
+              <CardTitle as="h2" className="flex items-center gap-2">
+                <span className="text-primary" aria-hidden="true">
+                  ◎
+                </span>{' '}
+                {t('missionTitle')}
               </CardTitle>
             </CardHeader>
             <CardContent className="text-muted-foreground leading-relaxed">{t('missionText')}</CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-primary">◎</span> {t('visionTitle')}
+              <CardTitle as="h2" className="flex items-center gap-2">
+                <span className="text-primary" aria-hidden="true">
+                  ◎
+                </span>{' '}
+                {t('visionTitle')}
               </CardTitle>
             </CardHeader>
             <CardContent className="text-muted-foreground leading-relaxed">{t('visionText')}</CardContent>
@@ -45,7 +51,7 @@ export default async function ClubPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>{t('boardTitle')}</CardTitle>
+            <CardTitle as="h2">{t('boardTitle')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
