@@ -216,6 +216,20 @@
     "saving": "Saving...",
     "cancel": "Cancel",
     "edit": "Edit",
+    "upload": {
+      "label": "Upload image",
+      "photoLabel": "Upload photo",
+      "uploading": "Uploading...",
+      "remove": "Remove image",
+      "previewAlt": "Preview",
+      "finalSize": "Final size: {size} KB",
+      "unsupportedType": "Unsupported format. Use a JPEG, PNG or WebP image.",
+      "decodeFailed": "The image could not be read. Try a different file.",
+      "tooLarge": "The image could not be reduced to 512 KB. Try a smaller image.",
+      "signFailed": "Could not get the upload URL",
+      "uploadFailed": "Failed to upload the image",
+      "unknownError": "Unknown error"
+    },
     "dashboard": {
       "description": "Manage site content from here.",
       "statsNews": "Articles",

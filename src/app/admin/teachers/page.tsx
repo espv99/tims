@@ -199,7 +199,8 @@ export default function AdminTeachers() {
                 <SupabaseUpload
                   value={formData.photo}
                   onChange={(url) => setFormData({ ...formData, photo: url })}
-                  label="Subir foto"
+                  label={tAdmin('upload.photoLabel')}
+                  maxDimension={800}
                 />
               </div>
             </div>
@@ -255,7 +256,8 @@ export default function AdminTeachers() {
                         <SupabaseUpload
                           value={editData.photo}
                           onChange={(url) => setEditData({ ...editData, photo: url })}
-                          label="Subir foto"
+                          label={tAdmin('upload.photoLabel')}
+                          maxDimension={800}
                         />
                       </div>
                       <div className="flex gap-2">
