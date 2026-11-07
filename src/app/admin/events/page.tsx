@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
+import { isLocalImageUrl } from '@/lib/image-url'
 import { useSession } from '@/components/session-provider'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -270,9 +272,12 @@ export default function AdminEvents() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start gap-3">
                           {event.imageUrl && (
-                            <img
+                            <Image
                               src={event.imageUrl}
                               alt={event.title}
+                              width={64}
+                              height={64}
+                              unoptimized={isLocalImageUrl(event.imageUrl)}
                               className="w-14 h-14 sm:w-16 sm:h-16 rounded object-cover shrink-0"
                             />
                           )}

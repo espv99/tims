@@ -1,10 +1,12 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Upload, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { createClient } from '@/utils/supabase/client'
+import { isLocalImageUrl } from '@/lib/image-url'
 import { CompressImageError, compressImage } from '@/lib/compress-image'
 
 const BUCKET = 'media'
@@ -104,7 +106,13 @@ export function SupabaseUpload({ value, onChange, label, maxDimension = 1600 }: 
       {error && <p className="text-xs text-destructive-text">{error}</p>}
       {sizeKb !== null && <p className="text-xs text-muted-foreground">{t('finalSize', { size: sizeKb })}</p>}
       {value && (
-        <img src={value} alt={t('previewAlt')} className="h-24 w-auto rounded-md object-cover border border-border" />
+        <Image
+          src={value}
+          alt={t('previewAlt')}
+          width={96}
+          height={96}
+          unoptimized={isLocalImageUrl(value)}
+          className="h-24 w-auto rounded-md object-cover border border-border" />
       )}
     </div>
   )
