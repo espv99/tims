@@ -18,7 +18,7 @@
 - [x] T2 --input contrast >= 3:1 (light and dark), computed not estimated (light 1.23->3.21, dark 1.37->3.16; border-input also used by button outline and admin/users selects)
 - [x] T3 Video i18n strings + teacher photo attributes (keys hero.videoTitle/videoFallback in es+en, 279 keys each, tsc/eslint/prettier clean)
 - [x] T4 Drop unnecessary 'use client' (Header, Footer, Video, card.tsx; Navbar stays client; next build passes)
-- [ ] T5 prefers-reduced-motion fallback
+- [x] T5 prefers-reduced-motion fallback (global block in globals.css)
 
 ## Acceptance
 - club/council pages expose h1 then h2 headings; no heading skips.
@@ -32,5 +32,6 @@ No test suite: RED/GREEN exception. Typecheck, prettier, eslint, build, computed
 Delegated direct: one writer (5 tasks, 10+ files; reading prepares the write).
 
 ## Progress / evidence
+Commits: T1 4bdc5c2, T2 b65a42f, T3 d975a5c, T4 f6658d5, T5 (see git log).
 Route: delegated direct.
 
