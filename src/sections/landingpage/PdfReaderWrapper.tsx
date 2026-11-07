@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 
 function PdfViewerSkeleton() {
@@ -24,6 +25,37 @@ const PdfReader = dynamic(() => import('./pdfReader'), {
   loading: () => <PdfViewerSkeleton />,
 })
 
+const NEAR_VIEWPORT_MARGIN = '200px'
+
 export default function PdfReaderWrapper() {
-  return <PdfReader />
+  const [nearViewport, setNearViewport] = useState(false)
+  const placeholderRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const node = placeholderRef.current
+    if (!node) return
+    if (typeof IntersectionObserver === 'undefined') {
+      setNearViewport(true)
+      return
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setNearViewport(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: NEAR_VIEWPORT_MARGIN },
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
+  // The skeleton has the same fixed-height viewer region, so mounting the real viewer causes no layout shift.
+  if (nearViewport) return <PdfReader />
+  return (
+    <div ref={placeholderRef}>
+      <PdfViewerSkeleton />
+    </div>
+  )
 }
