@@ -86,6 +86,13 @@
 }
 
 @layer base {
+  /* Tailwind 4 defaults borders to currentColor; keep the hairline token the shadcn components expect */
+  *,
+  ::before,
+  ::after {
+    border-color: hsl(var(--border));
+  }
+
   h1,
   h2,
   h3 {
