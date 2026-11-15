@@ -15,12 +15,14 @@ export function pageMetadata({
   description: string
   path: string
 }): Metadata {
+  // The title template only applies to <title>; social cards need the career name added explicitly.
+  const fullTitle = `${title} | ${siteName}`
   return {
     title,
     description,
     alternates: { canonical: path },
-    openGraph: { type: 'website', locale: 'es_EC', siteName, url: path, title, description },
-    twitter: { card: 'summary_large_image', title, description },
+    openGraph: { type: 'website', locale: 'es_EC', siteName, url: path, title: fullTitle, description },
+    twitter: { card: 'summary_large_image', title: fullTitle, description },
   }
 }
 
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: defaultTitle,
-    template: '%s | Ingeniería TI - ESPOCH Morona Santiago',
+    template: `%s | ${siteName}`,
   },
   description:
     'Carrera de Ingeniería en Tecnologías de la Información de la Escuela Superior Politécnica del Chimborazo, Sede Morona Santiago. Formación en TI, región amazónica, Ecuador. Información, malla curricular y campo ocupacional.',
