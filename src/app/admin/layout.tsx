@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { AdminShell } from '@/components/admin/admin-shell'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { robots: { index: false, follow: false } }
+export const metadata: Metadata = { title: 'Administración', robots: { index: false, follow: false } }
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
