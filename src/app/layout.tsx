@@ -10,7 +10,7 @@ import { getLocale } from 'next-intl/server'
 
 export { metadata }
 
-const GTM_ID = 'GTM-PXBWGW6C'
+const GTM_ID = 'GTM-MKVPXN45'
 const isProduction = process.env.NODE_ENV === 'production'
 
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
